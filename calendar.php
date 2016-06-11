@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html>
+<!DOCTYPE.php>
+.php>
   <head>
     <meta charset="utf-8">
     <title>Reserva -  Online Reservation System</title>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="bower_components/Bootflat/css/site.min.css">
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
-      <script src="bower_components/Bootflat/js/html5shiv.js"></script>
+      <script src="bower_components/Bootflat/js.php5shiv.js"></script>
       <script src="bower_components/Bootflat/js/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="js/site.min.js"></script>
@@ -25,12 +25,12 @@
   		<div class="row">
   			<div class="col-md-4">
   				<ul class="nav nav-pills nav-stacked">
-  					<li><a href="index.html">Home</a></li>
-  					<li><a href="appointment.html">Appointment</a></li>
-  					<li class="active"><a href="calendar.html">Calendar</a></li>
-  					<li><a href="services-offered.html">Services Offered</a></li>
-  					<li><a href="contact-information.html">Contact Information</a></li>
-  					<li><a href="about-us.html">About Us</a></li>
+  					<li><a href="index.php">Home</a></li>
+  					<li><a href="appointment.php">Appointment</a></li>
+  					<li class="active"><a href="calendar.php">Calendar</a></li>
+  					<li><a href="services-offered.php">Services Offered</a></li>
+  					<li><a href="contact-information.php">Contact Information</a></li>
+  					<li><a href="about-us.php">About Us</a></li>
   				</ul>
   			</div>
   			<div class="col-md-8">
@@ -162,4 +162,4 @@
   	</div>
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
   </body>
-  </html>
+  <.php>
