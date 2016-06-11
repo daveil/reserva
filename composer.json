@@ -1,0 +1,11 @@
+{
+    "name": "daveil/reserva",
+    "description": "Online Reservation System",
+    "authors": [
+        {
+            "name": "Dave Alaras",
+            "email": "arroyo.daveil@gmail.com"
+        }
+    ],
+    "require": {}
+}
