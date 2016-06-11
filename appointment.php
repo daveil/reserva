@@ -1,5 +1,5 @@
-<!DOCTYPE.php>
-.php>
+<!DOCTYPE html>
+<html>
   <head>
     <meta charset="utf-8">
     <title>Reserva -  Online Reservation System</title>
@@ -77,4 +77,4 @@
   		</div>
   	</div>
   </body>
-  <.php>
+  </html>
