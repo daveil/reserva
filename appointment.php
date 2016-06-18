@@ -29,6 +29,7 @@
   					<li><a href="index.php">Home</a></li>
   					<li class="active"><a href="appointment.php">Appointment</a></li>
   					<li><a href="calendar.php">Calendar</a></li>
+            <li><a href="patients.php">Patients</a></li>
   					<li><a href="services-offered.php">Services Offered</a></li>
   					<li><a href="contact-information.php">Contact Information</a></li>
   					<li><a href="about-us.php">About Us</a></li>
