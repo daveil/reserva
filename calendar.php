@@ -13,6 +13,14 @@
       <script src="bower_components/Bootflat/js/respond.min.js"></script>
     <![endif]-->
     <script type="text/javascript" src="js/site.min.js"></script>
+    <style> 
+      .calendar .days .dates .unit{
+        color:green;
+      }
+      .calendar .days .unit.full,.calendar .days .unit.disabled,.calendar .days .unit.holiday{
+        color:red;
+      }
+    </style>
   </head>
   <body>
   	<div class="container">
@@ -28,6 +36,7 @@
   					<li><a href="index.php">Home</a></li>
   					<li><a href="appointment.php">Appointment</a></li>
   					<li class="active"><a href="calendar.php">Calendar</a></li>
+            <li><a href="patients.php">Patients</a></li>
   					<li><a href="services-offered.php">Services Offered</a></li>
   					<li><a href="contact-information.php">Contact Information</a></li>
   					<li><a href="about-us.php">About Us</a></li>
@@ -52,13 +61,13 @@
                         <div class="unit">FR</div>
                         <div class="unit">SA</div>
                       </div>
-                      <div class="clearfix">
+                      <div class="clearfix dates">
                         <div class="unit older"><b>27</b></div>
                         <div class="unit older"><b>28</b></div>
                         <div class="unit older"><b>29</b></div>
                         <div class="unit older"><b>30</b></div>
-                        <div class="unit"><b>1</b></div>
-                        <div class="unit"><b>2</b></div>
+                        <div class="unit full"><b>1</b></div>
+                        <div class="unit disabled"><b>2</b></div>
                         <div class="unit"><b>3</b></div>
                         <div class="unit"><b>4</b></div>
                         <div class="unit"><b>5</b></div>
@@ -102,7 +111,9 @@
             <div class="col-md-6">
                 <div class="panel panel-default">
                   <div class="panel-heading text-center" style="background: #3bafda;color: white;">
-                      <b>JUN 12, 2016</b>  
+                      <button class="btn btn-default pull-left">OFF</button>
+                      <b class="pull-right">JUN 12, 2016</b>  
+                      <div class="clearfix"></div>
                   </div>
                   <div class="panel-heading text-center">AM</div>
                     <table class="table">
@@ -110,16 +121,23 @@
                         <tr>
                           <th>Name</th>
                           <th>Cocern</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>Juan</td>
                           <td>Tooth ache</td>
+                          <td>
+                            <a href="patient_info.php">View</a> | Edit
+                          </td>
                         </tr>
                         <tr>
                           <td>Maria</td>
                           <td>Wisdom tooth</td>
+                          <td>
+                            View | Edit
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -129,16 +147,23 @@
                         <tr>
                           <th>Name</th>
                           <th>Cocern</th>
+                          <th>Actions</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
                           <td>Juan</td>
                           <td>Tooth ache</td>
+                           <td>
+                            View | Edit
+                          </td>
                         </tr>
                         <tr>
                           <td>Maria</td>
                           <td>Wisdom tooth</td>
+                            <td>
+                            View | Edit
+                          </td>
                         </tr>
                       </tbody>
                     </table>
@@ -147,10 +172,7 @@
                       <div class="col-md-4">
                           <button class="btn btn-success btn-block">PRINT</button>
                       </div>
-                      <div class="col-md-4">
-                        <button class="btn btn-warning btn-block">VIEW</button>
-                      </div>
-                      <div class="col-md-4">
+                      <div class="col-md-4 col-md-offset-4">
                         <button class="btn btn-danger btn-block">DELETE</button>
                       </div>
                   </div>
