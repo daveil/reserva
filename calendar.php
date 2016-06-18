@@ -129,7 +129,7 @@
                           <td>Juan</td>
                           <td>Tooth ache</td>
                           <td>
-                            View | Edit
+                            <a href="patient_info.php">View</a> | Edit
                           </td>
                         </tr>
                         <tr>
