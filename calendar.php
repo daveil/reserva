@@ -21,9 +21,8 @@
         color:red;
       }
     </style>
-    <script src="bower_components/angular/angular.min.js"></script>
   </head>
-  <body>
+  <body ng-app="Calendar">
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
@@ -43,7 +42,7 @@
   					<li><a href="about-us.php">About Us</a></li>
   				</ul>
   			</div>
-  			<div class="col-md-8">
+  			<div class="col-md-8"  ng-controller="CalendarController">
           <div class="row">
             <div class="col-md-6">
                   <div class="calendar">
@@ -113,7 +112,7 @@
                 <div class="panel panel-default">
                   <div class="panel-heading text-center" style="background: #3bafda;color: white;">
                       <button class="btn btn-default pull-left">OFF</button>
-                      <b class="pull-right">JUN 12, 2016</b>  
+                      <b class="pull-right">{{SelectedDate | date:short}}</b>  
                       <div class="clearfix"></div>
                   </div>
                     <table class="table">
@@ -159,5 +158,7 @@
   		</div>
   	</div>
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+     <script src="bower_components/angular/angular.min.js"></script>
+     <script src="js/calendar.js"></script>
   </body>
   </html>
