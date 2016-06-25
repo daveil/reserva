@@ -119,7 +119,7 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th><input type="checkbox" ng-click="CheckAll=!CheckAll"/></th>
+                          <th><input type="checkbox" ng-click="toggleCheckbox()"/></th>
                           <th>#</th>
                           <th>Name</th>
                           <th>Concern</th>
@@ -127,7 +127,7 @@
                       </thead>
                       <tbody>
                         <tr ng-repeat="patient in Patients">
-                          <td><input type="checkbox"/></td>
+                          <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
                           <td>{{patient.ref_no}}</td>
                           <td>{{patient.name}}</td>
                           <td>{{patient.concern}}</td>
@@ -137,13 +137,13 @@
                   
                     <div class="row" style="padding:1rem;">
                       <div class="col-md-4">
-                          <button class="btn btn-success btn-block">PRINT</button>
+                          <button class="btn btn-success btn-block" ng-click="print()">PRINT</button>
                       </div>
                       <div class="col-md-4">
-                        <button class="btn btn-warning btn-block">MOVE</button>
+                        <button class="btn btn-warning btn-block" ng-click="move()">MOVE</button>
                       </div>
                       <div class="col-md-4">
-                        <button class="btn btn-danger btn-block">DELETE</button>
+                        <button class="btn btn-danger btn-block" ng-click="delete()">DELETE</button>
                       </div>
                   </div>
                 </div>
