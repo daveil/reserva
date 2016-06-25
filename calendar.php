@@ -12,7 +12,6 @@
       <script src="bower_components/Bootflat/js.php5shiv.js"></script>
       <script src="bower_components/Bootflat/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/site.min.js"></script>
     <style> 
       .calendar .days .dates .unit{
         color:green;
@@ -20,10 +19,22 @@
       .calendar .days .unit.full,.calendar .days .unit.disabled,.calendar .days .unit.holiday{
         color:red;
       }
+      .modal-blind{
+        position: fixed;
+        width:100%;
+        height:100%;
+        background: white;
+        opacity: 0.5;
+        top:0;
+        left: 0;
+        display: none;
+      }
     </style>
+    <script src="bower_components/angular/angular.min.js"></script>
   </head>
   <body>
-  	<div class="container">
+    <script src="js/shared/main.js"></script>
+  	<div class="container" ng-app="APP">
   		<div class="row">
   			<div class="col-md-12">
   				<h1>Reserva</h1>
@@ -42,7 +53,7 @@
   					<li><a href="about-us.php">About Us</a></li>
   				</ul>
   			</div>
-  			<div class="col-md-8">
+  			<div class="col-md-8" ng-controller="CalendarController">
           <div class="row">
             <div class="col-md-6">
                   <div class="calendar">
@@ -112,76 +123,77 @@
                 <div class="panel panel-default">
                   <div class="panel-heading text-center" style="background: #3bafda;color: white;">
                       <button class="btn btn-default pull-left">OFF</button>
-                      <b class="pull-right">JUN 12, 2016</b>  
+                      <b class="pull-right">{{SelectedDate | date:short}}</b>  
                       <div class="clearfix"></div>
                   </div>
-                  <div class="panel-heading text-center">AM</div>
                     <table class="table">
                       <thead>
                         <tr>
+                          <th><input type="checkbox" ng-click="toggleCheckbox()"/></th>
+                          <th>#</th>
                           <th>Name</th>
-                          <th>Cocern</th>
-                          <th>Actions</th>
+                          <th>Concern</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
-                          <td>Juan</td>
-                          <td>Tooth ache</td>
-                          <td>
-                            <a href="patient_info.php">View</a> | Edit
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Maria</td>
-                          <td>Wisdom tooth</td>
-                          <td>
-                            View | Edit
-                          </td>
+                        <tr ng-repeat="patient in Patients">
+                          <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
+                          <td><a href="patient_info.php">{{patient.ref_no}}</a></td>
+                          <td>{{patient.name}}</td>
+                          <td>{{patient.concern}}</td>
                         </tr>
                       </tbody>
                     </table>
-                     <div class="panel-heading text-center">PM</div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Cocern</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Juan</td>
-                          <td>Tooth ache</td>
-                           <td>
-                            View | Edit
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Maria</td>
-                          <td>Wisdom tooth</td>
-                            <td>
-                            View | Edit
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
+                  
                     <div class="row" style="padding:1rem;">
                       <div class="col-md-4">
-                          <button class="btn btn-success btn-block">PRINT</button>
+                          <button class="btn btn-success btn-block" ng-click="print()">PRINT</button>
                       </div>
-                      <div class="col-md-4 col-md-offset-4">
-                        <button class="btn btn-danger btn-block">DELETE</button>
+                      <div class="col-md-4">
+                        <button class="btn btn-warning btn-block" ng-click="move()">MOVE</button>
+                      </div>
+                      <div class="col-md-4">
+                        <button class="btn btn-danger btn-block" ng-click="delete()">DELETE</button>
                       </div>
                   </div>
                 </div>
+            </div>
+          </div>
+          <div class="modal-blind" ng-class="{show:openModal}"></div>
+          <div class="modal" ng-class="{show:openModal}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">{{openModal}} Schedule</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" >
+                        <div class="col-md-12">
+                            <div ng-if="openModal==='Move'" class="form-group">
+                              <label for="">Date</label>
+                              <input type="date" class="form-control">
+                            </div>
+                            <div ng-if="openModal==='Delete'">
+                              Are you sure you want to delete?
+                            </div>
+                             <div ng-if="openModal==='Print'">
+                              Are you sure you want to print?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="openModal=null">Cancel</button>
+                  <button type="button" class="btn btn-success pull-right" ng-click="openModal=null">Confirm</button>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
             </div>
           </div>
   		 </div>
   		</div>
   	</div>
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+     <script src="js/calendar.js"></script>
   </body>
   </html>
