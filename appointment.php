@@ -39,22 +39,19 @@
   				<h3 style="margin-top:0;">Set an appointment</h3>
 				<form action="" class="form-vertical">
 					<div class="row">
-						<div class="form-group col-md-6">
+						<div class="form-group col-md-6 col-md-offset-6">
 							<label for="">Date </label>
 							<input type="date" class="form-control">
-						</div>
-						<div class="form-group col-md-6">
-							<label for="">Time </label>
-							<select name="" id="" class="form-control">
-								<option value="AM">AM</option>
-								<option value="PM">PM</option>
-							</select>
 						</div>
 						<div class="form-group col-md-12">
 							<label for="">Name</label>
 							<input class="form-control"  type="text">
 						</div>
-						<div class="form-group col-md-12">
+            <div class="form-group col-md-6">
+              <label for="">Contact No. </label>
+              <input type="text" class="form-control"/>
+            </div>
+						<div class="form-group col-md-6">
 							<label for="">Age</label>
 							<input class="form-control"  type="number">
 						</div>
