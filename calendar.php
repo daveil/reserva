@@ -115,64 +115,39 @@
                       <b class="pull-right">JUN 12, 2016</b>  
                       <div class="clearfix"></div>
                   </div>
-                  <div class="panel-heading text-center">AM</div>
                     <table class="table">
                       <thead>
                         <tr>
+                          <th><input type="checkbox"/></th>
+                          <th>#</th>
                           <th>Name</th>
-                          <th>Cocern</th>
-                          <th>Actions</th>
+                          <th>Concern</th>
                         </tr>
                       </thead>
                       <tbody>
                         <tr>
+                          <td><input type="checkbox"/></td>
+                          <td>1</td>
                           <td>Juan</td>
                           <td>Tooth ache</td>
-                          <td>
-                            <a href="patient_info.php">View</a> | Edit
-                          </td>
                         </tr>
                         <tr>
+                          <td><input type="checkbox"/></td>
+                          <td>20</td>
                           <td>Maria</td>
                           <td>Wisdom tooth</td>
-                          <td>
-                            View | Edit
-                          </td>
                         </tr>
                       </tbody>
                     </table>
-                     <div class="panel-heading text-center">PM</div>
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th>Cocern</th>
-                          <th>Actions</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td>Juan</td>
-                          <td>Tooth ache</td>
-                           <td>
-                            View | Edit
-                          </td>
-                        </tr>
-                        <tr>
-                          <td>Maria</td>
-                          <td>Wisdom tooth</td>
-                            <td>
-                            View | Edit
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
+                  
                     <div class="row" style="padding:1rem;">
                       <div class="col-md-4">
                           <button class="btn btn-success btn-block">PRINT</button>
                       </div>
-                      <div class="col-md-4 col-md-offset-4">
+                      <div class="col-md-4">
+                        <button class="btn btn-warning btn-block">MOVE</button>
+                      </div>
+                      <div class="col-md-4">
                         <button class="btn btn-danger btn-block">DELETE</button>
                       </div>
                   </div>
