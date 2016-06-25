@@ -138,7 +138,7 @@
                       <tbody>
                         <tr ng-repeat="patient in Patients">
                           <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
-                          <td>{{patient.ref_no}}</td>
+                          <td><a href="patient_info.php">{{patient.ref_no}}</a></td>
                           <td>{{patient.name}}</td>
                           <td>{{patient.concern}}</td>
                         </tr>
