@@ -21,6 +21,7 @@
         color:red;
       }
     </style>
+    <script src="bower_components/angular/angular.min.js"></script>
   </head>
   <body>
   	<div class="container">
