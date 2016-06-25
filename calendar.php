@@ -12,7 +12,6 @@
       <script src="bower_components/Bootflat/js.php5shiv.js"></script>
       <script src="bower_components/Bootflat/js/respond.min.js"></script>
     <![endif]-->
-    <script type="text/javascript" src="js/site.min.js"></script>
     <style> 
       .calendar .days .dates .unit{
         color:green;
@@ -21,9 +20,11 @@
         color:red;
       }
     </style>
+    <script src="bower_components/angular/angular.min.js"></script>
   </head>
-  <body ng-app="Calendar">
-  	<div class="container">
+  <body>
+    <script src="js/shared/main.js"></script>
+  	<div class="container" ng-app="APP">
   		<div class="row">
   			<div class="col-md-12">
   				<h1>Reserva</h1>
@@ -42,7 +43,7 @@
   					<li><a href="about-us.php">About Us</a></li>
   				</ul>
   			</div>
-  			<div class="col-md-8"  ng-controller="CalendarController">
+  			<div class="col-md-8" ng-controller="CalendarController">
           <div class="row">
             <div class="col-md-6">
                   <div class="calendar">
@@ -118,24 +119,18 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th><input type="checkbox"/></th>
+                          <th><input type="checkbox" ng-click="CheckAll=!CheckAll"/></th>
                           <th>#</th>
                           <th>Name</th>
                           <th>Concern</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr>
+                        <tr ng-repeat="patient in Patients">
                           <td><input type="checkbox"/></td>
-                          <td>1</td>
-                          <td>Juan</td>
-                          <td>Tooth ache</td>
-                        </tr>
-                        <tr>
-                          <td><input type="checkbox"/></td>
-                          <td>20</td>
-                          <td>Maria</td>
-                          <td>Wisdom tooth</td>
+                          <td>{{patient.ref_no}}</td>
+                          <td>{{patient.name}}</td>
+                          <td>{{patient.concern}}</td>
                         </tr>
                       </tbody>
                     </table>
@@ -158,7 +153,6 @@
   		</div>
   	</div>
      <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
-     <script src="bower_components/angular/angular.min.js"></script>
      <script src="js/calendar.js"></script>
   </body>
   </html>
