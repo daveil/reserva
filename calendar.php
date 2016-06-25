@@ -19,6 +19,16 @@
       .calendar .days .unit.full,.calendar .days .unit.disabled,.calendar .days .unit.holiday{
         color:red;
       }
+      .modal-blind{
+        position: fixed;
+        width:100%;
+        height:100%;
+        background: white;
+        opacity: 0.5;
+        top:0;
+        left: 0;
+        display: none;
+      }
     </style>
     <script src="bower_components/angular/angular.min.js"></script>
   </head>
@@ -147,6 +157,37 @@
                       </div>
                   </div>
                 </div>
+            </div>
+          </div>
+          <div class="modal-blind" ng-class="{show:openModal}"></div>
+          <div class="modal" ng-class="{show:openModal}">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h4 class="modal-title">{{openModal}} Schedule</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row" >
+                        <div class="col-md-12">
+                            <div ng-if="openModal==='Move'" class="form-group">
+                              <label for="">Date</label>
+                              <input type="date" class="form-control">
+                            </div>
+                            <div ng-if="openModal==='Delete'">
+                              Are you sure you want to delete?
+                            </div>
+                             <div ng-if="openModal==='Print'">
+                              Are you sure you want to print?
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="openModal=null">Cancel</button>
+                  <button type="button" class="btn btn-success pull-right" ng-click="openModal=null">Confirm</button>
+                  <div class="clearfix"></div>
+                </div>
+              </div>
             </div>
           </div>
   		 </div>

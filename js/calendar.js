@@ -14,12 +14,12 @@ APP.controller('CalendarController',['$scope','api',function($scope,api){
 		}
 	}
 	$scope.print =  function(){
-		$scope.openModal = 'print';
+		$scope.openModal = 'Print';
 	}
 	$scope.move =  function(){
-		$scope.openModal = 'move';
+		$scope.openModal = 'Move';
 	}
 	$scope.delete =  function(){
-		$scope.openModal = 'delete';
+		$scope.openModal = 'Delete';
 	}
 }]);
