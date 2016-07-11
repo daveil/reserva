@@ -34,10 +34,10 @@
 		</div>
 		<div class="row" style="padding-top:10px">
 			<div class="col-md-6">
-				<button class="btn btn-default" ng-click="cancelAppointment()">Cancel</button>
+				<button class="btn btn-default" ng-click="cancelAppointment()" ng-disabled="SavingAppointment">Cancel</button>
 			</div>
 			<div class="col-md-6">
-				<button class="btn btn-primary pull-right"  ng-click="bookAppointment()">Book appointment</button>
+				<button class="btn btn-primary pull-right"  ng-click="bookAppointment()" ng-disabled="SavingAppointment">Book appointment</button>
 			</div>
 		</div>
 	</div>

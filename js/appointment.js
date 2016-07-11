@@ -1,10 +1,12 @@
-APP.controller('AppointmentController',['$scope','$http','api',function($scope,$http,api){
-	$scope.minDate = new Date();
-	$scope.disabledDates = ['2016-07-15','2016-07-01'];
+APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
+	$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
+	$scope.disabledDates = ['2016-07-15','2016-07-20'];
 	resetAppointment();
 	function resetAppointment(){
 		$scope.Patient = {};
 		$scope.Appointment = {};
+		$scope.Appointment.schedule = dateFilter(new Date(),'yyyy-MM-dd');
+		$scope.SavingAppointment = false;
 	}
 	$scope.cancelAppointment = function(){
 		resetAppointment();
@@ -14,7 +16,8 @@ APP.controller('AppointmentController',['$scope','$http','api',function($scope,$
 				Patient:$scope.Patient,
 				Appointment:$scope.Appointment
 		};
-		$http.post('http://localhost/reserva/api/appointments/add',data).then(function(response){
+		$scope.SavingAppointment = true;
+		api.POST('appointments/add',data).then(function(response){
 				alert(response.data.message);
 				if(response.data.status=='OK'){
 					resetAppointment();

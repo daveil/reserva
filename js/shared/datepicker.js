@@ -122,6 +122,7 @@
             }
 
             scope.dates = dates;
+			
           };
 
           scope.setDate = function(dateObj) {

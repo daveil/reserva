@@ -6,6 +6,23 @@ class AppointmentsController extends AppController {
 	function index() {
 		$this->Appointment->recursive = 0;
 		$this->set('appointments', $this->paginate());
+		if($this->RequestHandler->isAjax()||1){
+			$data =array();
+			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
+			$conditions = array('Appointment.schedule'=>$schedule);
+			$paginate['conditions']=$conditions;
+			$this->paginate = $paginate;
+			foreach($this->paginate() as $p){
+				$appointment = array(
+					'id'=>$p['Patient']['id'],
+					'ref_no'=>$p['Appointment']['ref_no'],
+					'name'=>$p['Patient']['name'],
+					'concern'=>$p['Appointment']['concern'],
+				);
+				array_push($data,$appointment);
+			}
+			echo json_encode($data);exit;
+		}
 	}
 
 	function view($id = null) {

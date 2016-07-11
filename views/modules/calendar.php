@@ -3,7 +3,7 @@
 		<div  ng-controller="CalendarController">
 			<div class="row">
 					<div class="col-md-6">
-						<div pickadate="" ng-model="calendarDate" min-date="minDate"></div>
+						<div pickadate="" ng-model="SelectedDate" min-date="minDate"></div>
 					</div>
 					<div class="col-md-6">
 						<div class="panel panel-default">
@@ -22,24 +22,27 @@
 								</tr>
 							  </thead>
 							  <tbody>
-								<tr ng-repeat="patient in Patients">
+								<tr ng-repeat="patient in Patients" ng-if="Patients.length">
 								  <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
 								  <td><a href="patient_info">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td>{{patient.concern}}</td>
+								</tr>
+								<tr ng-if="!Patients.length">
+									<td colspan="4" class="text-center">No appointments found.</td>
 								</tr>
 							  </tbody>
 							</table>
 						  
 							<div class="row" style="padding:1rem;">
 							  <div class="col-md-4">
-								  <button class="btn btn-success btn-block" ng-click="print()">PRINT</button>
+								  <button class="btn btn-success btn-block" ng-disabled="!Patients.length" ng-click="print()">PRINT</button>
 							  </div>
 							  <div class="col-md-4">
-								<button class="btn btn-warning btn-block" ng-click="move()">MOVE</button>
+								<button class="btn btn-warning btn-block" ng-disabled="!Patients.length" ng-click="move()">MOVE</button>
 							  </div>
 							  <div class="col-md-4">
-								<button class="btn btn-danger btn-block" ng-click="delete()">DELETE</button>
+								<button class="btn btn-danger btn-block"  ng-disabled="!Patients.length" ng-click="delete()">DELETE</button>
 							  </div>
 						  </div>
 						</div>
