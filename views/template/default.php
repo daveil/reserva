@@ -15,7 +15,11 @@
     <![endif]-->
 	<?php echo Assest::js('bower_components/angular/angular.min');?>
   </head>
-  <body>
+  <body  ng-app="APP">
+	<?php echo Assest::js('shared/datepicker');?>
+	<?php echo Assest::js('shared/main');?>
+	<?php echo Assest::js('shared/settings');?>
+	<?php echo Assest::js('shared/api');?>
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
@@ -32,5 +36,5 @@
 			</div>
   		</div>
   	</div>
-      </body>
-  </html>
+   </body>
+</html>

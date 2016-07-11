@@ -17,13 +17,32 @@ class AppointmentsController extends AppController {
 	}
 
 	function add() {
+		$input = file_get_contents('php://input');
+		if($input){
+			header('Content-Type: application/json');
+			$this->data = json_decode($input,true);
+		}
 		if (!empty($this->data)) {
 			$this->Appointment->create();
-			if ($this->Appointment->save($this->data)) {
+			$appointment =  array();
+			if ($this->Appointment->saveAll($this->data)) {
 				$this->Session->setFlash(__('The appointment has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($input){
+					$appointment['status']='OK';
+					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
+					$appointment['message']='Appointment saved!';
+					echo json_encode($appointment);exit;
+				}else{
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+				if($input){
+					$appointment['status']='ERROR';
+					$appointment['message']='Could not save appointment';
+					echo json_encode($appointment);exit;
+				}else{
+					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$patients = $this->Appointment->Patient->find('list');
