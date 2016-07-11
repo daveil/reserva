@@ -1,6 +1,10 @@
 <?php
 	define('DS', DIRECTORY_SEPARATOR);
 	define('BASE_URL',DS.basename(dirname(dirname(__FILE__))));
+	if(BASE_URL=='/public_html')
+		define('WEB_URL','');
+	else
+		define('WEB_URL',BASE_URL);
 	class Assest{
 		public static function css($path,$attrib=null){
 			return self::createTag('css',$path,$attrib);
@@ -12,10 +16,7 @@
 			return self::createTag('img',$path,$attrib);
 		}
 		public static function createTag($type,$path,$attrib=null){
-			if(BASE_URL==DS.'public_html')
-				$absolute_path =  str_replace('/'.$type.'/'.$path);
-			else
-				$absolute_path =  str_replace(DS,'/',BASE_URL.'/'.$type.'/'.$path);
+			$absolute_path =  str_replace(DS,'/',WEB_URL.'/'.$type.'/'.$path);
 			if($type!='img')
 				$absolute_path .='.'.$type;
 			$attributes = '';
@@ -37,4 +38,4 @@
 		}
 		
 	}
-?>
+?>				
