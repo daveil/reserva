@@ -6,13 +6,14 @@
     <!-- Sets initial viewport load and disables zooming  -->
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- site css -->
-    <link rel="stylesheet" href="bower_components/Bootflat/css/site.min.css">
+	<?php echo Assest::css('../js/bower_components/Bootflat/css/site.min');?>
+	<?php echo Assest::css('style');?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
-      <script src="bower_components/Bootflat/js.php5shiv.js"></script>
-      <script src="bower_components/Bootflat/js/respond.min.js"></script>
+	<?php echo Assest::js('bower_components/Bootflat/js/php5shiv');?>
+	<?php echo Assest::js('bower_components/Bootflat/js/respond.min');?>
     <![endif]-->
-	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+	<?php echo Assest::js('bower_components/angular/angular.min');?>
   </head>
   <body>
   	<div class="container">
@@ -26,7 +27,7 @@
   			<div class="col-md-4">
 				<?php echo $sidebar; ?>
   			</div>
-  			<div class="col-md-8">
+  			<div class="col-md-8 right-content">
 				<?php echo $content; ?>
 			</div>
   		</div>

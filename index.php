@@ -5,7 +5,13 @@
 		$url =  $_GET['url'];
 	}
 	if($url){
+		include('config/routes.php');
+		include('config/assets.php');
 		ob_start();
+		if(isset($routes[$url])){
+			$url = $routes[$url];
+		}
+		
 		if(file_exists('views/modules/'.$url.'.php')){
 			include('views/modules/'.$url.'.php');
 		}else{

@@ -12,7 +12,7 @@
 <ul class="nav nav-pills nav-stacked">
 	<?php foreach($menus as $_url=>$title):?>
 		<li <?php if($url==$_url) echo 'class=active'; ?>>
-			<a href="<?php echo $_url;?>">
+			<a href="<?php echo BASE_URL.DS.$_url;?>">
 				<?php echo $title;?>
 			</a>
 		</li>

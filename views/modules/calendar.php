@@ -1,24 +1,4 @@
-<style> 
-      .calendar .days .dates .unit{
-        color:green;
-      }
-      .calendar .days .unit.full,.calendar .days .unit.disabled,.calendar .days .unit.holiday{
-        color:red;
-      }
-      .modal-blind{
-        position: fixed;
-        width:100%;
-        height:100%;
-        background: white;
-        opacity: 0.5;
-        top:0;
-        left: 0;
-        display: none;
-      }
-    </style>
-	<script src="js/shared/main.js"></script>
-    <script src="js/shared/settings.js"></script>
-    <script src="js/shared/api.js"></script>
+<h3>Calendar</h3>
 	<div  ng-app="APP">
 		<div  ng-controller="CalendarController">
 			<div class="row">
@@ -105,7 +85,7 @@
 							  <tbody>
 								<tr ng-repeat="patient in Patients">
 								  <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
-								  <td><a href="patient_info.php">{{patient.ref_no}}</a></td>
+								  <td><a href="patient_info">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td>{{patient.concern}}</td>
 								</tr>
@@ -159,5 +139,8 @@
 			</div>
 		</div>
     </div>
-	<script src="js/calendar.js"></script>
+	<?php echo Assest::js('shared/main');?>
+	<?php echo Assest::js('shared/settings');?>
+	<?php echo Assest::js('shared/api');?>
+	<?php echo Assest::js('calendar');?>
   
