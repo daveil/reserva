@@ -12,6 +12,7 @@
       <script src="bower_components/Bootflat/js.php5shiv.js"></script>
       <script src="bower_components/Bootflat/js/respond.min.js"></script>
     <![endif]-->
+	<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
   </head>
   <body>
   	<div class="container">
@@ -23,21 +24,12 @@
   		</div>
   		<div class="row">
   			<div class="col-md-4">
-  				<ul class="nav nav-pills nav-stacked">
-  					<li class="active"><a href="index.php">Home</a></li>
-  					<li><a href="appointment.php">Appointment</a></li>
-  					<li><a href="calendar.php">Calendar</a></li>
-            <li><a href="patients.php">Patients</a></li>
-  					<li><a href="services-offered.php">Services Offered</a></li>
-  					<li><a href="contact-information.php">Contact Information</a></li>
-  					<li><a href="about-us.php">About Us</a></li>
-  				</ul>
+				<?php echo $sidebar; ?>
   			</div>
   			<div class="col-md-8">
 				<?php echo $content; ?>
 			</div>
   		</div>
   	</div>
-     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
-  </body>
+      </body>
   </html>
