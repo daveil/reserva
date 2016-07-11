@@ -6,6 +6,23 @@ class AppointmentsController extends AppController {
 	function index() {
 		$this->Appointment->recursive = 0;
 		$this->set('appointments', $this->paginate());
+		if($this->RequestHandler->isAjax()||1){
+			$data =array();
+			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
+			$conditions = array('Appointment.schedule'=>$schedule);
+			$paginate['conditions']=$conditions;
+			$this->paginate = $paginate;
+			foreach($this->paginate() as $p){
+				$appointment = array(
+					'id'=>$p['Patient']['id'],
+					'ref_no'=>$p['Appointment']['ref_no'],
+					'name'=>$p['Patient']['name'],
+					'concern'=>$p['Appointment']['concern'],
+				);
+				array_push($data,$appointment);
+			}
+			echo json_encode($data);exit;
+		}
 	}
 
 	function view($id = null) {
@@ -17,13 +34,32 @@ class AppointmentsController extends AppController {
 	}
 
 	function add() {
+		$input = file_get_contents('php://input');
+		if($input){
+			header('Content-Type: application/json');
+			$this->data = json_decode($input,true);
+		}
 		if (!empty($this->data)) {
 			$this->Appointment->create();
-			if ($this->Appointment->save($this->data)) {
+			$appointment =  array();
+			if ($this->Appointment->saveAll($this->data)) {
 				$this->Session->setFlash(__('The appointment has been saved', true));
-				$this->redirect(array('action' => 'index'));
+				if($input){
+					$appointment['status']='OK';
+					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
+					$appointment['message']='Appointment saved!';
+					echo json_encode($appointment);exit;
+				}else{
+					$this->redirect(array('action' => 'index'));
+				}
 			} else {
-				$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+				if($input){
+					$appointment['status']='ERROR';
+					$appointment['message']='Could not save appointment';
+					echo json_encode($appointment);exit;
+				}else{
+					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		$patients = $this->Appointment->Patient->find('list');

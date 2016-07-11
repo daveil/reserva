@@ -4,8 +4,13 @@ class PatientsController extends AppController {
 	var $name = 'Patients';
 
 	function index() {
+		
 		$this->Patient->recursive = 0;
 		$this->set('patients', $this->paginate());
+		if($this->RequestHandler->isAjax()){
+			$data = $this->paginate();
+			echo json_encode($data);exit;
+		}
 	}
 
 	function view($id = null) {

@@ -1,8 +1,13 @@
 .calendar .days .dates .unit{
-	color:green;
+	
 }
 .calendar .days .unit.full,.calendar .days .unit.disabled,.calendar .days .unit.holiday{
-	color:red;
+	color:#e9573f;
+	font-weight:1000;
+}
+.days .unit.disabled:hover b,.days .unit.older:hover b{
+	background:none;
+	cursor: not-allowed;
 }
 .modal-blind{
 	position: fixed;
@@ -17,4 +22,11 @@
 .right-content>h3{
 	padding-top:0px;
 	margin-top:0px;
+}
+.calendar .monyear, .calendar .days .unit{
+	text-transform:uppercase;
+}
+.calendar .years .disabled.prev,.calendar .years .disabled.prev em,.calendar .years .disabled.next,.calendar .years .disabled.next em{
+	opacity:0.5;
+	cursor: not-allowed;
 }
