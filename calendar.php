@@ -34,6 +34,8 @@
   </head>
   <body>
     <script src="js/shared/main.js"></script>
+    <script src="js/shared/settings.js"></script>
+    <script src="js/shared/api.js"></script>
   	<div class="container" ng-app="APP">
   		<div class="row">
   			<div class="col-md-12">
@@ -193,7 +195,7 @@
   		 </div>
   		</div>
   	</div>
-     <link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">
+     <!--<link href="http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,800,700,400italic,600italic,700italic,800italic,300italic" rel="stylesheet" type="text/css">-->
      <script src="js/calendar.js"></script>
   </body>
   </html>

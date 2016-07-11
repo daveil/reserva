@@ -11,8 +11,8 @@
 		const JS_PATH = 'js/';
 
 		//Loop all libs file to be included
-		for(var i in LIBS)
-			appendJS(LIB_PATH+LIBS[i]+'.js');
+		//for(var i in LIBS)
+		//	appendJS(LIB_PATH+LIBS[i]+'.js');
 		 
 		//Append script tag to body
 		function appendJS(jsFilePath){
