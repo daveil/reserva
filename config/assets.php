@@ -12,7 +12,10 @@
 			return self::createTag('img',$path,$attrib);
 		}
 		public static function createTag($type,$path,$attrib=null){
-			$absolute_path =  str_replace(DS,'/',BASE_URL.'/'.$type.'/'.$path);
+			if(BASE_URL=='public_html')
+				$absolute_path =  str_replace('/'.$type.'/'.$path);
+			else
+				$absolute_path =  str_replace(DS,'/',BASE_URL.'/'.$type.'/'.$path);
 			if($type!='img')
 				$absolute_path .='.'.$type;
 			$attributes = '';
