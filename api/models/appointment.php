@@ -12,4 +12,10 @@ class Appointment extends AppModel {
 			'order' => ''
 		)
 	);
+	function beforeSave(){
+		App::Import('Model','SystemConfig');
+		$this->SystemConfig = new SystemConfig;
+		$this->data['Appointment']['ref_no'] = $this->SystemConfig->getRefNo();
+		return true;
+	}
 }
