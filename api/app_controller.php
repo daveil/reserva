@@ -33,4 +33,16 @@
 class AppController extends Controller {
 	var $components =  array('Session','RequestHandler');
 	var $helpers = array('Html','Form','Session');
+	var $ajaxInput;
+	function beforeFilter(){
+		if($this->RequestHandler->isAjax()){
+			$input = json_decode(file_get_contents('php://input'),true);
+			if($input){
+				$this->data = $input;
+				$this->ajaxInput =  $input;
+			}
+		}
+
+		parent::beforeFilter();
+	}
 }

@@ -6,7 +6,7 @@ class AppointmentsController extends AppController {
 	function index() {
 		$this->Appointment->recursive = 0;
 		$this->set('appointments', $this->paginate());
-		if($this->RequestHandler->isAjax()||1){
+		if($this->RequestHandler->isAjax()){
 			$data =array();
 			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
 			$conditions = array('Appointment.schedule'=>$schedule);
@@ -67,16 +67,47 @@ class AppointmentsController extends AppController {
 	}
 
 	function edit($id = null) {
+
 		if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid appointment', true));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->data)) {
-			if ($this->Appointment->save($this->data)) {
-				$this->Session->setFlash(__('The appointment has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+
+			if($this->RequestHandler->isAjax()){
+				if($this->ajaxInput){
+					header('Content-Type: application/json');
+					$input =$this->ajaxInput;
+					$appointments = $input['appointments'];
+					$schedule = $input['schedule'];
+					$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
+					foreach($appointments as $ref_no){
+						 $updated = $this->Appointment->updateAll(
+							array('Appointment.schedule'=>"'".$schedule."'"),
+							array('Appointment.ref_no'=>$ref_no)
+						);
+						 if($updated){
+						 	$results['success']++;
+						 }else{
+						 	$results['error']++;
+						 }
+					}
+					$response = array();
+					$response['data'] = $results;
+					if($results['error']>0){
+						 $response['message']='Some appointments were not saved';
+					}else{
+						 $response['message']='Changes has been saved';
+					}
+					echo json_encode($response);exit;
+				}
+			}else{
+				if ($this->Appointment->save($this->data)) {
+					$this->Session->setFlash(__('The appointment has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
+				}
 			}
 		}
 		if (empty($this->data)) {
@@ -87,15 +118,40 @@ class AppointmentsController extends AppController {
 	}
 
 	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for appointment', true));
-			$this->redirect(array('action'=>'index'));
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$ref_nos = $input['appointments'];
+				$results =array('error'=>0,'success'=>0);
+				 $deleted = $this->Appointment->deleteAll(
+					array('Appointment.ref_no'=>$ref_nos)
+				);
+				 if($deleted){
+				 	$results['success']++;
+				 }else{
+				 	$results['error']++;
+				 }
+				$response = array();
+				$response['data'] = $results;
+				if($results['error']>0){
+					 $response['message']='Could not delete appointments';
+				}else{
+					 $response['message']='Appointmens has been delete';
+				}
+				echo json_encode($response);exit;
+			}
+		}else{
+			if (!$id) {
+				$this->Session->setFlash(__('Invalid id for appointment', true));
+				$this->redirect(array('action'=>'index'));
+			}
+			if ($this->Appointment->delete($id)) {
+				$this->Session->setFlash(__('Appointment deleted', true));
+				$this->redirect(array('action'=>'index'));
+			}
+			$this->Session->setFlash(__('Appointment was not deleted', true));
+			$this->redirect(array('action' => 'index'));
 		}
-		if ($this->Appointment->delete($id)) {
-			$this->Session->setFlash(__('Appointment deleted', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Appointment was not deleted', true));
-		$this->redirect(array('action' => 'index'));
 	}
 }
