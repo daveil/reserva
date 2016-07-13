@@ -18,7 +18,12 @@ class PatientsController extends AppController {
 			$this->Session->setFlash(__('Invalid patient', true));
 			$this->redirect(array('action' => 'index'));
 		}
-		$this->set('patient', $this->Patient->read(null, $id));
+		if($this->RequestHandler->isAjax()){
+			$patient = $this->Patient->read(null, $id);
+			echo json_encode($patient);exit;
+		}else{
+			$this->set('patient', $this->Patient->read(null, $id));	
+		}
 	}
 
 	function add() {

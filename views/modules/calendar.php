@@ -24,7 +24,7 @@
 							  <tbody>
 								<tr ng-repeat="patient in Patients" ng-if="Patients.length">
 								  <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
-								  <td><a href="patient_info">{{patient.ref_no}}</a></td>
+								  <td><a href="patient_info/{{patient.id}}">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td>{{patient.concern}}</td>
 								</tr>
