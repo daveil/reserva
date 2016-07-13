@@ -1,5 +1,5 @@
 <?php
 	$routes = array(
-			'appointment/save'=>'appointment_save'
+			'patient_info/(\d+)'=>'patient_info',
 	);
 ?>

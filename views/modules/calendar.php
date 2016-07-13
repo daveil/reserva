@@ -1,9 +1,9 @@
 <h3>Calendar</h3>
-	<div>
-		<div  ng-controller="CalendarController">
+	<div  ng-controller="CalendarController">
+		<div>
 			<div class="row">
 					<div class="col-md-6">
-						<div pickadate="" ng-model="SelectedDate" min-date="minDate"></div>
+						<div pickadate="" ng-model="SelectedDate" min-date="minDate" id="SelectedDate"></div>
 					</div>
 					<div class="col-md-6">
 						<div class="panel panel-default">
@@ -24,12 +24,14 @@
 							  <tbody>
 								<tr ng-repeat="patient in Patients" ng-if="Patients.length">
 								  <td><input type="checkbox" ng-model="patient.checked" ng-checked="CheckAll"/></td>
-								  <td><a href="patient_info">{{patient.ref_no}}</a></td>
+								  <td><a href="patient_info/{{patient.id}}">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td>{{patient.concern}}</td>
 								</tr>
 								<tr ng-if="!Patients.length">
-									<td colspan="4" class="text-center">No appointments found.</td>
+									<td colspan="4" class="text-center">
+										{{Loading? 'Loading...':'No appointments found.'}}	
+									</td>
 								</tr>
 							  </tbody>
 							</table>
@@ -60,7 +62,8 @@
 							<div class="col-md-12">
 								<div ng-if="openModal==='Move'" class="form-group">
 								  <label for="">Date</label>
-								  <input type="date" class="form-control">
+								  <input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
+								  <div pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
 								</div>
 								<div ng-if="openModal==='Delete'">
 								  Are you sure you want to delete?
@@ -73,7 +76,7 @@
 					</div>
 					<div class="modal-footer">
 					  <button type="button" class="btn btn-default pull-left" data-dismiss="modal" ng-click="openModal=null">Cancel</button>
-					  <button type="button" class="btn btn-success pull-right" ng-click="openModal=null">Confirm</button>
+					  <button type="button" class="btn btn-success pull-right" ng-click="confirmAction()">Confirm</button>
 					  <div class="clearfix"></div>
 					</div>
 				  </div>
