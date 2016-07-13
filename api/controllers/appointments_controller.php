@@ -118,15 +118,40 @@ class AppointmentsController extends AppController {
 	}
 
 	function delete($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for appointment', true));
-			$this->redirect(array('action'=>'index'));
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$ref_nos = $input['appointments'];
+				$results =array('error'=>0,'success'=>0);
+				 $deleted = $this->Appointment->deleteAll(
+					array('Appointment.ref_no'=>$ref_nos)
+				);
+				 if($deleted){
+				 	$results['success']++;
+				 }else{
+				 	$results['error']++;
+				 }
+				$response = array();
+				$response['data'] = $results;
+				if($results['error']>0){
+					 $response['message']='Could not delete appointments';
+				}else{
+					 $response['message']='Appointmens has been delete';
+				}
+				echo json_encode($response);exit;
+			}
+		}else{
+			if (!$id) {
+				$this->Session->setFlash(__('Invalid id for appointment', true));
+				$this->redirect(array('action'=>'index'));
+			}
+			if ($this->Appointment->delete($id)) {
+				$this->Session->setFlash(__('Appointment deleted', true));
+				$this->redirect(array('action'=>'index'));
+			}
+			$this->Session->setFlash(__('Appointment was not deleted', true));
+			$this->redirect(array('action' => 'index'));
 		}
-		if ($this->Appointment->delete($id)) {
-			$this->Session->setFlash(__('Appointment deleted', true));
-			$this->redirect(array('action'=>'index'));
-		}
-		$this->Session->setFlash(__('Appointment was not deleted', true));
-		$this->redirect(array('action' => 'index'));
 	}
 }

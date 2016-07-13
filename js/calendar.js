@@ -45,7 +45,12 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				});
 			break;
 			case 'Delete':
-				runAction('delete',data);
+				runAction('delete',data).then(function(response){
+					if(response.data.data.success){
+						$scope.openModal = null;
+						loadAppointment($scope.SelectedDate);
+					}
+				});
 			break;
 		}
 	}
