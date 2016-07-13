@@ -24,7 +24,7 @@
 				</div>
 				<div class="form-group col-md-12">
 					<label for="">Address</label>
-					<input class="form-control" type="text" ng-model="Patient.address">
+					<input class="form-control" type="text" ng-model="Patient.adddress">
 				</div>
 				<div class="form-group col-md-12">
 					<label for="">Concern</label>

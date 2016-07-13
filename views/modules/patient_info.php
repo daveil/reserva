@@ -8,7 +8,7 @@
 			   <dt>Age</dt>
 			   <dd>{{Patient.name}}</dd>
 			   <dt>Address</dt>
-			   <dd>{{Patient.address}}</dd>
+			   <dd>{{Patient.adddress}}</dd>
 			 </dl>
 			</div>
 			<div class="col-md-8">
