@@ -55,8 +55,11 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		}
 	}
 	function loadAppointment(schedule){
-		var data =  {schedule:schedule};	
+		var data =  {schedule:schedule};
+		$scope.Patients = [];
+		$scope.Loading = true;
 		api.GET('appointments',data).then(function(response){
+			$scope.Loading = false;
 			var data =  response.data;
 			$scope.Patients =  data;
 		});

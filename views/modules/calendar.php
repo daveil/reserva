@@ -29,7 +29,9 @@
 								  <td>{{patient.concern}}</td>
 								</tr>
 								<tr ng-if="!Patients.length">
-									<td colspan="4" class="text-center">No appointments found.</td>
+									<td colspan="4" class="text-center">
+										{{Loading? 'Loading...':'No appointments found.'}}	
+									</td>
 								</tr>
 							  </tbody>
 							</table>
