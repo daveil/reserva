@@ -1,5 +1,19 @@
 APP.controller('PatientsController',['$scope','api',function($scope,api){
-	api.GET('patients').then(function(response){
-		$scope.Records = response.data;
-	});	
+	loadPatients();
+	function loadPatients(search){
+		var data = {};
+			if(search){
+				data.search=search;
+			}
+		$scope.Searching = true;
+		$scope.Records=[];
+		api.GET('patients',data).then(function(response){
+			$scope.Searching = false;
+			$scope.Records = response.data;
+		});	
+	}
+	$scope.search = function(){
+		var search =  $scope.SearchPatient;
+		loadPatients(search);
+	}
 }]);

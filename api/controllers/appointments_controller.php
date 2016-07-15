@@ -9,7 +9,7 @@ class AppointmentsController extends AppController {
 		if($this->RequestHandler->isAjax()){
 			$data =array();
 			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
-			$conditions = array('Appointment.schedule'=>$schedule);
+			$conditions = array('Appointment.schedule'=>$schedule);	
 			$paginate['conditions']=$conditions;
 			$this->paginate = $paginate;
 			foreach($this->paginate() as $p){

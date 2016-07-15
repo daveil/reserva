@@ -8,6 +8,13 @@ class PatientsController extends AppController {
 		$this->Patient->recursive = 1;
 		$this->set('patients', $this->paginate());
 		if($this->RequestHandler->isAjax()){
+			if(isset($_GET['search'])){
+				$name ='%'.$_GET['search'].'%';
+				$conditions = array('Patient.name LIKE'=>$name);
+				$paginate['conditions']=$conditions;
+				$this->paginate = $paginate;
+			}
+			
 			$data = $this->paginate();
 			echo json_encode($data);exit;
 		}
