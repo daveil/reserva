@@ -6,7 +6,7 @@
 			   <dt>Name</dt>
 			   <dd>{{Patient.name}}</dd>
 			   <dt>Age</dt>
-			   <dd>{{Patient.name}}</dd>
+			   <dd>{{Patient.age}}</dd>
 			   <dt>Address</dt>
 			   <dd>{{Patient.adddress}}</dd>
 			 </dl>

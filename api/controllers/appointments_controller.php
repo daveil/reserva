@@ -9,7 +9,7 @@ class AppointmentsController extends AppController {
 		if($this->RequestHandler->isAjax()){
 			$data =array();
 			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
-			$conditions = array('Appointment.schedule'=>$schedule);
+			$conditions = array('Appointment.schedule'=>$schedule);	
 			$paginate['conditions']=$conditions;
 			$this->paginate = $paginate;
 			foreach($this->paginate() as $p){
@@ -34,8 +34,8 @@ class AppointmentsController extends AppController {
 	}
 
 	function add() {
-		$input = file_get_contents('php://input');
-		if($input){
+		if($this->RequestHandler->isAjax()){
+			$input = file_get_contents('php://input');
 			header('Content-Type: application/json');
 			$this->data = json_decode($input,true);
 		}
@@ -44,7 +44,7 @@ class AppointmentsController extends AppController {
 			$appointment =  array();
 			if ($this->Appointment->saveAll($this->data)) {
 				$this->Session->setFlash(__('The appointment has been saved', true));
-				if($input){
+				if($this->RequestHandler->isAjax()){
 					$appointment['status']='OK';
 					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
 					$appointment['message']='Appointment saved!';
