@@ -5,7 +5,7 @@ class PatientsController extends AppController {
 
 	function index() {
 		
-		$this->Patient->recursive = 0;
+		$this->Patient->recursive = 1;
 		$this->set('patients', $this->paginate());
 		if($this->RequestHandler->isAjax()){
 			$data = $this->paginate();
