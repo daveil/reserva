@@ -30,3 +30,6 @@
 	opacity:0.5;
 	cursor: not-allowed;
 }
+ul.nav.nav-pills.nav-stacked>li>ul>li>a{
+	padding-left:40px;
+}
