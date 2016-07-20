@@ -3,7 +3,7 @@
 	<form class="form-vertical">
 		<div class="row">
 			<div class="col-md-6">
-			 <div pickadate="" ng-model="SelectedDate" min-date="minDate" id="SelectedDate"></div>
+			 <div pickadate="" ng-model="SelectedDate" min-date="minDate" disabled-dates="disabledDates" id="SelectedDate"></div>
 			</div>
 			<div class="col-md-6">
 				<div class="form-group col-md-12">

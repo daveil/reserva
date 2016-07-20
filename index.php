@@ -26,9 +26,11 @@
 			include('views/template/file_not_found.php');
 			
 		}
+		// add comm
 		$content = ob_get_clean(); 
 	}
 	include('views/template/sidebar.php');
+	// add comm
 	$sidebar = ob_get_clean(); 
 	include('views/template/default.php');
 ?>

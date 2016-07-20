@@ -18,6 +18,14 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 				Patient:$scope.Patient,
 				Appointment:$scope.Appointment
 		};
+		/*
+		{
+			Patient: {
+				name: "Juan",
+				age:15,
+			}
+		}
+		*/
 		$scope.SavingAppointment = true;
 		api.POST('appointments/add',data).then(function(response){
 				alert(response.data.message);
