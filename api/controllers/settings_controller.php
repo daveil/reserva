@@ -8,6 +8,7 @@ class SettingsController extends AppController {
 		$this->set('settings', $this->paginate());
 		if($this->RequestHandler->isAjax()){
 			$data = array();
+			$clinic_days = array();
 			foreach($this->paginate() as $s){
 				$id = $s['Setting']['id'];
 				$value = $s['Setting']['value'];
@@ -27,6 +28,9 @@ class SettingsController extends AppController {
 						$data[$id]=$value;
 					break;
 				}
+			}
+			if(isset($_GET['clinic_days'])){
+				$data = $clinic_days;
 			}
 			echo json_encode($data);exit;
 		}
