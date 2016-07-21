@@ -48,7 +48,9 @@
           date: '=ngModel',
           minDate: '=',
           maxDate: '=',
-          disabledDates: '='
+          disabledDates: '=',
+          allowedDays: '=',
+		  onChangeMonth:'&',
         },
         template:'<div class="calendar">'+
 					'<div class="years clearfix">'+
@@ -70,14 +72,19 @@
 					'</div>'+
 			  '</div>',
         link: function(scope, element, attrs, ngModel)  {
+			
           var minDate       = scope.minDate && dateUtils.stringToDate(scope.minDate),
               maxDate       = scope.maxDate && dateUtils.stringToDate(scope.maxDate),
-              disabledDates = scope.disabledDates || [],
+              disabledDates = scope.disabledDates || [""],
               currentDate   = new Date();
-
           scope.dayNames    = $locale.DATETIME_FORMATS['SHORTDAY'];
           scope.currentDate = currentDate;
-
+		  
+			scope.$watchGroup(['allowedDays','disabledDates','date'],function(values){
+				if(values[2]){
+					scope.render(new Date(values[2]));
+				}
+			});
           scope.render = function(initialDate) {
             initialDate = new Date(initialDate.getFullYear(), initialDate.getMonth(), 1, 3);
 
@@ -90,8 +97,14 @@
               allDates          = prevDates.concat(currentMonthDates, nextMonthDates),
               dates             = [],
               today             = dateFilter(new Date(), 'yyyy-MM-dd');
-
-            // Add an extra row if needed to make the calendar to have 6 rows
+			
+			var dayNameUC = [];
+			for(var i in scope.dayNames){
+				dayNameUC.push(scope.dayNames[i].toUpperCase());
+			}
+			var allowedDays = scope.allowedDays || dayNameUC;
+            
+			// Add an extra row if needed to make the calendar to have 6 rows
             if (allDates.length / 7 < 6) {
               allDates = allDates.concat(dateUtils.dateRange(1, 8, allDates[allDates.length - 1]));
             }
@@ -110,8 +123,15 @@
               } else if (indexOf.call(disabledDates, date) >= 0) {
                 className = 'pickadate-disabled pickadate-unavailable';
 				enabled = false;
-              } else {
-                className = 'pickadate-enabled';
+              }else {
+				 var day = scope.dayNames[new Date(date).getDay()].toUpperCase();
+				 var allowed = indexOf.call(allowedDays,day)!=-1;
+				 if(!allowed){
+					 className = 'pickadate-disabled pickadate-unavailable';
+					 enabled = false;
+				 }else{
+					className = 'pickadate-enabled';
+				 }               
               }
 
               if (date === today) {
@@ -149,6 +169,7 @@
 				currentDate.setDate(1);
 				currentDate.setMonth(currentDate.getMonth() + offset);
 				scope.render(currentDate);
+				scope.onChangeMonth()(currentDate);
 			}
           };
 
