@@ -13,9 +13,27 @@ class Appointment extends AppModel {
 		)
 	);
 	function beforeSave(){
-		App::Import('Model','SystemConfig');
-		$this->SystemConfig = new SystemConfig;
-		$this->data['Appointment']['ref_no'] = $this->SystemConfig->getRefNo();
-		return true;
+		$schedule = $this->data['Appointment']['schedule'];
+		if($this->checkAvailability($schedule)){
+			App::Import('Model','Setting');
+			$this->Setting = new Setting;
+			$refNo =  $this->Setting->getRefNo();
+			$this->data['Appointment']['ref_no'] =$refNo;
+			$this->Setting->setRefNo($refNo+1);
+			return true;
+		}else{
+			return false;
+		}
+	}
+	function checkAvailability($schedule){
+		$conditions = array(
+					'conditions'=>array('Appointment.schedule'=>$schedule)
+					);
+		$count = $this->find('count',$conditions);
+		App::Import('Model','Setting');
+		$this->Setting = new Setting;
+		$maxBooking = $this->Setting->getMaxDailyBooking();
+		return $count <= $maxBooking;
+		
 	}
 }
