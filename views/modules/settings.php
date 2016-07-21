@@ -23,8 +23,8 @@
 				<div class="form-group">
 					<label>Clinic Days</label>
 					<br />
-					<div class="btn-group">
-						<button class="btn btn-default" ng-class="{'btn-default':!Settings.CLINIC_DAYS[day],'btn-primary':Settings.CLINIC_DAYS[day]}" ng-repeat="day in ['SU','MO','TU','WE','TH','FR','SA']">{{day}}</button>
+					<div class="btn-group btn-group-sm">
+						<button class="btn btn-default" ng-class="{'btn-default':!Settings.CLINIC_DAYS[day],'btn-primary':Settings.CLINIC_DAYS[day]}" ng-repeat="day in ['SUN','MON','TUE','WED','THU','FRI','SAT']">{{day}}</button>
 					</div>
 				</div>
 				<div class="form-group">

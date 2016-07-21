@@ -16,7 +16,7 @@ class SettingsController extends AppController {
 					case 'CLINIC_DAYS':
 						$clinic_days = explode(',',$value);
 						$data[$id]=array();
-						foreach(array('SU','MO','TU','WE','TH','FR','SA') as $day){
+						foreach(array('SUN','MON','TUE','WED','THU','FRI','SAT') as $day){
 							$data[$id][$day]=in_array($day,$clinic_days);
 						}
 					break;
