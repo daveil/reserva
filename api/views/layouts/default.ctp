@@ -22,7 +22,7 @@
 <head>
 	<?php echo $this->Html->charset(); ?>
 	<title>
-		<?php __('CakePHP: the rapid development php framework:'); ?>
+		<?php __('Fule-Villanueva Medical Clinic'); ?>
 		<?php echo $title_for_layout; ?>
 	</title>
 	<?php
@@ -36,7 +36,7 @@
 <body>
 	<div id="container">
 		<div id="header">
-			<h1><?php echo $this->Html->link(__('CakePHP: the rapid development php framework', true), 'http://cakephp.org'); ?></h1>
+			<h1><?php echo $this->Html->link(__('Fule-Villanueva Medical Clinic', true), 'http://localhost/reserva'); ?></h1>
 		</div>
 		<div id="content">
 
