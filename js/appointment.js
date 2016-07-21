@@ -1,5 +1,5 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
-	$scope.clinicDays;
+	$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 	setClinicDays();
 	getDisabledDates($scope.SelectedDate);
 	resetAppointment();
@@ -19,7 +19,6 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 	}
 	function setClinicDays(){
 		api.GET('settings?clinic_days').then(function(response){
-			$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 			$scope.SelectedDate = dateFilter(new Date(),'yyyy-MM-dd');
 			$scope.disabledDates = ['2016-07-15','2016-07-20'];
 			$scope.clinicDays =  response.data;
