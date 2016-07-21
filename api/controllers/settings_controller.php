@@ -6,6 +6,30 @@ class SettingsController extends AppController {
 	function index() {
 		$this->Setting->recursive = 0;
 		$this->set('settings', $this->paginate());
+		if($this->RequestHandler->isAjax()){
+			$data = array();
+			foreach($this->paginate() as $s){
+				$id = $s['Setting']['id'];
+				$value = $s['Setting']['value'];
+				switch($id){
+					case 'CLINIC_DAYS':
+						$clinic_days = explode(',',$value);
+						$data[$id]=array();
+						foreach(array('SU','MO','TU','WE','TH','FR','SA') as $day){
+							$data[$id][$day]=in_array($day,$clinic_days);
+						}
+					break;
+					case 'REF_NO_COUNTER':
+					case 'MAX_DAILY_BOOKING':
+						$data[$id]=(int)$value;
+					break;
+					default:
+						$data[$id]=$value;
+					break;
+				}
+			}
+			echo json_encode($data);exit;
+		}
 	}
 
 	function view($id = null) {
