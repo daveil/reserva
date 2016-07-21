@@ -10,7 +10,7 @@ class Patient extends AppModel {
 			'dependent' => false,
 			'conditions' => '',
 			'fields' => '',
-			'order' => array('created'=>'DESC'),
+			'order' => array('schedule'=>'DESC'),
 			'limit' => '',
 			'offset' => '',
 			'exclusive' => '',

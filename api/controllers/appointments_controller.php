@@ -47,7 +47,7 @@ class AppointmentsController extends AppController {
 				if($this->RequestHandler->isAjax()){
 					$appointment['status']='OK';
 					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
-					$appointment['message']='Appointment saved!';
+					$appointment['message']='Mabuhay! Appointment saved.';
 					echo json_encode($appointment);exit;
 				}else{
 					$this->redirect(array('action' => 'index'));
