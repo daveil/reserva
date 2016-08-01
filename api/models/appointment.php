@@ -33,7 +33,7 @@ class Appointment extends AppModel {
 		App::Import('Model','Setting');
 		$this->Setting = new Setting;
 		$maxBooking = $this->Setting->getMaxDailyBooking();
-		return $count <= $maxBooking;
+		return $count < $maxBooking;
 		
 	}
 }
