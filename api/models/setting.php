@@ -8,7 +8,10 @@ class Setting extends AppModel {
 	}
 	function setRefNo($value){
 		$setting = array();
-		$setting['Setting']=array('id'=>'REF_NO_COUNTER','value'=>(int)$value);
+		$setting['Setting']=array(
+				'id'=>'REF_NO_COUNTER',
+				'value'=>(int)$value
+		);
 		return $this->save($setting);
 	}
 	function getMaxDailyBooking(){
