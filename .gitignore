@@ -1,3 +1,4 @@
 /vendor/
 api/tmp/
 api/config/database.php
+views/cache/
