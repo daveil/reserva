@@ -24,11 +24,49 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 			content.checked = $scope.CheckAll;
 		}
 	}
+	$scope.delete =  function(){
+		$scope.openModal = 'Delete';
+	}
+	$scope.draft = function(){
+		$scope.openModal = 'Draft';
+	}
+	$scope.publish = function(){
+		$scope.openModal = 'Publish';
+	}
 	$scope.edit = function(content){
 		$scope.ContentId = content.id;
 		$scope.Title = content.title;
 		$scope.Link = content.slug;
 		$scope.ContentText = content.content;
+	}
+	$scope.confirm  = function(action){
+		var data ={};
+		var contents = [];
+		//Collect all selected contents
+		for(var i in $scope.Contents){
+			var content =  $scope.Contents[i];
+			if(content.checked)
+				contents.push(content.id);
+		}
+		data.contents = contents;
+		console.log(action,data);
+		switch(action){
+			case 'Publish':
+			case 'Draft':
+				data.status = action[0];
+				api.POST('contents/edit',data).then(function(response){
+					$scope.openModal = null;
+					loadContent();
+				});
+			break;
+			
+			case 'Delete':
+				api.POST('contents/delete',data).then(function(response){
+					$scope.openModal = null;
+					loadContent();
+				});
+			break;
+		}
 	}
 	$scope.cancel=function(){
 		$scope.ContentId = null;

@@ -79,7 +79,9 @@
 			<div class="modal-dialog">
 			  <div class="modal-content">
 				<div class="modal-header">
-				  <h4 class="modal-title">{{openModal}}</h4>
+				  <h4 class="modal-title">
+				  {{openModal==='Publish'  || openModal==='Draft' || openModal==='Delete'? 'Warning':openModal}}
+				  </h4>
 				</div>
 				<div class="modal-body">
 					<div class="row" >
@@ -88,12 +90,20 @@
 							<div ng-if="openModal==='Success' || openModal==='Warning'" >
 								{{modalMessage}}
 							</div>
-						
+							<div ng-if="openModal==='Publish'  || openModal==='Draft' || openModal==='Delete' " >
+								Are you sure you want <b><i>{{openModal}} </i></b>the selected item(s)?
+							</div>
 						</div>
 					</div>
 				</div>
 				<div class="modal-footer">
+					<div ng-show="openModal==='Success' || openModal==='Warning'" >
 				   <button type="button" class="btn  pull-right" ng-class="{'btn-success':openModal==='Success','btn-danger':openModal!=='Success'}" ng-click="openModal=null">Close</button>
+					</div>
+					<div ng-show="openModal==='Publish'  || openModal==='Draft' || openModal==='Delete' " >
+						<button type="button" class="btn  btn-default pull-left" ng-click="openModal=null" >Cancel</button>
+						<button type="button" class="btn  btn-primary pull-right" ng-click="confirm(openModal)">Confirm</button>
+					</div>
 				  <div class="clearfix"></div>
 				</div>
 			  </div>
