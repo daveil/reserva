@@ -19,6 +19,7 @@
 			$absolute_path =  str_replace(DS,'/',WEB_URL.'/'.$type.'/'.$path);
 			if($type!='img')
 				$absolute_path .='.'.$type;
+			$absolute_path.='?'.rand();
 			$attributes = '';
 			if($attrib){
 				foreach($attrib as $key=>$value)
