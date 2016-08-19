@@ -37,7 +37,9 @@
 		</div>
 		<div class="col-md-6">
 		<div class="panel panel-default">
-			<div class="panel-heading text-center">Content</div>
+			<div class="panel-heading text-center">
+				<b>Content</b>
+			</div>
 			<table class="table"> 
 				  <thead>
 					<tr>
@@ -64,13 +66,13 @@
 			</table>
 			<div class="row" style="padding:1rem;">
 				  <div class="col-md-4">
-					  <button class="btn btn-success btn-block"  ng-click="publish()">PUBLISH</button>
+					  <button class="btn btn-success btn-block"  ng-disabled="!Contents.length"  ng-click="publish()">PUBLISH</button>
 				  </div>
 				  <div class="col-md-4">
-					<button class="btn btn-warning btn-block" ng-click="draft()">DRAFT</button>
+					<button class="btn btn-warning btn-block" ng-disabled="!Contents.length"  ng-click="draft()">DRAFT</button>
 				  </div>
 				  <div class="col-md-4">
-					<button class="btn btn-danger btn-block"   ng-click="delete()">DELETE</button>
+					<button class="btn btn-danger btn-block" ng-disabled="!Contents.length"   ng-click="delete()">DELETE</button>
 				  </div>
 			  </div>
 		</div>

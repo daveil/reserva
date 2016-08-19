@@ -91,7 +91,10 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 		});
 	}
 	function loadContent(){
+		$scope.CheckAll = null;
+		$scope.Loading = true;
 		api.GET('contents').then(function(response){
+			$scope.Loading = false;
 			$scope.Contents = response.data;
 		});
 	}
