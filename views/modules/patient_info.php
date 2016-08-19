@@ -1,5 +1,9 @@
+<?php
+	$url = $_REQUEST['url'];
+	$id =  str_replace('patient_info/','',$url); 
+?>
 	<h2 style="margin-top:0;">Patient Information</h2>
-	<div ng-controller="PatientInfoController" ng-init="PatientId=<?php echo $params[0];?>">
+	<div ng-controller="PatientInfoController" ng-init="PatientId=<?php echo $id;?>">
 		<div class="row" >
 			<div class="col-md-4">
 			 <dl>
