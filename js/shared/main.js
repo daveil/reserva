@@ -1,6 +1,6 @@
 (function(angular){
 	//Initialize APP
-	const APP = angular.module('APP',['pickadate']);
+	const APP = angular.module('APP',['pickadate','summernote']);
 	window.APP = APP;
 	//Load library
 	(function(){
