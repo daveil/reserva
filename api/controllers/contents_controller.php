@@ -6,7 +6,10 @@ class ContentsController extends AppController {
 	function index() {
 		$this->Content->recursive = 0;
 		if($this->RequestHandler->isAjax()){
-			$data =  $this->find('all');
+			$data = array() ;
+			foreach($this->Content->find('all') as $content){
+				array_push($data,$content['Content']);
+			}
 			echo json_encode($data);exit;
 		}else{
 			$this->set('contents', $this->paginate());	

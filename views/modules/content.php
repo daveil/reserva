@@ -23,7 +23,7 @@
 				<div class="from-group"> 
 					<div class="row">
 					<div class="col-md-4"> 
-							<button class="btn btn-default">Cancel</button>
+							<button class="btn btn-default" ng-click="cancel()">Cancel</button>
 						</div>
 						<div class="col-md-8"> 
 							<div class="pull-right">
@@ -41,16 +41,24 @@
 			<table class="table"> 
 				  <thead>
 					<tr>
-					  <th class="col-md-1"><input type="checkbox" /></th>
+					  <th class="col-md-1"><input type="checkbox" ng-click="toggleCheckbox()"/></th>
 					  <th class="col-md-11">Title</th>
 					</tr>
 				  </thead>
 				  <tbody>
-					<tr>
-						<td><input type="checkbox" /></td>
-						<td>
-							<a>Smaple title</a>	
-						</td>
+					<tr ng-repeat="Content in Contents" ng-if="Contents.length" >
+					  <td><input type="checkbox" ng-model="Content.checked" /></td>
+					  <td>
+						  <a href="#/edit={{Content.slug}}" ng-click="edit(Content)">
+							{{Content.title}}
+						  </a>
+					  </td>
+				
+					</tr>
+					<tr ng-if="!Contents.length">
+						
+							<td colspan="2" class="text-center">{{Loading?'Loading...':'No contents found'}}</td>
+					
 					</tr>
 				  </tbody>
 			</table>
@@ -66,6 +74,31 @@
 				  </div>
 			  </div>
 		</div>
-			
+		<div class="modal-blind" ng-class="{show:openModal}"></div>
+		<div class="modal" ng-class="{show:openModal}">
+			<div class="modal-dialog">
+			  <div class="modal-content">
+				<div class="modal-header">
+				  <h4 class="modal-title">{{openModal}}</h4>
+				</div>
+				<div class="modal-body">
+					<div class="row" >
+						<div class="col-md-12">
+							
+							<div ng-if="openModal==='Success' || openModal==='Warning'" >
+								{{modalMessage}}
+							</div>
+						
+						</div>
+					</div>
+				</div>
+				<div class="modal-footer">
+				   <button type="button" class="btn  pull-right" ng-class="{'btn-success':openModal==='Success','btn-danger':openModal!=='Success'}" ng-click="openModal=null">Close</button>
+				  <div class="clearfix"></div>
+				</div>
+			  </div>
+			</div>
+		</div>
+
 </div>
 <?php echo Assest::js('contents');?>
