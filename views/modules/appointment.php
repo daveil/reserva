@@ -5,7 +5,6 @@
 </style>
 <h3 style="margin-top:0;">Set an appointment</h3>
 <div ng-controller="AppointmentController">
-	{{ShowModal}}
 	<form class="form-vertical" name="AppointmentForm">
 		<div class="row">
 			<div class="col-md-6">
@@ -65,7 +64,6 @@
 				</div>
 			</div>
 			<div class="modal-footer">
-		
 			  <button type="button" class="btn  pull-right" ng-class="{'btn-success':AppointmentStatus==='OK','btn-danger':AppointmentStatus!=='OK'}" ng-click="closeModal()">Close</button>
 			  <div class="clearfix"></div>
 			</div>
