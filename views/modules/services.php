@@ -5,7 +5,7 @@
 	$file = "$views/cache/services.json";
 	if(!file_exists($file)){
 		$title = "Oops!";
-		$content ="URL requested <b><i>$url</i></b> not found.";
+		$text ="URL requested <b><i>$url</i></b> not found.";
 		
 	}
 	
