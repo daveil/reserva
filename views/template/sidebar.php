@@ -1,25 +1,38 @@
 <?php
+	$views = dirname(dirname(__FILE__));
+	$file = "$views/cache/contents.json";
+	if(!file_exists($file)){
+		if(!file_exists("$views/cache/"))
+			mkdir("$views/cache/");
+		$contents = array('pages'=>null,'services'=>null);
+	}else{
+		$contents = json_decode(file_get_contents($file),true);
+	}
 	$menus = array(
 				'home'=>'Home',
 				'appointment'=>'Appointment',
-				'calendar'=>'Calendar',
-				'patients'=>'Patients',
+	);
+	$pages = $contents['pages'];
+	if(count($pages))
+		foreach($pages as $link=>$title){
+			$menus['pages/'.$link]=$title;
+		}
+	$services = array(
 				'services'=>
 					array(
 						'Services Offered',
-						array(
-							'ecg'=>'ECG',
-							'cbc'=>'CBC',
-							'o2-sat-monitoring'=>'O2 Sat. Monitoring',
-							'medical-consultation'=>'Medical Consultation'
-						)
-				),
-				'contact-info'=>'Contact Information',
-				'about-us'=>'About Us',
+						$contents['services']
+					)	
+				);
+	if(count($services))
+		$menus = array_merge($menus,$services);
+	$admin  = array(
+				'calendar'=>'Calendar',
+				'patients'=>'Patients',
 				'content'=>'Content',
 				'settings'=>'Settings'
-				
-	);
+				);
+	$menus = array_merge($menus,$admin);
 ?>
 <ul class="nav nav-pills nav-stacked">
 	<?php foreach($menus as $_url=>$title):
@@ -29,8 +42,8 @@
 					$title =  $title[0];
 				}
 		?>
-		<li class="<?php if($url==$_url) echo 'active'; ?>">
-
+		<li class="<?php if($_REQUEST['url']==$_url) echo 'active'; ?>">
+			
 			<a href="<?php echo WEB_URL.DS.$_url;?>">
 				<?php echo $title;?>
 			</a>
