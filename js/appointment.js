@@ -41,9 +41,10 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		};
 		$scope.SavingAppointment = true;
 		api.POST('appointments/add',data).then(function(response){
+				$scope.AppointmentStatus=response.data.status;
 				$scope.ShowModal=true;
 				$scope.ModalMessage = response.data.message;
-				if(response.data.status=='OK'){
+				if($scope.AppointmentStatus =='OK'){
 					resetAppointment(response.data.data.Appointment.schedule);
 				}
 		});
@@ -51,5 +52,7 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 	$scope.closeModal = function(){
 		$scope.ShowModal=false;
 		$scope.ModalMessage =  null;
+		$scope.AppointmentStatus =null;
+		$scope.SavingAppointment = false;
 	}
 }]);

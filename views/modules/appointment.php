@@ -48,7 +48,9 @@
 		<div class="modal-dialog">
 		  <div class="modal-content">
 			<div class="modal-header">
-			  <h4 class="modal-title">Appointment Message</h4>
+			  <h4 class="modal-title">
+				{{AppointmentStatus==='OK'?'Success':'Warning'}}
+			  </h4>
 			</div>
 			<div class="modal-body">
 				<div class="row" >
@@ -59,7 +61,7 @@
 			</div>
 			<div class="modal-footer">
 		
-			  <button type="button" class="btn btn-success pull-right" ng-click="closeModal()">Close</button>
+			  <button type="button" class="btn  pull-right" ng-class="{'btn-success':AppointmentStatus==='OK','btn-danger':AppointmentStatus!=='OK'}" ng-click="closeModal()">Close</button>
 			  <div class="clearfix"></div>
 			</div>
 		  </div>
