@@ -3,6 +3,7 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 	setClinicDays();
 	getDisabledDates($scope.SelectedDate);
 	resetAppointment();
+	$scope.ShowModal = false;
 	function resetAppointment(sched){
 		$scope.Patient = {};
 		$scope.Appointment = {};
@@ -38,20 +39,17 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 				Patient:$scope.Patient,
 				Appointment:$scope.Appointment
 		};
-		/*
-		{
-			Patient: {
-				name: "Juan",
-				age:15,
-			}
-		}
-		*/
 		$scope.SavingAppointment = true;
 		api.POST('appointments/add',data).then(function(response){
-				alert(response.data.message);
+				$scope.ShowModal=true;
+				$scope.ModalMessage = response.data.message;
 				if(response.data.status=='OK'){
 					resetAppointment(response.data.data.Appointment.schedule);
 				}
 		});
+	}
+	$scope.closeModal = function(){
+		$scope.ShowModal=false;
+		$scope.ModalMessage =  null;
 	}
 }]);

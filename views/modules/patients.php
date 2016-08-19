@@ -36,9 +36,9 @@
 					  <td>{{Record.Appointment[0].concern}}</td>
 					</tr>
 					<tr ng-if="!Records.length">
-						<tr>
+						
 							<td colspan="4" class="text-center">{{Searching?'Loading...':'No patients found'}}</td>
-						</tr>
+					
 					</tr>
 				  </tbody>
 			</table>
