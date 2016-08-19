@@ -23,4 +23,9 @@
 			document.body.appendChild(js);
 		}
 	})();
+	APP.controller('SidebarController',['$scope',function($scope){
+			$scope.toggleServices = function(){
+				$scope.ShowServices = !$scope.ShowServices;
+			}
+	}]);
 })(window.angular);
