@@ -33,6 +33,7 @@ class ContentsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Content->create();
 			if ($this->Content->save($this->data)) {
+				$this->Content->buildCache();
 				$content =  array();
 				if($this->RequestHandler->isAjax()){
 					$content['status']='OK';
@@ -64,37 +65,33 @@ class ContentsController extends AppController {
 			if($this->ajaxInput){
 				header('Content-Type: application/json');
 				$input =$this->ajaxInput;
-				
 				$contents = $input['contents'];
 				$status = $input['status'];
 				$this->Content->updateAll(
 						array('Content.status'=>'"'.$status.'"'),
 						array('Content.id'=>$contents)
 						);
+				$this->Content->buildCache();
 				$response = array();
 				$response['status'] = 'OK';
 				$response['data'] = null;
 				echo json_encode($response);exit;
 			}
 		}else{
-			if ($this->Content->save($this->data)) {
-				$this->Session->setFlash(__('The content has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The content could not be saved. Please, try again.', true));
+			if (!empty($this->data)) {
+				if ($this->Content->save($this->data)) {
+					$this->Content->buildCache();
+					$this->Session->setFlash(__('The content has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The content could not be saved. Please, try again.', true));
+				}
+			}
+			if (empty($this->data)) {
+				$this->data = $this->Content->read(null, $id);
 			}
 		}
-		if (!empty($this->data)) {
-			if ($this->Content->save($this->data)) {
-				$this->Session->setFlash(__('The content has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The content could not be saved. Please, try again.', true));
-			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->Content->read(null, $id);
-		}
+		
 	}
 
 	function delete($id = null) {
@@ -106,6 +103,7 @@ class ContentsController extends AppController {
 				$this->Content->deleteAll(
 						array('Content.id'=>$contents)
 						);
+				$this->Content->buildCache();
 				$response = array();
 				$response['status'] = 'OK';
 				$response['data'] = null;
@@ -118,6 +116,7 @@ class ContentsController extends AppController {
 			}
 			
 			if ($this->Content->delete($id)) {
+				$this->Content->buildCache();
 				$this->Session->setFlash(__('Content deleted', true));
 				$this->redirect(array('action'=>'index'));
 			}
