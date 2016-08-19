@@ -7,13 +7,18 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no">
     <!-- site css -->
 	<?php echo Assest::css('../js/bower_components/Bootflat/css/site.min');?>
+	<?php echo Assest::css('../js/bower_components/summernote/dist/summernote');?>
 	<?php echo Assest::css('style');?>
     <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
     <!--[if lt IE 9]>
 	<?php echo Assest::js('bower_components/Bootflat/js/php5shiv');?>
 	<?php echo Assest::js('bower_components/Bootflat/js/respond.min');?>
     <![endif]-->
+	<?php echo Assest::js('bower_components/jquery/dist/jquery.min');?>
+	<?php echo Assest::js('bower_components/bootstrap/dist/js/bootstrap.min');?>
+	<?php echo Assest::js('bower_components/summernote/dist/summernote.min');?>
 	<?php echo Assest::js('bower_components/angular/angular.min');?>
+	<?php echo Assest::js('bower_components/angular-summernote/dist/angular-summernote');?>
   </head>
   <body  ng-app="APP">
 	<?php echo Assest::js('shared/datepicker');?>

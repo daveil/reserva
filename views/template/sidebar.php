@@ -16,7 +16,9 @@
 				),
 				'contact-info'=>'Contact Information',
 				'about-us'=>'About Us',
+				'content'=>'Content',
 				'settings'=>'Settings'
+				
 	);
 ?>
 <ul class="nav nav-pills nav-stacked">
