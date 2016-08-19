@@ -8,6 +8,7 @@
 		echo $this->Form->input('slug');
 		echo $this->Form->input('content');
 		echo $this->Form->input('status');
+		echo $this->Form->input('type');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>

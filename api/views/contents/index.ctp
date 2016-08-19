@@ -7,6 +7,7 @@
 			<th><?php echo $this->Paginator->sort('slug');?></th>
 			<th><?php echo $this->Paginator->sort('content');?></th>
 			<th><?php echo $this->Paginator->sort('status');?></th>
+			<th><?php echo $this->Paginator->sort('type');?></th>
 			<th><?php echo $this->Paginator->sort('created');?></th>
 			<th><?php echo $this->Paginator->sort('modified');?></th>
 			<th class="actions"><?php __('Actions');?></th>
@@ -25,6 +26,7 @@
 		<td><?php echo $content['Content']['slug']; ?>&nbsp;</td>
 		<td><?php echo $content['Content']['content']; ?>&nbsp;</td>
 		<td><?php echo $content['Content']['status']; ?>&nbsp;</td>
+		<td><?php echo $content['Content']['type']; ?>&nbsp;</td>
 		<td><?php echo $content['Content']['created']; ?>&nbsp;</td>
 		<td><?php echo $content['Content']['modified']; ?>&nbsp;</td>
 		<td class="actions">
