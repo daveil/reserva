@@ -14,8 +14,20 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 			]
 	};
 	$scope.$watch('Title',function(value){
-		$scope.Link = slugify(value);
+		if(value) $scope.Link = slugify(value);
 	});
+	$scope.save = function(status){
+		var data = {
+			id:$scope.ContentId,
+			title:$scope.Title,
+			slug:$scope.Link,
+			content:$scope.ContentText,
+			status:status,
+		}
+		api.POST('contents/add',data).then(function(response){
+			console.log(response);
+		});
+	}
 	function slugify(text){
 		  return text.toString().toLowerCase()
 			.replace(/\s+/g, '-')           // Replace spaces with -

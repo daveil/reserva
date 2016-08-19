@@ -3,7 +3,7 @@
 	
 	<div class="row">
 		<div class="col-md-6"> 
-			<form action="" class="form-vertical">
+			<form  class="form-vertical">
 				<div class="form-group">
 					<div class="row">
 						<div class="col-md-6">
@@ -18,7 +18,7 @@
 					
 				</div>
 				<div class="form-group">
-					<div summernote config="ComposerOptions"></div>
+					<div summernote ng-model="ContentText" config="ComposerOptions"></div>
 				</div>
 				<div class="from-group"> 
 					<div class="row">
@@ -27,8 +27,8 @@
 						</div>
 						<div class="col-md-8"> 
 							<div class="pull-right">
-								<button class="btn btn-warning ">Save as Draft</button>
-								<button class="btn btn-success">PUBLISH</button>
+								<button class="btn btn-warning " ng-click="save('D')">Save as Draft</button>
+								<button class="btn btn-success" ng-click="save('P')">PUBLISH</button>
 							</div>
 						</div>
 					</div>

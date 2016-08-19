@@ -1,5 +1,5 @@
 <?php
-/* Contents Test cases generated on: 2016-08-19 10:10:35 : 1471572635*/
+/* Contents Test cases generated on: 2016-08-19 15:12:47 : 1471590767*/
 App::import('Controller', 'Contents');
 
 class TestContentsController extends ContentsController {
@@ -21,6 +21,26 @@ class ContentsControllerTestCase extends CakeTestCase {
 	function endTest() {
 		unset($this->Contents);
 		ClassRegistry::flush();
+	}
+
+	function testIndex() {
+
+	}
+
+	function testView() {
+
+	}
+
+	function testAdd() {
+
+	}
+
+	function testEdit() {
+
+	}
+
+	function testDelete() {
+
 	}
 
 }

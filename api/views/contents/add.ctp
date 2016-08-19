@@ -6,6 +6,7 @@
 		echo $this->Form->input('title');
 		echo $this->Form->input('slug');
 		echo $this->Form->input('content');
+		echo $this->Form->input('status');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
