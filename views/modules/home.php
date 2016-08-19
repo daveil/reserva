@@ -9,12 +9,19 @@
 	<p>No content yet</p>
 <?php else:
 		$home = json_decode(file_get_contents($file),true);
-		foreach($home as $content):
+		if(count($home)):
+			foreach($home as $content):
 			$h = $content['Content'];
 ?>
-	<div><?php echo $h['content'];?></div>
+			<div><?php echo $h['content'];?></div>
 <?php
-		endforeach;
+			endforeach;
+		else:
+?>
+		<h2>Welcome to our homepage!</h2>
+		<p>No content yet</p>
+<?php
+		endif;
 	endif;
 ?>
 	
