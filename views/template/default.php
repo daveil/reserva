@@ -33,10 +33,10 @@
   			</div>
   		</div>
   		<div class="row">
-  			<div class="col-md-4">
+  			<div class="col-md-3">
 				<?php echo $sidebar; ?>
   			</div>
-  			<div class="col-md-8 right-content">
+  			<div class="col-md-9 right-content">
 				<?php echo $content; ?>
 			</div>
   		</div>
