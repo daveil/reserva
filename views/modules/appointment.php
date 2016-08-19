@@ -1,5 +1,6 @@
 <h3 style="margin-top:0;">Set an appointment</h3>
 <div ng-controller="AppointmentController">
+	{{ShowModal}}
 	<form class="form-vertical">
 		<div class="row">
 			<div class="col-md-6">
@@ -40,7 +41,29 @@
 				<button class="btn btn-primary pull-right"  ng-click="bookAppointment()" ng-disabled="SavingAppointment">Book appointment</button>
 			</div>
 		</div>
-	</div>
 	</form>
+
+	<div class="modal-blind" ng-class="{show:ShowModal}"></div>
+	<div class="modal" ng-class="{show:ShowModal}">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h4 class="modal-title">Appointment Message</h4>
+			</div>
+			<div class="modal-body">
+				<div class="row" >
+					<div class="col-md-12">
+					{{ModalMessage}}
+					</div>
+				</div>
+			</div>
+			<div class="modal-footer">
+		
+			  <button type="button" class="btn btn-success pull-right" ng-click="closeModal()">Close</button>
+			  <div class="clearfix"></div>
+			</div>
+		  </div>
+		</div>
+	</div>
 </div>
 <?php echo Assest::js('appointment');?>
