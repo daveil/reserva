@@ -1,4 +1,5 @@
 APP.controller('ContentController',['$scope','api',function($scope,api){
+	resetContent();
 	loadContent();
 	$scope.ComposerOptions = {
 		 height: 250,
@@ -49,7 +50,6 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 				contents.push(content.id);
 		}
 		data.contents = contents;
-		console.log(action,data);
 		switch(action){
 			case 'Publish':
 			case 'Draft':
@@ -69,10 +69,7 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 		}
 	}
 	$scope.cancel=function(){
-		$scope.ContentId = null;
-		$scope.Title = null;
-		$scope.Link = null;
-		$scope.ContentText = null;
+		resetContent();
 	}
 	$scope.save = function(status){
 		var data = {
@@ -81,14 +78,23 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 			slug:$scope.Link,
 			content:$scope.ContentText,
 			status:status,
+			type:$scope.Type,
 		}
 		api.POST('contents/add',data).then(function(response){
 			$scope.openModal = response.data.status =='OK'?'Success':'Warning';
 			$scope.modalMessage = response.data.message;
 			if( response.data.status =='OK'){
+				resetContent();
 				loadContent();
 			}
 		});
+	}
+	function resetContent(){
+		$scope.ContentId = null;
+		$scope.Title = null;
+		$scope.Link = null;
+		$scope.ContentText = null;
+		$scope.Type ='page';
 	}
 	function loadContent(){
 		$scope.CheckAll = null;

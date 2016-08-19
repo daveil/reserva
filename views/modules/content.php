@@ -6,19 +6,30 @@
 			<form  class="form-vertical">
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-12">
 							<label for="">Title</label>
 							<input type="text" class="form-control" ng-model="Title" />
-						</div>
-						<div class="col-md-6">
-							<label for="">Link</label>
-							<input type="text" class="form-control" ng-model="Link" />
 						</div>
 					</div>
 					
 				</div>
 				<div class="form-group">
 					<div summernote ng-model="ContentText" config="ComposerOptions"></div>
+				</div>
+				<div class="form-group">
+					<div class="row">
+						<div class="col-md-6">
+							<label for="">Link</label>
+							<input type="text" class="form-control" ng-model="Link" />
+						</div>
+						<div class="col-md-6">
+							<label for="">Type</label>
+							<select class="form-control" ng-model="Type">
+								<option value="page">Page</option>
+								<option value="service">Service</option>
+							</select>
+						</div>
+					</div>
 				</div>
 				<div class="from-group"> 
 					<div class="row">
