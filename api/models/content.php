@@ -24,5 +24,10 @@ class Content extends AppModel {
 		$services = json_encode($services);
 		file_put_contents(ROOT.DS.'views'.DS.'cache'.DS.'services.json',$services);
 		
+		$conditions = array('Content.status'=>'P','Content.type'=>'home');
+		$home = $this->find('all',compact('conditions'));
+		$home = json_encode($home);
+		file_put_contents(ROOT.DS.'views'.DS.'cache'.DS.'home.json',$home);
+		
 	}
 }

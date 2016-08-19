@@ -27,6 +27,7 @@
 							<select class="form-control" ng-model="Type">
 								<option value="page">Page</option>
 								<option value="service">Service</option>
+								<option value="home">Append to Homepage</option>
 							</select>
 						</div>
 					</div>

@@ -19,7 +19,7 @@
 	left: 0;
 	display: none;
 }
-.right-content>h3{
+.right-content>h3,.right-content>h2{
 	padding-top:0px;
 	margin-top:0px;
 }

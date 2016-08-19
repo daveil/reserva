@@ -39,6 +39,7 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 		$scope.Title = content.title;
 		$scope.Link = content.slug;
 		$scope.ContentText = content.content;
+		$scope.Type = content.type;
 	}
 	$scope.confirm  = function(action){
 		var data ={};
