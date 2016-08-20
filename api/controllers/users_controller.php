@@ -21,11 +21,21 @@ class UsersController extends AppController {
 			if($this->ajaxInput){
 				header('Content-Type: application/json');
 				$input =$this->ajaxInput;
-				$this->User->save($input);
+				$input['password'] =  md5($input['password']);
 				$user = array();
-				$user['status']='OK';
-				$user['data']=$this->User->findById($this->User->id);
-				$user['message']='User saved.';
+				if($this->User->findByUserName($input['username'])){
+					$user['status']='ERROR';
+					$user['message']='Username already taken.';
+				}else{
+					$this->User->save($input);
+					$user['status']='OK';
+					$user['data']=$this->User->findById($this->User->id);
+					$user['message']='User saved.';
+				}
+				
+				
+				
+				
 				echo json_encode($user);exit;
 			}
 		}else{
