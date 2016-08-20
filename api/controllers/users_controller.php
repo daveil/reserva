@@ -17,13 +17,25 @@ class UsersController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
-			$this->User->create();
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The user has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$this->User->save($input);
+				$user = array();
+				$user['status']='OK';
+				$user['data']=$this->User->findById($this->User->id);
+				$user['message']='User saved.';
+				echo json_encode($user);exit;
+			}
+		}else{
+			if (!empty($this->data)) {
+				if ($this->User->save($this->data)) {
+					$this->Session->setFlash(__('The user has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+				}
 			}
 		}
 	}
