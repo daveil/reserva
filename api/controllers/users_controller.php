@@ -23,7 +23,7 @@ class UsersController extends AppController {
 				$input =$this->ajaxInput;
 				$input['password'] =  md5($input['password']);
 				$user = array();
-				if($this->User->findByUserName($input['username'])){
+				if($this->User->findByUsername($input['username'])){
 					$user['status']='ERROR';
 					$user['message']='Username already taken.';
 				}else{
