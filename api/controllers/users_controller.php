@@ -22,17 +22,19 @@ class UsersController extends AppController {
 				header('Content-Type: application/json');
 				$input =$this->ajaxInput;
 				$input['password'] =  md5($input['password']);
-				$user = array();
+				$response = array();
 				if($this->User->findByUsername($input['username'])){
-					$user['status']='ERROR';
-					$user['message']='Username already taken.';
+					$response['status']='ERROR';
+					$response['message']='Username already taken.';
 				}else{
 					$this->User->save($input);
-					$user['status']='OK';
-					$user['data']=$this->User->findById($this->User->id);
+					$user = $this->User->findById($this->User->id);
+					$response['status']='OK';
+					$response['data']=array('token'=>$_COOKIE['CAKEPHP']);
+					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
 				}
-				echo json_encode($user);exit;
+				echo json_encode($response);exit;
 			}
 		}else{
 			if (!empty($this->data)) {

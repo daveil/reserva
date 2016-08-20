@@ -47,7 +47,7 @@ APP.controller('RegisterController',['$scope','api',function($scope,api){
 			switch(response.data.status){
 				case 'OK':
 					//Refresh page
-					window.location.href = window.location.href;
+					window.location.href = window.location.href+'?token='+response.data.data.token;
 				break;
 				case 'ERROR':
 					//Display error
