@@ -7,8 +7,17 @@ APP.controller('LoginController',['$scope','api',function($scope,api){
 		var data = {};
 			data.username =  $scope.Username;
 			data.password =  $scope.Password;
-		api.POST('login',data,function(response){
-			
+		api.POST('login',data).then(function(response){
+			switch(response.data.status){
+				case 'OK':
+					//Refresh page
+					window.location.href = window.location.href;
+				break;
+				case 'ERROR':
+					//Display error
+					$scope.ErrorMessage = response.data.message;
+				break;
+			}
 		});
 	}
 }]);
