@@ -1,5 +1,5 @@
 <?php 
-	$url = $_REQUEST['url'];
+	//$url = $_REQUEST['url'];
 	$views = dirname(dirname(__FILE__));
 	$file = "$views/cache/home.json";
 ?>
