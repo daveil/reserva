@@ -9,8 +9,9 @@
 				<label for="">Password</label>
 				<input type="password" name="password" ng-model="Password" class="form-control">
 			  </div>
+			   <span ng-if="ErrorMessage">{{ErrorMessage}}</span>
 		  </form>  
-		  <span ng-if="ErrorMessage">{{ErrorMessage}}</span>
+		 
 		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="register()">CANCEL</button></div>
 		   <div class="col-md-6"><button class="btn btn-primary pull-right" ng-click="login()">LOGIN</button></div>
 	</div>
