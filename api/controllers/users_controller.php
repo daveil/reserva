@@ -32,10 +32,6 @@ class UsersController extends AppController {
 					$user['data']=$this->User->findById($this->User->id);
 					$user['message']='User saved.';
 				}
-				
-				
-				
-				
 				echo json_encode($user);exit;
 			}
 		}else{
