@@ -29,7 +29,7 @@
 			  </div>
 		  </form>  
 		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="cancel()">CANCEL</button></div>
-		  <div class="col-md-6"><button class="btn btn-primary pull-right" ng-click="register">REGISTER</button></div>
+		  <div class="col-md-6"><button class="btn btn-primary pull-right" ng-click="register()">REGISTER</button></div>
 	</div>
 </div>
 <?php echo Assest::js('login');?>
