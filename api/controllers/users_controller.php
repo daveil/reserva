@@ -76,4 +76,31 @@ class UsersController extends AppController {
 		$this->Session->setFlash(__('User was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	
+	function login(){
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$conditions = array(
+					'User.username'=>$input['username'],
+					'User.password'=>md5($input['password']),
+				);
+				$user  = $this->User->find('first',compact('conditions'));
+				$response =array();
+				if($user){
+					unset($user['User']['password']);
+					unset($user['User']['created']);
+					unset($user['User']['modified']);
+					$response['status']='OK';
+					$response['data']=$user['User'];
+					$response['message']='User logged in';
+				}else{
+					$response['status']='ERROR';
+					$response['message']='User / password incorrect';
+				}
+				echo json_encode($response);exit;
+			}
+		}
+	}
 }
