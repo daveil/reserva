@@ -12,6 +12,9 @@
 				'home'=>'Home',
 				'appointment'=>'Appointment',
 	);
+	if(!isset($_SESSION['user'])){
+		$menus['login']='Login/Register';
+	}
 	$pages = $contents['pages'];
 	if(count($pages))
 		foreach($pages as $link=>$title){
@@ -33,6 +36,9 @@
 				'settings'=>'Settings'
 				);
 	$menus = array_merge($menus,$admin);
+	if(isset($_SESSION['user'])){
+		$menus['logout']='Logout';
+	}
 ?>
 <ul class="nav nav-pills nav-stacked" ng-controller="SidebarController">
 	<?php foreach($menus as $_url=>$title):
