@@ -1,4 +1,12 @@
 <?php
+session_start();
+if($_GET['url']=='login' && isset($_GET['token'])){
+	$tmp = ini_get('session.save_path');
+	$token = $_GET['token'];
+	if(session_decode(file_get_contents($tmp.'/sess_'.$token))){
+		header('Location: home');
+	}
+}
 	if(!isset($_GET['url'])){
 		$url = 'home';
 	}else{
