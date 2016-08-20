@@ -29,7 +29,9 @@
   		<div class="row">
   			<div class="col-md-12">
   				<h1>Fule-Villanueva Medical Clinic</h1>
-  				<p>Online Reservation System</p>
+  				<p>Online Reservation System
+					<?php if(isset($_SESSION['user'])) echo '/ <b>'.$_SESSION['user']['username'].'</b>';?>
+				</p>
   			</div>
   		</div>
   		<div class="row">
