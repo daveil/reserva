@@ -26,13 +26,20 @@
 				);
 	if(count($services))
 		$menus = array_merge($menus,$services);
-	$admin  = array(
-				'calendar'=>'Calendar',
-				'patients'=>'Patients',
-				'content'=>'Content',
-				'settings'=>'Settings'
-				);
-	$menus = array_merge($menus,$admin);
+	if(isset($_SESSION['user'])){
+		if($_SESSION['user']['type']=='admin'){
+			$admin  = array(
+						'calendar'=>'Calendar',
+						'patients'=>'Patients',
+						'content'=>'Content',
+						'settings'=>'Settings'
+						);
+			$menus = array_merge($menus,$admin);
+		}
+		$menus['logout']='Logout';
+	}else{
+		$menus['login']='Login/Register';
+	}
 ?>
 <ul class="nav nav-pills nav-stacked" ng-controller="SidebarController">
 	<?php foreach($menus as $_url=>$title):

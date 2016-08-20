@@ -17,13 +17,31 @@ class UsersController extends AppController {
 	}
 
 	function add() {
-		if (!empty($this->data)) {
-			$this->User->create();
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The user has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$input['password'] =  md5($input['password']);
+				$user = array();
+				if($this->User->findByUsername($input['username'])){
+					$user['status']='ERROR';
+					$user['message']='Username already taken.';
+				}else{
+					$this->User->save($input);
+					$user['status']='OK';
+					$user['data']=$this->User->findById($this->User->id);
+					$user['message']='User saved.';
+				}
+				echo json_encode($user);exit;
+			}
+		}else{
+			if (!empty($this->data)) {
+				if ($this->User->save($this->data)) {
+					$this->Session->setFlash(__('The user has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+				}
 			}
 		}
 	}
@@ -57,5 +75,35 @@ class UsersController extends AppController {
 		}
 		$this->Session->setFlash(__('User was not deleted', true));
 		$this->redirect(array('action' => 'index'));
+	}
+	
+	function login(){
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$conditions = array(
+					'User.username'=>$input['username'],
+					'User.password'=>md5($input['password']),
+				);
+				$user  = $this->User->find('first',compact('conditions'));
+				$response =array();
+				if($user){
+					unset($user['User']['password']);
+					unset($user['User']['created']);
+					unset($user['User']['modified']);
+					$response['status']='OK';
+					$user['User']['token'] =$_COOKIE['CAKEPHP'];
+					$response['data']= $user['User'];
+					$response['message']='User logged in';
+					$this->Session->write('user',$user['User']);
+					
+				}else{
+					$response['status']='ERROR';
+					$response['message']='User / password incorrect';
+				}
+				echo json_encode($response);exit;
+			}
+		}
 	}
 }
