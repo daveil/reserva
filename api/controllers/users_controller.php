@@ -93,8 +93,11 @@ class UsersController extends AppController {
 					unset($user['User']['created']);
 					unset($user['User']['modified']);
 					$response['status']='OK';
-					$response['data']=$user['User'];
+					$user['User']['token'] =$_COOKIE['CAKEPHP'];
+					$response['data']= $user['User'];
 					$response['message']='User logged in';
+					$this->Session->write('user',$user['User']);
+					
 				}else{
 					$response['status']='ERROR';
 					$response['message']='User / password incorrect';
