@@ -57,20 +57,38 @@ class SettingsController extends AppController {
 	}
 
 	function edit($id = null) {
-		if (!$id && empty($this->data)) {
+		sleep(1);
+		if($this->RequestHandler->isAjax()){
+			$settings =  $this->ajaxInput;
+			foreach($settings as $id=>$value){
+				if($id=='CLINIC_DAYS'){
+					$days = array();
+					foreach($value as $day=>$flag){
+						if($flag)
+							array_push($days,$day);
+					}
+					$value = implode(',',$days);
+				}
+				$config = array('id'=>$id,'value'=>$value);
+				$this->Setting->save($config);
+			}
+			echo json_encode($settings);exit;
+		}else{
+			if (!$id && empty($this->data)) {
 			$this->Session->setFlash(__('Invalid setting', true));
 			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->Setting->save($this->data)) {
-				$this->Session->setFlash(__('The setting has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The setting could not be saved. Please, try again.', true));
 			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->Setting->read(null, $id);
+			if (!empty($this->data)) {
+				if ($this->Setting->save($this->data)) {
+					$this->Session->setFlash(__('The setting has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The setting could not be saved. Please, try again.', true));
+				}
+			}
+			if (empty($this->data)) {
+				$this->data = $this->Setting->read(null, $id);
+			}
 		}
 	}
 
