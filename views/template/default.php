@@ -25,11 +25,12 @@
 	<?php echo Assest::js('shared/main');?>
 	<?php echo Assest::js('shared/settings');?>
 	<?php echo Assest::js('shared/api');?>
+	<body background="backgroundpics/2.jpg">
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
   				<h1>Fule-Villanueva Medical Clinic</h1>
-  				<p>Online Reservation System</p>
+  				<p>Online Patient Appointment System</p>
   			</div>
   		</div>
   		<div class="row">
