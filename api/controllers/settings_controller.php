@@ -71,6 +71,7 @@ class SettingsController extends AppController {
 				}
 				$config = array('id'=>$id,'value'=>$value);
 				$this->Setting->save($config);
+				$this->Setting->buildCache();
 			}
 			echo json_encode($settings);exit;
 		}else{
