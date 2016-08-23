@@ -49,6 +49,7 @@
           minDate: '=',
           maxDate: '=',
           disabledDates: '=',
+          statusDates: '=',
           allowedDays: '=',
 		  onChangeMonth:'&',
         },
@@ -76,13 +77,15 @@
           var minDate       = scope.minDate && dateUtils.stringToDate(scope.minDate),
               maxDate       = scope.maxDate && dateUtils.stringToDate(scope.maxDate),
               disabledDates = scope.disabledDates || [""],
+              statusDates = scope.statusDates || {full:[],book:[]},
               currentDate   = new Date();
           scope.dayNames    = $locale.DATETIME_FORMATS['SHORTDAY'];
           
-			scope.$watchGroup(['allowedDays','disabledDates','date'],function(values){
+			scope.$watchGroup(['allowedDays','disabledDates','statusDates','date'],function(values){
 				
-				if(values[2]||values[1]){
+				if(values[3]||values[2]||values[1]){
 					if(values[1]) disabledDates = values[1];
+					if(values[2]) statusDates = values[2];
 					scope.render(new Date(scope.date));
 				}
 			});
@@ -138,7 +141,13 @@
               if (date === today) {
                 className += ' pickadate-today';
               }
-
+			  console.log(statusDates.book,date,'full',statusDates.full.indexOf(date),'book',statusDates.book.indexOf(date));
+			if(statusDates.full.indexOf(date)!==-1){
+				 className +=' full ';
+			}
+			if(statusDates.book.indexOf(date)!==-1){
+				 className +=' book ';
+			}
               dates.push({date: date, className: className, enabled: enabled});
             }
 
