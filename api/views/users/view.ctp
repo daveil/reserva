@@ -6,6 +6,11 @@
 			<?php echo $user['User']['id']; ?>
 			&nbsp;
 		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['type']; ?>
+			&nbsp;
+		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Username'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $user['User']['username']; ?>
@@ -14,6 +19,26 @@
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Password'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
 			<?php echo $user['User']['password']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['name']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Age'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['age']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Contact No'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['contact_no']; ?>
+			&nbsp;
+		</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Address'); ?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+			<?php echo $user['User']['address']; ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>

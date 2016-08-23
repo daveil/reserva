@@ -1,4 +1,26 @@
 <?php
+	$file = "views/cache/settings.json";
+	if(file_exists($file)){
+		$settings  =  json_decode(file_get_contents($file),true);
+		$company_title = $settings['TITLE'];
+		$company_subtitle = $settings['SUBTITLE'];
+	}else{
+		$company_title = 'Company';
+		$company_subtitle = 'Sample subtitle';
+	}
+	session_start();
+	if(isset($_GET['url'])){
+		if($_GET['url']=='login' && isset($_GET['token'])){
+			$tmp = ini_get('session.save_path');
+			$token = $_GET['token'];
+			if(session_decode(file_get_contents($tmp.'/sess_'.$token))){
+				header('Location: home');
+			}
+		}else if($_GET['url']=='logout'){
+			session_destroy();
+			header('Location: home');
+		}
+	}
 	if(!isset($_GET['url'])){
 		$url = 'home';
 	}else{

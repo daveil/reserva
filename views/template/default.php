@@ -25,12 +25,13 @@
 	<?php echo Assest::js('shared/main');?>
 	<?php echo Assest::js('shared/settings');?>
 	<?php echo Assest::js('shared/api');?>
-	<body background="backgroundpics/2.jpg">
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
   				<h1>Fule-Villanueva Medical Clinic</h1>
-  				<p>Online Patient Appointment System</p>
+  				<p>Online Reservation System
+					<?php if(isset($_SESSION['user'])) echo '/ <b>'.$_SESSION['user']['username'].'</b>';?>
+				</p>
   			</div>
   		</div>
   		<div class="row">

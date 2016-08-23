@@ -24,7 +24,7 @@
 					<label>Clinic Days</label>
 					<br />
 					<div class="btn-group btn-group-sm">
-						<button class="btn btn-default" ng-class="{'btn-default':!Settings.CLINIC_DAYS[day],'btn-primary':Settings.CLINIC_DAYS[day]}" ng-repeat="day in ['SUN','MON','TUE','WED','THU','FRI','SAT']">{{day}}</button>
+						<button class="btn btn-default" ng-class="{'btn-default':!Settings.CLINIC_DAYS[day],'btn-primary':Settings.CLINIC_DAYS[day]}" ng-repeat="day in Days" ng-click="toggleDay(day)">{{day}}</button>
 					</div>
 				</div>
 				<div class="form-group">
@@ -39,10 +39,10 @@
 		</div>
 		<div class="row">
 			<div class="col-md-6">
-				<button class="btn btn-default">CANCEL</button>
+				<button class="btn btn-default" ng-disabled="Loading"  ng-click="cancelSettings()">CANCEL</button>
 			</div>
 			<div class="col-md-6">
-				<button class="btn btn-primary pull-right">CONFIRM</button>
+				<button class="btn btn-primary pull-right" ng-disabled="Loading" ng-click="saveSettings()">CONFIRM</button>
 			</div>
 		</div>
 	</div>   

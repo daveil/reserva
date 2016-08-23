@@ -19,4 +19,11 @@ class Setting extends AppModel {
 		$max = (int)$setting['Setting']['value'];
 		return $max;
 	}
+	
+	function buildCache(){
+		$fields = array('Setting.id','Setting.value');
+		$settings = $this->find('list',compact('fields'));
+		$settings = json_encode($settings);
+		file_put_contents(ROOT.DS.'views'.DS.'cache'.DS.'settings.json',$settings);
+	}
 }
