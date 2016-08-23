@@ -78,11 +78,12 @@
               disabledDates = scope.disabledDates || [""],
               currentDate   = new Date();
           scope.dayNames    = $locale.DATETIME_FORMATS['SHORTDAY'];
-          scope.currentDate = currentDate;
-		  
+          
 			scope.$watchGroup(['allowedDays','disabledDates','date'],function(values){
-				if(values[2]){
-					scope.render(new Date(values[2]));
+				
+				if(values[2]||values[1]){
+					if(values[1]) disabledDates = values[1];
+					scope.render(new Date(scope.date));
 				}
 			});
           scope.render = function(initialDate) {
