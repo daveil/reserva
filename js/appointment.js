@@ -1,7 +1,6 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 	setClinicDays();
-	getDisabledDates($scope.SelectedDate);
 	resetAppointment();
 	$scope.ShowModal = false;
 	function resetAppointment(sched){
@@ -14,15 +13,15 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		}
 	}
 	function getDisabledDates(date){
-		api.GET('appointments/disabled/'+date,function(response){
-			console.log(response.data);
+		api.GET('disabled_dates/index/'+date).then(function(response){
+			$scope.disabledDates = response.data;
 		});
 	}
 	function setClinicDays(){
 		api.GET('settings?clinic_days').then(function(response){
 			$scope.SelectedDate = dateFilter(new Date(),'yyyy-MM-dd');
-			$scope.disabledDates = ['2016-07-15','2016-07-20'];
 			$scope.clinicDays =  response.data;
+			getDisabledDates($scope.SelectedDate);
 		});
 	}
 	$scope.cancelAppointment = function(){
@@ -32,7 +31,8 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		$scope.Appointment.schedule = value;
 	});
 	$scope.onChangeMonth=function(date){
-		 dateFilter(date,'yyyy-MM-dd')
+		 var formatted = dateFilter(date,'yyyy-MM-dd');
+		// getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
 		var data = {

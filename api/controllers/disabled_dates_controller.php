@@ -3,9 +3,14 @@ class DisabledDatesController extends AppController {
 
 	var $name = 'DisabledDates';
 
-	function index() {
-		$this->DisabledDate->recursive = 0;
-		$this->set('disabledDates', $this->paginate());
+	function index($date=null) {
+		if($this->RequestHandler->isAjax()||1){
+			$dates = $this->DisabledDate->getDates($date);
+			echo json_encode($dates);exit;
+		}else{
+			$this->DisabledDate->recursive = 0;
+			$this->set('disabledDates', $this->paginate());
+		}
 	}
 
 	function view($id = null) {
