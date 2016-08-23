@@ -32,7 +32,8 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 	});
 	$scope.onChangeMonth=function(date){
 		 var formatted = dateFilter(date,'yyyy-MM-dd');
-		// getDisabledDates(formatted);
+		 $scope.SelectedDate = formatted;
+		 getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
 		var data = {

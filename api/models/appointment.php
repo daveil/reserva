@@ -36,4 +36,15 @@ class Appointment extends AppModel {
 		return $count < $maxBooking;
 		
 	}
+	function getDates($schedule){
+		$month = date("m",strtotime($schedule));
+		$fields = array('DISTINCT Appointment.schedule');
+		$conditions = array('MONTH(Appointment.schedule)'=>$month );
+		$results = $this->find('all',compact('fields','conditions'));
+		$schedules = array();
+		foreach($results as $r){
+			array_push($schedules,$r['Appointment']['schedule']);
+		}
+		return $schedules;
+	}
 }
