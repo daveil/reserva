@@ -2,26 +2,34 @@
 class AppointmentsController extends AppController {
 
 	var $name = 'Appointments';
-
+	var $uses = array('Appointment','DisabledDate');
 	function index() {
 		$this->Appointment->recursive = 0;
-		$this->set('appointments', $this->paginate());
 		if($this->RequestHandler->isAjax()){
 			$data =array();
-			$schedule = date('Y-m-d',strtotime($_GET['schedule']));
-			$conditions = array('Appointment.schedule'=>$schedule);	
-			$paginate['conditions']=$conditions;
-			$this->paginate = $paginate;
-			foreach($this->paginate() as $p){
-				$appointment = array(
-					'id'=>$p['Patient']['id'],
-					'ref_no'=>$p['Appointment']['ref_no'],
-					'name'=>$p['Patient']['name'],
-					'concern'=>$p['Appointment']['concern'],
-				);
-				array_push($data,$appointment);
+			if(isset($_GET['schedule'])){
+				$schedule = date('Y-m-d',strtotime($_GET['schedule']));
+				$conditions = array('Appointment.schedule'=>$schedule);	
+				$paginate['conditions']=$conditions;
+				$this->paginate = $paginate;
+				foreach($this->paginate() as $p){
+					$appointment = array(
+						'id'=>$p['Patient']['id'],
+						'ref_no'=>$p['Appointment']['ref_no'],
+						'name'=>$p['Patient']['name'],
+						'concern'=>$p['Appointment']['concern'],
+					);
+					array_push($data,$appointment);
+				}
+			}else if(isset($_GET['bookings'])){
+				$bookings = $_GET['bookings'];
+				$full= $this->DisabledDate->getDates($bookings);
+				$book= $this->Appointment->getDates($bookings);
+				$data = compact('full','book');
 			}
 			echo json_encode($data);exit;
+		}else{
+			$this->set('appointments', $this->paginate());
 		}
 	}
 

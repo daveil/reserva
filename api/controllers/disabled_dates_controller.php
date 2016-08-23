@@ -4,7 +4,7 @@ class DisabledDatesController extends AppController {
 	var $name = 'DisabledDates';
 
 	function index($date=null) {
-		if($this->RequestHandler->isAjax()||1){
+		if($this->RequestHandler->isAjax()){
 			$dates = $this->DisabledDate->getDates($date);
 			echo json_encode($dates);exit;
 		}else{
@@ -14,11 +14,15 @@ class DisabledDatesController extends AppController {
 	}
 
 	function view($id = null) {
-		if (!$id) {
-			$this->Session->setFlash(__('Invalid disabled date', true));
-			$this->redirect(array('action' => 'index'));
+		if($this->RequestHandler->isAjax()){
+			
+		}else{
+			if (!$id) {
+				$this->Session->setFlash(__('Invalid disabled date', true));
+				$this->redirect(array('action' => 'index'));
+			}
+			$this->set('disabledDate', $this->DisabledDate->read(null, $id));
 		}
-		$this->set('disabledDate', $this->DisabledDate->read(null, $id));
 	}
 
 	function add() {
