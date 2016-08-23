@@ -21,7 +21,8 @@ class Setting extends AppModel {
 	}
 	
 	function buildCache(){
-		$settings = $this->find('all');
+		$fields = array('Setting.id','Setting.value');
+		$settings = $this->find('list',compact('fields'));
 		$settings = json_encode($settings);
 		file_put_contents(ROOT.DS.'views'.DS.'cache'.DS.'settings.json',$settings);
 	}

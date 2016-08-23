@@ -28,8 +28,8 @@
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
-  				<h1>Fule-Villanueva Medical Clinic</h1>
-  				<p>Online Reservation System
+  				<h1><?php echo $company_title?></h1>
+  				<p><?php echo $company_subtitle?>
 					<?php if(isset($_SESSION['user'])) echo '/ <b>'.$_SESSION['user']['username'].'</b>';?>
 				</p>
   			</div>

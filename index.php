@@ -1,4 +1,13 @@
 <?php
+	$file = "views/cache/settings.json";
+	if(file_exists($file)){
+		$settings  =  json_decode(file_get_contents($file),true);
+		$company_title = $settings['TITLE'];
+		$company_subtitle = $settings['SUBTITLE'];
+	}else{
+		$company_title = 'Company';
+		$company_subtitle = 'Sample subtitle';
+	}
 	session_start();
 	if(isset($_GET['url'])){
 		if($_GET['url']=='login' && isset($_GET['token'])){
