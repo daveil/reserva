@@ -1,5 +1,10 @@
 APP.controller('CalendarController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.SelectedDate = dateFilter(new Date(),'yyyy-MM-dd');
+	$scope.statusDates = {
+			full:[],
+			book:[]
+	};
+	loadDates($scope.SelectedDate);
 	$scope.$watch('SelectedDate',function(value){
 		loadAppointment(value);
 	});
@@ -53,6 +58,17 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				});
 			break;
 		}
+	}
+	$scope.onChangeMonth=function(date){
+		 var formatted = dateFilter(date,'yyyy-MM-dd');
+		 $scope.SelectedDate=formatted;
+		 loadDates(formatted);
+	}
+	function loadDates(schedule){
+		var data =  {bookings:schedule};
+		api.GET('appointments',data).then(function(response){
+			$scope.statusDates = response.data;
+		});
 	}
 	function loadAppointment(schedule){
 		var data =  {schedule:schedule};

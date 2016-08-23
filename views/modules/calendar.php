@@ -1,9 +1,16 @@
+<style type="text/css"> 
+	.full>b{color:#ca1510;font-weight: bold !important;}
+	.full.active>b,.full:hover>b{color:#fff !important; background-color:#ca1510 !important;}
+	.book>b{color:#40a006;font-weight: bold !important;}
+	.book.active>b,.book:hover>b{color:#fff !important; background-color:#40a006 !important;}
+	
+</style>
 <h3>Calendar</h3>
 	<div  ng-controller="CalendarController">
 		<div>
 			<div class="row">
 					<div class="col-md-6">
-						<div pickadate="" ng-model="SelectedDate" min-date="minDate" id="SelectedDate"></div>
+						<div pickadate="" ng-model="SelectedDate" min-date="minDate" on-change-month="onChangeMonth" status-dates="statusDates" id="SelectedDate"></div>
 					</div>
 					<div class="col-md-6">
 						<div class="panel panel-default">
