@@ -165,4 +165,14 @@ class AppointmentsController extends AppController {
 			$this->redirect(array('action' => 'index'));
 		}
 	}
+	function report(){
+		if(isset($_GET['ids'])){
+			$ids =  explode(',',$_GET['ids']);
+			$conditions = array('Appointment.ref_no'=>$ids);
+			$appointments = $this->Appointment->find('all',compact('conditions'));
+			$this->layout=null;
+			$this->set(compact('appointments'));
+		}
+		
+	}
 }
