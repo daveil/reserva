@@ -82,7 +82,7 @@
           scope.dayNames    = $locale.DATETIME_FORMATS['SHORTDAY'];
           
 			scope.$watchGroup(['allowedDays','disabledDates','statusDates','date'],function(values){
-				
+				console.log(values[2]);
 				if(values[3]||values[2]||values[1]){
 					if(values[1]) disabledDates = values[1];
 					if(values[2]) statusDates = values[2];
@@ -141,7 +141,7 @@
               if (date === today) {
                 className += ' pickadate-today';
               }
-			  console.log(statusDates.book,date,'full',statusDates.full.indexOf(date),'book',statusDates.book.indexOf(date));
+//			  console.log(statusDates.book,date,'full',statusDates.full.indexOf(date),'book',statusDates.book.indexOf(date));
 			if(statusDates.full.indexOf(date)!==-1){
 				 className +=' full ';
 			}

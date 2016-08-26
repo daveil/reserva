@@ -12,6 +12,7 @@ class AppointmentsController extends AppController {
 				$conditions = array('Appointment.schedule'=>$schedule);	
 				$paginate['conditions']=$conditions;
 				$this->paginate = $paginate;
+				$appointments =  array();
 				foreach($this->paginate() as $p){
 					$appointment = array(
 						'id'=>$p['Patient']['id'],
@@ -19,8 +20,10 @@ class AppointmentsController extends AppController {
 						'name'=>$p['Patient']['name'],
 						'concern'=>$p['Appointment']['concern'],
 					);
-					array_push($data,$appointment);
+					array_push($appointments,$appointment);
 				}
+				$data['status'] =  $this->DisabledDate->getStatus($schedule);
+				$data['appointments']=$appointments;
 			}else if(isset($_GET['bookings'])){
 				$bookings = $_GET['bookings'];
 				$full= $this->DisabledDate->getDates($bookings);

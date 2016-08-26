@@ -4,6 +4,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 			full:[],
 			book:[]
 	};
+	$scope.IsEnabled = true;
 	loadDates($scope.SelectedDate);
 	$scope.$watch('SelectedDate',function(value){
 		loadAppointment(value);
@@ -64,6 +65,15 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		 $scope.SelectedDate=formatted;
 		 loadDates(formatted);
 	}
+	$scope.toggleStatus = function(schedule){
+		$scope.IsEnabled = !$scope.IsEnabled;
+		var data = {date:schedule,status:$scope.IsEnabled?'enabled':'disabled'};
+		$scope.Loading = true;
+		api.POST('disabled_dates/edit',data).then(function(response){
+			$scope.Loading = false;
+			loadDates(schedule);
+		});
+	}
 	function loadDates(schedule){
 		var data =  {bookings:schedule};
 		api.GET('appointments',data).then(function(response){
@@ -77,7 +87,8 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		api.GET('appointments',data).then(function(response){
 			$scope.Loading = false;
 			var data =  response.data;
-			$scope.Patients =  data;
+			$scope.IsEnabled = data.status;
+			$scope.Patients =  data.appointments;
 		});
 	}
 	function runAction(action,data){
