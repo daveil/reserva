@@ -15,7 +15,9 @@
 					<div class="col-md-6">
 						<div class="panel panel-default">
 						  <div class="panel-heading text-center" style="background: #3bafda;color: white;">
-							  <button class="btn btn-default pull-left">OFF</button>
+							  <button class="btn {{IsEnabled?'btn-success':'btn-danger'}} pull-left" ng-disabled="Loading" ng-click="toggleStatus(SelectedDate)">
+									{{IsEnabled?'ON':'OFF'}}
+							  </button>
 							  <b class="pull-right">{{SelectedDate | date:short}}</b>  
 							  <div class="clearfix"></div>
 						  </div>
