@@ -38,20 +38,30 @@ class DisabledDatesController extends AppController {
 	}
 
 	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid disabled date', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->DisabledDate->save($this->data)) {
-				$this->Session->setFlash(__('The disabled date has been saved', true));
+		if($this->RequestHandler->isAjax()){
+			header('Content-Type: application/json');
+			$this->DisabledDate->deleteAll(
+				array('DisabledDate.date'=>$this->ajaxInput['date'])
+				);
+			$this->DisabledDate->save($this->ajaxInput);
+			$response = $this->ajaxInput;
+			echo json_encode($response);exit;
+		}else{
+			if (!$id && empty($this->data)) {
+				$this->Session->setFlash(__('Invalid disabled date', true));
 				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The disabled date could not be saved. Please, try again.', true));
 			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->DisabledDate->read(null, $id);
+			if (!empty($this->data)) {
+				if ($this->DisabledDate->save($this->data)) {
+					$this->Session->setFlash(__('The disabled date has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The disabled date could not be saved. Please, try again.', true));
+				}
+			}
+			if (empty($this->data)) {
+				$this->data = $this->DisabledDate->read(null, $id);
+			}
 		}
 	}
 
