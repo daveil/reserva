@@ -5,9 +5,9 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 			book:[]
 	};
 	$scope.IsEnabled = true;
-	loadDates($scope.SelectedDate);
+	loadBookings($scope.SelectedDate);
 	$scope.$watch('SelectedDate',function(value){
-		loadAppointment(value);
+		loadSchedules(value);
 	});
 	$scope.toggleCheckbox = function(){
 		$scope.CheckAll=!$scope.CheckAll;
@@ -48,7 +48,8 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				runAction('edit',data).then(function(response){
 					if(response.data.data.success){
 						$scope.openModal = null;
-						loadAppointment($scope.SelectedDate);
+						loadSchedules($scope.SelectedDate);
+						loadBookings($scope.SelectedDate);
 					}
 				});
 			break;
@@ -56,7 +57,8 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				runAction('delete',data).then(function(response){
 					if(response.data.data.success){
 						$scope.openModal = null;
-						loadAppointment($scope.SelectedDate);
+						loadSchedules($scope.SelectedDate);
+						loadBookings($scope.SelectedDate);
 					}
 				});
 			break;
@@ -65,7 +67,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 	$scope.onChangeMonth=function(date){
 		 var formatted = dateFilter(date,'yyyy-MM-dd');
 		 $scope.SelectedDate=formatted;
-		 loadDates(formatted);
+		 loadBookings(formatted);
 	}
 	$scope.toggleStatus = function(schedule){
 		$scope.IsEnabled = !$scope.IsEnabled;
@@ -73,16 +75,16 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		$scope.Loading = true;
 		api.POST('disabled_dates/edit',data).then(function(response){
 			$scope.Loading = false;
-			loadDates(schedule);
+			loadBookings(schedule);
 		});
 	}
-	function loadDates(schedule){
+	function loadBookings(schedule){
 		var data =  {bookings:schedule};
 		api.GET('appointments',data).then(function(response){
 			$scope.statusDates = response.data;
 		});
 	}
-	function loadAppointment(schedule){
+	function loadSchedules(schedule){
 		var data =  {schedule:schedule};
 		$scope.Patients = [];
 		$scope.Loading = true;
