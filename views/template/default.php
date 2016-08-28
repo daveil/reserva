@@ -19,7 +19,18 @@
 	<?php echo Assest::js('bower_components/summernote/dist/summernote.min');?>
 	<?php echo Assest::js('bower_components/angular/angular.min');?>
 	<?php echo Assest::js('bower_components/angular-summernote/dist/angular-summernote');?>
-  </head>
+	<style type="text/css">
+	body{
+		background:#ccc;
+		
+	}
+	.container{
+		background:white;
+		height:100vh;
+	}
+	</style>
+	</head>
+  
   <body  ng-app="APP">
 	<?php echo Assest::js('shared/datepicker');?>
 	<?php echo Assest::js('shared/main');?>
@@ -28,17 +39,18 @@
   	<div class="container">
   		<div class="row">
   			<div class="col-md-12">
-  				<h1><?php echo $company_title;?></h1>
+  				<h1 class="visible-md-block visible-lg-block"><?php echo $company_title;?></h1>
+ 				<h3 class="text-center visible-sm-block visible-xs-block"><?php echo $company_title;?></h3>
   				<p><?php echo $company_subtitle;?>
 					<?php if(isset($_SESSION['user'])) echo '/ <b>'.$_SESSION['user']['username'].'</b>';?>
 				</p>
   			</div>
   		</div>
   		<div class="row">
-  			<div class="col-md-3">
+  			<div class="col-md-3 col-xs-6">
 				<?php echo $sidebar; ?>
   			</div>
-  			<div class="col-md-9 right-content">
+  			<div class="col-md-9 col-xs-6 right-content">
 				<?php echo $content; ?>
 			</div>
   		</div>
