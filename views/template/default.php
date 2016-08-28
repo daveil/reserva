@@ -26,7 +26,7 @@
 	}
 	.container{
 		background:white;
-		min-height:100vh
+		min-height:100vh;
 		height:100vh;
 	}
 	</style>
