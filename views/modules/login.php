@@ -12,7 +12,7 @@
 			   <span ng-if="ErrorMessage">{{ErrorMessage}}</span>
 		  </form>  
 		 
-		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="register()">CANCEL</button></div>
+		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="cancel()">CANCEL</button></div>
 		   <div class="col-md-6"><button class="btn btn-primary pull-right" ng-click="login()">LOGIN</button></div>
 	</div>
 	<div class="col-md-6" ng-controller="RegisterController">
