@@ -198,4 +198,9 @@ class AppointmentsController extends AppController {
 		}
 		
 	}
+	function ref_no(){
+		$appointment = $this->Appointment->findByRefNo($_GET['id']);
+		$this->layout=null;
+		$this->set(compact('appointment'));
+	}
 }
