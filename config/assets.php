@@ -1,5 +1,6 @@
 <?php
 	define('DS', DIRECTORY_SEPARATOR);
+	define('ROOT_PATH', dirname(dirname(__FILE__)));
 	define('BASE_URL',DS.basename(dirname(dirname(__FILE__))));
 	if(BASE_URL=='/public_html')
 		define('WEB_URL','');
