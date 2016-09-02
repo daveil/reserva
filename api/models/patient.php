@@ -18,5 +18,6 @@ class Patient extends AppModel {
 			'counterQuery' => ''
 		)
 	);
+	var $hasOne = 'User';
 
 }

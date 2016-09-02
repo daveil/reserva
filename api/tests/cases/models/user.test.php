@@ -1,9 +1,9 @@
 <?php
-/* User Test cases generated on: 2016-07-10 09:59:45 : 1468115985*/
+/* User Test cases generated on: 2016-09-03 05:13:27 : 1472850807*/
 App::import('Model', 'User');
 
 class UserTestCase extends CakeTestCase {
-	var $fixtures = array('app.user', 'app.user_module', 'app.module');
+	var $fixtures = array('app.user', 'app.patient', 'app.appointment', 'app.user_module', 'app.module');
 
 	function startTest() {
 		$this->User =& ClassRegistry::init('User');
