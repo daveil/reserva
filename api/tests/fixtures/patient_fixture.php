@@ -1,5 +1,5 @@
 <?php
-/* Patient Fixture generated on: 2016-07-10 09:59:45 : 1468115985 */
+/* Patient Fixture generated on: 2016-09-03 05:13:51 : 1472850831 */
 class PatientFixture extends CakeTestFixture {
 	var $name = 'Patient';
 
@@ -12,7 +12,7 @@ class PatientFixture extends CakeTestFixture {
 		'created' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'modified' => array('type' => 'datetime', 'null' => true, 'default' => NULL),
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1)),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'MyISAM')
 	);
 
 	var $records = array(
@@ -22,8 +22,8 @@ class PatientFixture extends CakeTestFixture {
 			'contact_no' => 'Lorem ipsum dolor sit amet',
 			'age' => 'Lorem ipsum dolor sit amet',
 			'adddress' => 'Lorem ipsum dolor sit amet',
-			'created' => '2016-07-10 09:59:45',
-			'modified' => '2016-07-10 09:59:45'
+			'created' => '2016-09-03 05:13:51',
+			'modified' => '2016-09-03 05:13:51'
 		),
 	);
 }
