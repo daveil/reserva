@@ -2,7 +2,7 @@
 class UsersController extends AppController {
 
 	var $name = 'Users';
-
+	var $uses = array('User','Patient');
 	function index() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->paginate());
@@ -27,6 +27,13 @@ class UsersController extends AppController {
 					$response['status']='ERROR';
 					$response['message']='Username already taken.';
 				}else{
+					$patient =  array(
+								'name'=>$input['name'],
+								'contact_no'=>$input['contact_no']
+								);
+					$this->Patient->save($patient);
+					$input['patient_id']=$this->Patient->id;
+					$input['type']='patient';
 					$this->User->save($input);
 					$user = $this->User->findById($this->User->id);
 					$response['status']='OK';
