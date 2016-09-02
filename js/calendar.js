@@ -21,6 +21,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 	}
 	$scope.move =  function(){
 		$scope.openModal = 'Move';
+		$scope.ModalMessage = null;
 		$scope.NewSelectedDate  =  dateFilter($scope.SelectedDate,'yyyy-MM-dd');
 	}
 	$scope.delete =  function(){
@@ -44,13 +45,19 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				$scope.openModal = null;
 			break;
 			case 'Move':
+				$scope.ModalMessage = null;
 				data.schedule =  $scope.$$childTail.NewSelectedDate;
 				runAction('edit',data).then(function(response){
-					if(response.data.data.success){
+					if(response.data.status=='OK'){
 						$scope.openModal = null;
-						loadAppointment($scope.SelectedDate);
+						$scope.SelectedDate = data.schedule;
+					}else{
+						$scope.ModalMessage =  response.data.message;
 					}
+					loadDates($scope.SelectedDate);
+					loadAppointment($scope.SelectedDate);
 				});
+				
 			break;
 			case 'Delete':
 				runAction('delete',data).then(function(response){
