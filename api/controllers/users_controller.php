@@ -56,20 +56,67 @@ class UsersController extends AppController {
 	}
 
 	function edit($id = null) {
-		if (!$id && empty($this->data)) {
-			$this->Session->setFlash(__('Invalid user', true));
-			$this->redirect(array('action' => 'index'));
-		}
-		if (!empty($this->data)) {
-			if ($this->User->save($this->data)) {
-				$this->Session->setFlash(__('The user has been saved', true));
-				$this->redirect(array('action' => 'index'));
-			} else {
-				$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+		if($this->RequestHandler->isAjax()){
+			if($this->ajaxInput){
+				header('Content-Type: application/json');
+				$input =$this->ajaxInput;
+				$response = array();
+				$_USER = $_SESSION['user'];
+				switch($id){
+					case 'profile':
+						$patient = $input;
+						if(!isset($input['id']) || $input['id'] && $_USER['type']!='admin')
+							$patient['id']=$_USER['patient_id'];
+							
+						if($this->Patient->save($patient)){
+							$response['status']='OK';
+							$response['message']='Profile updated';
+						}else{
+							$response['status']='ERROR';
+							$response['message']='Could not save profile';
+						}
+					break;
+					case 'password':
+						$conditions = array(
+							'User.id'=>$_USER['id'],
+							'User.password'=>md5($input['current']),
+						);
+						$user  = $this->User->find('first',compact('conditions'));
+						if($user){
+							$password =  array(
+								'id'=>$_USER['id'],
+								'password'=>md5($input['change']),
+							);
+							$this->User->save($password);
+							$response['status']='OK';
+							$response['message']='Password updated. You will be logged out.';
+						}else{
+							$response['status']='ERROR';
+							$response['message']='Invalid password';
+						}
+					break;
+				}
+				echo json_encode($response);
+				exit;
 			}
-		}
-		if (empty($this->data)) {
-			$this->data = $this->User->read(null, $id);
+		}else{
+		
+			if (!$id && empty($this->data)) {
+				$this->Session->setFlash(__('Invalid user', true));
+				$this->redirect(array('action' => 'index'));
+			}
+			if (!empty($this->data)) {
+				if ($this->User->save($this->data)) {
+					$this->Session->setFlash(__('The user has been saved', true));
+					$this->redirect(array('action' => 'index'));
+				} else {
+					$this->Session->setFlash(__('The user could not be saved. Please, try again.', true));
+				}
+			}
+			if (empty($this->data)) {
+				$this->data = $this->User->read(null, $id);
+			}
+				
 		}
 	}
 
@@ -101,6 +148,9 @@ class UsersController extends AppController {
 					unset($user['User']['password']);
 					unset($user['User']['created']);
 					unset($user['User']['modified']);
+					unset($user['Patient']['created']);
+					unset($user['Patient']['modified']);
+					$user['User']['patient'] = $user['Patient'];
 					$response['status']='OK';
 					$user['User']['token'] =$_COOKIE['CAKEPHP'];
 					$response['data']= $user['User'];
