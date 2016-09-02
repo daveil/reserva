@@ -10,10 +10,9 @@ class AppointmentsController extends AppController {
 			if(isset($_GET['schedule'])){
 				$schedule = date('Y-m-d',strtotime($_GET['schedule']));
 				$conditions = array('Appointment.schedule'=>$schedule);	
-				$paginate['conditions']=$conditions;
-				$this->paginate = $paginate;
+				$records = $this->Appointment->find('all',compact('conditions'));
 				$appointments =  array();
-				foreach($this->paginate() as $p){
+				foreach($records as $p){
 					$appointment = array(
 						'id'=>$p['Patient']['id'],
 						'ref_no'=>$p['Appointment']['ref_no'],
@@ -54,6 +53,11 @@ class AppointmentsController extends AppController {
 			$this->Appointment->create();
 			$appointment =  array();
 			if ($this->Appointment->saveAll($this->data)) {
+				$schedule = $this->data['Appointment']['schedule'];
+				$isDateFull = !$this->Appointment->checkAvailability($schedule);
+				if($isDateFull){
+					$this->DisabledDate->setDate($schedule,'full');
+				}
 				$this->Session->setFlash(__('The appointment has been saved', true));
 				if($this->RequestHandler->isAjax()){
 					$appointment['status']='OK';
@@ -92,22 +96,41 @@ class AppointmentsController extends AppController {
 					$appointments = $input['appointments'];
 					$schedule = $input['schedule'];
 					$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
+					$invalids = array();
 					foreach($appointments as $ref_no){
-						 $updated = $this->Appointment->updateAll(
-							array('Appointment.schedule'=>"'".$schedule."'"),
-							array('Appointment.ref_no'=>$ref_no)
-						);
+					     $currentAppointment = $this->Appointment->findByRefNo($ref_no);
+						 $isAvailable = $this->Appointment->checkAvailability($schedule);
+						 $results['isAvailable'] = $isAvailable;
+						 if($isAvailable){
+							$updated = $this->Appointment->updateAll(
+								array('Appointment.schedule'=>"'".$schedule."'"),
+								array('Appointment.ref_no'=>$ref_no)
+							); 
+							$prevSched =  $currentAppointment['Appointment']['schedule'];
+							$isPrevAvail = $this->Appointment->checkAvailability($prevSched);
+							if($isPrevAvail){
+								$this->DisabledDate->setDate($prevSched,'enabled');
+							}
+							$currSched = $schedule;
+							$isCurrAvail = $this->Appointment->checkAvailability($currSched);
+							$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
+						 }else{
+							 $updated = false;
+						 }
 						 if($updated){
 						 	$results['success']++;
 						 }else{
+							array_push($invalids,$ref_no);
 						 	$results['error']++;
 						 }
 					}
 					$response = array();
 					$response['data'] = $results;
 					if($results['error']>0){
-						 $response['message']='Some appointments were not saved';
+						 $response['status']='ERROR';
+						 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is full';
 					}else{
+						$response['status']='OK';
 						 $response['message']='Changes has been saved';
 					}
 					echo json_encode($response);exit;
@@ -174,5 +197,10 @@ class AppointmentsController extends AppController {
 			$this->set(compact('appointments'));
 		}
 		
+	}
+	function ref_no(){
+		$appointment = $this->Appointment->findByRefNo($_GET['id']);
+		$this->layout=null;
+		$this->set(compact('appointment'));
 	}
 }

@@ -45,11 +45,53 @@
 		<li><?php echo $this->Html->link(__('Delete Patient', true), array('action' => 'delete', $patient['Patient']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $patient['Patient']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Patients', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Patient', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Users', true), array('controller' => 'users', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New User', true), array('controller' => 'users', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List Appointments', true), array('controller' => 'appointments', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New Appointment', true), array('controller' => 'appointments', 'action' => 'add')); ?> </li>
 	</ul>
 </div>
-<div class="related">
+	<div class="related">
+		<h3><?php __('Related Users');?></h3>
+	<?php if (!empty($patient['User'])):?>
+		<dl>	<?php $i = 0; $class = ' class="altrow"';?>
+			<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['id'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Type');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['type'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Username');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['username'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Password');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['password'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Patient Id');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['patient_id'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['created'];?>
+&nbsp;</dd>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Modified');?></dt>
+		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
+	<?php echo $patient['User']['modified'];?>
+&nbsp;</dd>
+		</dl>
+	<?php endif; ?>
+		<div class="actions">
+			<ul>
+				<li><?php echo $this->Html->link(__('Edit User', true), array('controller' => 'users', 'action' => 'edit', $patient['User']['id'])); ?></li>
+			</ul>
+		</div>
+	</div>
+	<div class="related">
 	<h3><?php __('Related Appointments');?></h3>
 	<?php if (!empty($patient['Appointment'])):?>
 	<table cellpadding = "0" cellspacing = "0">

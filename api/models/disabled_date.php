@@ -1,6 +1,15 @@
 <?php
 class DisabledDate extends AppModel {
 	var $name = 'DisabledDate';
+	function setDate($date,$status){
+		$data = array(
+				'DisabledDate'=>array(
+					'date'=>$date,
+					'status'=>$status
+				));
+		$this->deleteAll(array('DisabledDate.date'=>$date));
+		return $this->save($data);
+	}
 	function getDates($date){
 		$month = date("m",strtotime($date));
 		$fields = array('DisabledDate.date');
