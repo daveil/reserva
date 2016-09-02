@@ -7,10 +7,7 @@
 		echo $this->Form->input('type');
 		echo $this->Form->input('username');
 		echo $this->Form->input('password');
-		echo $this->Form->input('name');
-		echo $this->Form->input('age');
-		echo $this->Form->input('contact_no');
-		echo $this->Form->input('address');
+		echo $this->Form->input('patient_id');
 	?>
 	</fieldset>
 <?php echo $this->Form->end(__('Submit', true));?>
@@ -21,6 +18,8 @@
 
 		<li><?php echo $this->Html->link(__('Delete', true), array('action' => 'delete', $this->Form->value('User.id')), null, sprintf(__('Are you sure you want to delete # %s?', true), $this->Form->value('User.id'))); ?></li>
 		<li><?php echo $this->Html->link(__('List Users', true), array('action' => 'index'));?></li>
+		<li><?php echo $this->Html->link(__('List Patients', true), array('controller' => 'patients', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Patient', true), array('controller' => 'patients', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List User Modules', true), array('controller' => 'user_modules', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User Module', true), array('controller' => 'user_modules', 'action' => 'add')); ?> </li>
 	</ul>

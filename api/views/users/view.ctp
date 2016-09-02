@@ -21,24 +21,9 @@
 			<?php echo $user['User']['password']; ?>
 			&nbsp;
 		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Name'); ?></dt>
+		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Patient'); ?></dt>
 		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['name']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Age'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['age']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Contact No'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['contact_no']; ?>
-			&nbsp;
-		</dd>
-		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Address'); ?></dt>
-		<dd<?php if ($i++ % 2 == 0) echo $class;?>>
-			<?php echo $user['User']['address']; ?>
+			<?php echo $this->Html->link($user['Patient']['name'], array('controller' => 'patients', 'action' => 'view', $user['Patient']['id'])); ?>
 			&nbsp;
 		</dd>
 		<dt<?php if ($i % 2 == 0) echo $class;?>><?php __('Created'); ?></dt>
@@ -60,6 +45,8 @@
 		<li><?php echo $this->Html->link(__('Delete User', true), array('action' => 'delete', $user['User']['id']), null, sprintf(__('Are you sure you want to delete # %s?', true), $user['User']['id'])); ?> </li>
 		<li><?php echo $this->Html->link(__('List Users', true), array('action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User', true), array('action' => 'add')); ?> </li>
+		<li><?php echo $this->Html->link(__('List Patients', true), array('controller' => 'patients', 'action' => 'index')); ?> </li>
+		<li><?php echo $this->Html->link(__('New Patient', true), array('controller' => 'patients', 'action' => 'add')); ?> </li>
 		<li><?php echo $this->Html->link(__('List User Modules', true), array('controller' => 'user_modules', 'action' => 'index')); ?> </li>
 		<li><?php echo $this->Html->link(__('New User Module', true), array('controller' => 'user_modules', 'action' => 'add')); ?> </li>
 	</ul>
