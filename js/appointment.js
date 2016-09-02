@@ -1,9 +1,17 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
-	$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
-	setClinicDays();
-	resetAppointment();
-	$scope.ShowModal = false;
+	$scope.init = function(user){
+
+		$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
+		setClinicDays();
+		resetAppointment();
+		$scope.ShowModal = false;
+		$scope.User = user;
+		$scope.Patient =  user.patient;
+		$scope.PatientCopy =  user.patient;
+	}
+	
 	function resetAppointment(sched){
+		$scope.RefNo = null;
 		$scope.Patient = {};
 		$scope.Appointment = {};
 		$scope.SavingAppointment = false;
@@ -47,13 +55,19 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 				$scope.ModalMessage = response.data.message;
 				if($scope.AppointmentStatus =='OK'){
 					resetAppointment(response.data.data.Appointment.schedule);
+					$scope.Patient =  angular.copy($scope.PatientCopy);
+					$scope.RefNo = response.data.data.Appointment.ref_no;
 				}
 		});
 	}
 	$scope.closeModal = function(){
+		$scope.RefNo=null;
 		$scope.ShowModal=false;
 		$scope.ModalMessage =  null;
 		$scope.AppointmentStatus =null;
 		$scope.SavingAppointment = false;
+	}
+	$scope.printRefNo = function(){
+		window.open('api/appointments/ref_no?id='+$scope.RefNo,'_blank');
 	}
 }]);
