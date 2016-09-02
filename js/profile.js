@@ -3,6 +3,7 @@ APP.controller('ProfileController',['$scope','api',function($scope,api){
 		$scope.User = user;
 		$scope.Patient =  user.patient;
 		$scope.PatientCopy =  user.patient;
+		$scope.AllowSave  = true;
 	}
 	$scope.cancelProfile = function(){
 		$scope.Patient =  angular.copy($scope.PatientCopy);
