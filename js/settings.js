@@ -1,4 +1,5 @@
 APP.controller('SettingsController',['$scope','api',function($scope,api){
+	var UPLOADER;
 	$scope.Days = ['SUN','MON','TUE','WED','THU','FRI','SAT'];
 	loadSettings();
 	function loadSettings(search){
@@ -19,5 +20,8 @@ APP.controller('SettingsController',['$scope','api',function($scope,api){
 		$scope.Loading = true;
 		var data =  $scope.Settings;
 		api.POST('settings/edit',data).then(loadSettings);	
+	}
+	$scope.openUploader = function(type){
+		UPLOADER = window.open("uploader?type="+type,"_blank", "width=500,height=300");
 	}
 }]);

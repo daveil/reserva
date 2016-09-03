@@ -37,7 +37,8 @@
 	<?php echo Assest::js('shared/main');?>
 	<?php echo Assest::js('shared/settings');?>
 	<?php echo Assest::js('shared/api');?>
-  	<div class="container">
+  	<div class="container" ng-controller="MainController">
+		<?php if($url!='uploader'):?>
   		<div class="row">
   			<div class="col-md-12">
   				<h1 class="visible-md-block visible-lg-block"><?php echo $company_title;?></h1>
@@ -47,11 +48,15 @@
 				</p>
   			</div>
   		</div>
+		<?php endif; ?>
   		<div class="row">
-  			<div class="col-md-3 col-xs-4">
+			<?php if($url!='uploader'):?>
+  			<div class="col-md-3 col-xs-6">
 				<?php echo $sidebar; ?>
   			</div>
-  			<div class="col-md-9 col-xs-8 right-content">
+			<?php endif; ?>
+			<div class="text-center" ng-if="PreLoading">Loading...</div>
+			<div class="col-md-9 right-content hide" ng-class="{hide:PreLoading,show:!PreLoading}">
 				<?php echo $content; ?>
 			</div>
   		</div>

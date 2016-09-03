@@ -1,6 +1,6 @@
 <style type="text/css"> 
-	.full>b{color:#ca1510;font-weight: bold !important;}
-	.full.active>b,.full:hover>b{color:#fff !important; background-color:#ca1510 !important;}
+	.full>b,.full.book>b{color:#ca1510;font-weight: bold !important;}
+	.full.active>b,.full:hover>b,.full.book.active>b,.full.book:hover>b{color:#fff !important; background-color:#ca1510 !important;}
 	.book>b{color:#40a006;font-weight: bold !important;}
 	.book.active>b,.book:hover>b{color:#fff !important; background-color:#40a006 !important;}
 	
@@ -72,7 +72,8 @@
 								<div ng-if="openModal==='Move'" class="form-group">
 								  <label for="">Date</label>
 								  <input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
-								  <div pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
+								  <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
+								  <div class="alert alert-danger" ng-if="ModalMessage">{{ModalMessage}}</div>
 								</div>
 								<div ng-if="openModal==='Delete'">
 								  Are you sure you want to delete?

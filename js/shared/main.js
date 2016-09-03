@@ -23,6 +23,10 @@
 			document.body.appendChild(js);
 		}
 	})();
+	
+	APP.controller('MainController',['$rootScope',function($rootScope){
+		$rootScope.PreLoading = false;
+	}]);
 	APP.controller('SidebarController',['$scope',function($scope){
 			$scope.toggleServices = function(){
 				$scope.ShowServices = !$scope.ShowServices;

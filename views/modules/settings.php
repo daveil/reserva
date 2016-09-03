@@ -12,6 +12,7 @@
 				</div>
 				<div class="form-group">
 					<label>Logo</label>
+					<button class="btn btn-default" ng-click="openUploader('logo')">UPLOAD</button>
 					<input type="text" class="form-control" ng-model="Settings.LOGO" />
 				</div>
 				<div class="form-group">

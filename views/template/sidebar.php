@@ -36,6 +36,7 @@
 						);
 			$menus = array_merge($menus,$admin);
 		}
+		$menus['profile']='Profile';
 		$menus['logout']='Logout';
 	}else{
 		$menus['login']='Login/Register';

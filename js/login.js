@@ -24,6 +24,8 @@ APP.controller('LoginController',['$scope','api',function($scope,api){
 APP.controller('RegisterController',['$scope','api',function($scope,api){
 	$scope.cancel = function(){
 		$scope.AllowRegister = false;
+		$scope.ContactNo = null;
+		$scope.Username = null;
 		$scope.Username = null;
 		$scope.Password = null;
 		$scope.ConfirmPassword = null;
@@ -40,6 +42,8 @@ APP.controller('RegisterController',['$scope','api',function($scope,api){
 	}
 	$scope.register = function(){
 		var data = {};
+			data.name =  $scope.Name;
+			data.contact_no =  $scope.ContactNo;
 			data.username =  $scope.Username;
 			data.password =  $scope.ConfirmPassword;
 		$scope.AllowRegister = false;

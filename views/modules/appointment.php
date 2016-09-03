@@ -4,7 +4,12 @@
   }
 </style>
 <h3 style="margin-top:0;">Set an appointment</h3>
-<div ng-controller="AppointmentController">
+<?php
+	$user = null;
+	if(isset($_SESSION['user']))
+		$user = json_encode($_SESSION['user']);
+?>
+<div ng-controller='AppointmentController' ng-init='init(<?php echo $user;?>)'>
 	<form class="form-vertical" name="AppointmentForm">
 		<div class="row">
 			<div class="col-md-6 col-xs-9">
@@ -25,7 +30,7 @@
 				</div>
 				<div class="form-group col-md-6 col-xs-2">
 					<label for="">Age</label>
-					<input class="form-control"  name="age" type="number" ng-model="Patient.age" required/>
+					<input class="form-control"  name="age" type="text" ng-model="Patient.age" required/>
 				</div>
 				<div class="form-group col-md-12 col-xs-12">
 					<label for="">Address</label>
@@ -61,10 +66,15 @@
 					<div class="col-md-12">
 					{{ModalMessage}}
 					</div>
+					<div class="text-center" ng-if="RefNo">
+						<span>REF NO:</span>
+						<h3>{{RefNo}}</h3>
+					</div>
 				</div>
 			</div>
 			<div class="modal-footer">
-			  <button type="button" class="btn  pull-right" ng-class="{'btn-success':AppointmentStatus==='OK','btn-danger':AppointmentStatus!=='OK'}" ng-click="closeModal()">Close</button>
+			 <button type="button" class="btn  btn-default pull-left"  ng-if="RefNo" ng-click="printRefNo()">Print</button>
+			 <button type="button" class="btn  pull-right" ng-class="{'btn-success':AppointmentStatus==='OK','btn-danger':AppointmentStatus!=='OK'}" ng-click="closeModal()">Close</button>
 			  <div class="clearfix"></div>
 			</div>
 		  </div>
