@@ -57,7 +57,13 @@
 			<?php endif; ?>
 			<div class="text-center" ng-if="PreLoading">Loading...</div>
 			<div class="col-md-9 right-content hide" ng-class="{hide:PreLoading,show:!PreLoading}">
-				<?php echo $content; ?>
+			<?php if(!isset($_SESSION['user'])):?>
+            <a class="btn btn-primary pull-right" href="\reserva\login">Login/Register</a>
+			<?php else:?>
+            <a class="btn btn-danger pull-right" href="\reserva\logout">Logout</a>
+			<?php endif;?>
+			<div class="clearfix"></div>			
+			<?php echo $content; ?>
 			</div>
   		</div>
   	</div>

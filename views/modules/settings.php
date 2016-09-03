@@ -15,10 +15,6 @@
 					<button class="btn btn-default" ng-click="openUploader('logo')">UPLOAD</button>
 					<input type="text" class="form-control" ng-model="Settings.LOGO" />
 				</div>
-				<div class="form-group">
-					<label>Description</label>
-					<textarea class="form-control" row="3" ng-model="Settings.DESCRIPTION"></textarea>
-				</div>
 			</div>
 			<div class="col-md-6 col-xs-6">
 				<div class="form-group">

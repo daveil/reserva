@@ -37,9 +37,9 @@
 			$menus = array_merge($menus,$admin);
 		}
 		$menus['profile']='Profile';
-		$menus['logout']='Logout';
+		//$menus['logout']='Logout';
 	}else{
-		$menus['login']='Login/Register';
+		//$menus['login']='Login/Register';
 	}
 ?>
 <ul class="nav nav-pills nav-stacked" ng-controller="SidebarController">
