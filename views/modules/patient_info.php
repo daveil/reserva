@@ -5,7 +5,7 @@
 	<h2 style="margin-top:0;">Patient Information</h2>
 	<div ng-controller="PatientInfoController" ng-init="PatientId=<?php echo $id;?>">
 		<div class="row" >
-			<div class="col-md-4">
+			<div class="col-md-4 col-xs-4">
 			 <dl>
 			   <dt>Name</dt>
 			   <dd>{{Patient.name}}</dd>
@@ -15,7 +15,7 @@
 			   <dd>{{Patient.adddress}}</dd>
 			 </dl>
 			</div>
-			<div class="col-md-8">
+			<div class="col-md-8 col-xs-8">
 			  <dl>
 			   <dt>Contact No</dt>
 			   <dd>{{Patient.contact_no}}</dd>

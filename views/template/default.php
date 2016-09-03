@@ -48,10 +48,10 @@
   			</div>
   		</div>
   		<div class="row">
-  			<div class="col-md-3 col-xs-6">
+  			<div class="col-md-3 col-xs-4">
 				<?php echo $sidebar; ?>
   			</div>
-  			<div class="col-md-9 col-xs-6 right-content">
+  			<div class="col-md-9 col-xs-8 right-content">
 				<?php echo $content; ?>
 			</div>
   		</div>

@@ -2,11 +2,11 @@
 <div ng-controller="ContentController"> 
 	
 	<div class="row">
-		<div class="col-md-6"> 
+		<div class="col-md-6 col-xs-6"> 
 			<form  class="form-vertical">
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-12">
+						<div class="col-md-12 col-xs-12">
 							<label for="">Title</label>
 							<input type="text" class="form-control" ng-model="Title" />
 						</div>
@@ -18,11 +18,11 @@
 				</div>
 				<div class="form-group">
 					<div class="row">
-						<div class="col-md-6">
+						<div class="col-md-6 col-xs-6">
 							<label for="">Link</label>
 							<input type="text" class="form-control" ng-model="Link" />
 						</div>
-						<div class="col-md-6">
+						<div class="col-md-6 col-xs-6">
 							<label for="">Type</label>
 							<select class="form-control" ng-model="Type">
 								<option value="page">Page</option>
@@ -34,10 +34,10 @@
 				</div>
 				<div class="from-group"> 
 					<div class="row">
-					<div class="col-md-4"> 
+					<div class="col-md-4 col-xs-4"> 
 							<button class="btn btn-default" ng-click="cancel()">Cancel</button>
 						</div>
-						<div class="col-md-8"> 
+						<div class="col-md-8 col-xs-8"> 
 							<div class="pull-right">
 								<button class="btn btn-warning " ng-click="save('D')">Save as Draft</button>
 								<button class="btn btn-success" ng-click="save('P')">PUBLISH</button>
@@ -47,7 +47,7 @@
 				</div>
 			</form>
 		</div>
-		<div class="col-md-6">
+		<div class="col-md-6 col-xs-6">
 		<div class="panel panel-default">
 			<div class="panel-heading text-center">
 				<b>Content</b>
@@ -55,8 +55,8 @@
 			<table class="table"> 
 				  <thead>
 					<tr>
-					  <th class="col-md-1"><input type="checkbox" ng-click="toggleCheckbox()"/></th>
-					  <th class="col-md-11">Title</th>
+					  <th class="col-md-1 col-xs-1"><input type="checkbox" ng-click="toggleCheckbox()"/></th>
+					  <th class="col-md-11 col-xs-11">Title</th>
 					</tr>
 				  </thead>
 				  <tbody>
@@ -77,13 +77,13 @@
 				  </tbody>
 			</table>
 			<div class="row" style="padding:1rem;">
-				  <div class="col-md-4">
+				  <div class="col-md-4 col-xs-4">
 					  <button class="btn btn-success btn-block"  ng-disabled="!Contents.length"  ng-click="publish()">PUBLISH</button>
 				  </div>
-				  <div class="col-md-4">
+				  <div class="col-md-4 col-xs-4">
 					<button class="btn btn-warning btn-block" ng-disabled="!Contents.length"  ng-click="draft()">DRAFT</button>
 				  </div>
-				  <div class="col-md-4">
+				  <div class="col-md-4 col-xs-4">
 					<button class="btn btn-danger btn-block" ng-disabled="!Contents.length"   ng-click="delete()">DELETE</button>
 				  </div>
 			  </div>
@@ -99,7 +99,7 @@
 				</div>
 				<div class="modal-body">
 					<div class="row" >
-						<div class="col-md-12">
+						<div class="col-md-12 col-xs-12">
 							
 							<div ng-if="openModal==='Success' || openModal==='Warning'" >
 								{{modalMessage}}
