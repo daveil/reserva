@@ -1,6 +1,5 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.init = function(user){
-
 		$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 		setClinicDays();
 		resetAppointment();
@@ -44,6 +43,11 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		 getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
+		if(!$scope.User){
+			$scope.ShowLogin =true;
+			$scope.openLoginModal = true;
+			return;
+		}
 		var data = {
 				Patient:$scope.Patient,
 				Appointment:$scope.Appointment
