@@ -9,10 +9,10 @@
 	<div  ng-controller="CalendarController">
 		<div>
 			<div class="row">
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-7">
 						<div pickadate="" ng-model="SelectedDate" min-date="minDate" on-change-month="onChangeMonth" status-dates="statusDates" id="SelectedDate"></div>
 					</div>
-					<div class="col-md-6">
+					<div class="col-md-6 col-xs-5">
 						<div class="panel panel-default">
 						  <div class="panel-heading text-center" style="background: #3bafda;color: white;">
 							  <button class="btn {{IsEnabled?'btn-success':'btn-danger'}} pull-left" ng-disabled="Loading" ng-click="toggleStatus(SelectedDate)">

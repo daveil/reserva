@@ -1,6 +1,6 @@
 <div class="row">
-	 <div class="col-md-6" ng-controller="LoginController">
-		  <form name="Login" class="form-vertical col-md-12">
+	 <div class="col-md-6 col-xs-6" ng-controller="LoginController">
+		  <form name="Login" class="form-vertical col-md-12 col-xs-12">
 			<h4>Login Account</h4>
 			  <div class="form-group">
 				<label for="">Username</label>
@@ -15,7 +15,7 @@
 		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="cancel()">CANCEL</button></div>
 		   <div class="col-md-6"><button class="btn btn-primary pull-right" ng-click="login()">LOGIN</button></div>
 	</div>
-	<div class="col-md-6" ng-controller="RegisterController">
+	<div class="col-md-6 col-xs-6" ng-controller="RegisterController">
 		  <form name="Register" class="form-vertical col-md-12">
 			 <h4>Create Account</h4>
 			 <div class="form-group">
@@ -41,8 +41,8 @@
 			  </div>
 			  <div class="alert alert-danger" ng-if="ErrorMessage">{{ErrorMessage}}</div>
 		  </form>  
-		  <div class="col-md-6"><button class="btn btn-default pull-left" ng-click="cancel()">CANCEL</button></div>
-		  <div class="col-md-6"><button class="btn btn-primary pull-right" ng-disabled="!AllowRegister" ng-click="register()">REGISTER</button></div>
+		  <div class="col-md-6 col-xs-6"><button class="btn btn-default pull-left" ng-click="cancel()">CANCEL</button></div>
+		  <div class="col-md-6 col-xs-6"><button class="btn btn-primary pull-right" ng-disabled="!AllowRegister" ng-click="register()">REGISTER</button></div>
 	</div>
 </div>
 <?php echo Assest::js('login');?>

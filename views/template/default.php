@@ -38,6 +38,7 @@
 	<?php echo Assest::js('shared/settings');?>
 	<?php echo Assest::js('shared/api');?>
   	<div class="container" ng-controller="MainController">
+		<?php if($url!='uploader'):?>
   		<div class="row">
   			<div class="col-md-12">
   				<h1 class="visible-md-block visible-lg-block"><?php echo $company_title;?></h1>
@@ -47,13 +48,22 @@
 				</p>
   			</div>
   		</div>
+		<?php endif; ?>
   		<div class="row">
+			<?php if($url!='uploader'):?>
   			<div class="col-md-3 col-xs-6">
 				<?php echo $sidebar; ?>
   			</div>
+			<?php endif; ?>
 			<div class="text-center" ng-if="PreLoading">Loading...</div>
 			<div class="col-md-9 right-content hide" ng-class="{hide:PreLoading,show:!PreLoading}">
-				<?php echo $content; ?>
+			<?php if(!isset($_SESSION['user'])):?>
+            <a class="btn btn-primary pull-right" href="\reserva\login">Login/Register</a>
+			<?php else:?>
+            <a class="btn btn-danger pull-right" href="\reserva\logout">Logout</a>
+			<?php endif;?>
+			<div class="clearfix"></div>			
+			<?php echo $content; ?>
 			</div>
   		</div>
   	</div>

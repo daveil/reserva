@@ -1,7 +1,7 @@
 	<h2 style="margin-top:0;">Settings</h2>
 	<div ng-controller="SettingsController">
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-6">
 				<div class="form-group">
 					<label>Title</label>
 					<input type="text" class="form-control" ng-model="Settings.TITLE" />
@@ -12,14 +12,11 @@
 				</div>
 				<div class="form-group">
 					<label>Logo</label>
+					<button class="btn btn-default" ng-click="openUploader('logo')">UPLOAD</button>
 					<input type="text" class="form-control" ng-model="Settings.LOGO" />
 				</div>
-				<div class="form-group">
-					<label>Description</label>
-					<textarea class="form-control" row="3" ng-model="Settings.DESCRIPTION"></textarea>
-				</div>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-6">
 				<div class="form-group">
 					<label>Clinic Days</label>
 					<br />
@@ -38,10 +35,10 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-6">
 				<button class="btn btn-default" ng-disabled="Loading"  ng-click="cancelSettings()">CANCEL</button>
 			</div>
-			<div class="col-md-6">
+			<div class="col-md-6 col-xs-6">
 				<button class="btn btn-primary pull-right" ng-disabled="Loading" ng-click="saveSettings()">CONFIRM</button>
 			</div>
 		</div>
