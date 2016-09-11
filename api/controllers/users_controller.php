@@ -6,6 +6,17 @@ class UsersController extends AppController {
 	function index() {
 		$this->User->recursive = 0;
 		$this->set('users', $this->paginate());
+		if($this->RequestHandler->isAjax()){
+			if(isset($_GET['search'])){
+				$name ='%'.$_GET['search'].'%';
+				$conditions = array('User.username LIKE'=>$name);
+				$paginate['conditions']=$conditions;
+				$this->paginate = $paginate;
+			}
+			
+			$data = $this->paginate();
+			echo json_encode($data);exit;
+		}
 	}
 
 	function view($id = null) {
@@ -93,6 +104,34 @@ class UsersController extends AppController {
 						}else{
 							$response['status']='ERROR';
 							$response['message']='Invalid password';
+						}
+					break;
+					case 'resetpass':
+						$isAdmin = $_USER['type']=='admin';
+						if($isAdmin){
+							$this->User->updateAll(
+								array('User.password'=>"'".md5('password')."'"),
+								array('User.id'=>$input['users'])
+							);
+							$response['status']='OK';
+							$response['message']='Password has been reset.';
+						}else{
+							$response['status']='ERROR';
+							$response['message']='Access denied';
+						}
+					break;
+					case 'mkusr':
+						$isAdmin = $_USER['type']=='admin';
+						if($isAdmin){
+							$this->User->updateAll(
+								array('User.type'=>"'".$input['type']."'"),
+								array('User.id'=>$input['users'])
+							);
+							$response['status']='OK';
+							$response['message']='User type has been updated to '.$input['type'];
+						}else{
+							$response['status']='ERROR';
+							$response['message']='Access denied';
 						}
 					break;
 				}

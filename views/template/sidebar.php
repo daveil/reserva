@@ -31,6 +31,7 @@
 			$admin  = array(
 						'calendar'=>'Calendar',
 						'patients'=>'Patients',
+						'users'=>'User',
 						'content'=>'Content',
 						'settings'=>'Settings'
 						);
