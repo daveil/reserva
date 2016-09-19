@@ -1,5 +1,6 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.init = function(user){
+		var user = user ||{};
 		$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 		setClinicDays();
 		resetAppointment();
@@ -43,11 +44,74 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		 getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
-		if(!$scope.User){
+		if(!$scope.User.id){
 			$scope.ShowLogin =true;
 			$scope.openLoginModal = true;
 			return;
 		}
+		bookAppointment();
+	}
+	$scope.closeModal = function(){
+		$scope.RefNo=null;
+		$scope.ShowModal=false;
+		$scope.ModalMessage =  null;
+		$scope.AppointmentStatus =null;
+		$scope.SavingAppointment = false;
+		if($scope.Token)
+			window.location.href =  window.location.href.replace('appointment','login')+'?token='+$scope.Token;
+	}
+	$scope.printRefNo = function(){
+		window.open('api/appointments/ref_no?id='+$scope.RefNo,'_blank');
+	}
+	$scope.login = function(){
+		var data = {};
+			data.username =  $scope.Username;
+			data.password =  $scope.Password;
+			$scope.ErrorMessage=null;
+		api.POST('login',data).then(function(response){
+			switch(response.data.status){
+				case 'OK':
+					//Refresh page
+					var data= response.data.data;
+					$scope.User.id = data.id;
+					$scope.Patient.id = data.patient_id;
+					bookAppointment(data.token);
+				break;
+				case 'ERROR':
+					//Display error
+					$scope.ErrorMessage = response.data.message;
+				break;
+			}
+		});
+	}
+	$scope.register = function(){
+		var data = {};
+			data.name =  $scope.Patient.name;
+			data.contact_no =  $scope.Patient.contact_no;
+			data.username =  $scope.Username;
+			data.password =  $scope.Password;
+		$scope.AllowRegister = false;
+		api.POST('register',data).then(function(response){	
+			switch(response.data.status){
+				case 'OK':
+					//Refresh page
+					var data= response.data.data;
+					$scope.User.id = data.id;
+					$scope.Patient.id = data.patient_id;
+					bookAppointment(data.token);
+				break;
+				case 'ERROR':
+					//Display error
+					$scope.AllowRegister = true;
+					$scope.ErrorMessage = response.data.message;
+				break;
+			}
+		});
+	}
+	function bookAppointment(token){
+		$scope.ShowLogin =false;
+		$scope.openLoginModal = false;
+		$scope.Token=null;
 		var data = {
 				Patient:$scope.Patient,
 				Appointment:$scope.Appointment
@@ -61,17 +125,9 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 					resetAppointment(response.data.data.Appointment.schedule);
 					$scope.Patient =  angular.copy($scope.PatientCopy);
 					$scope.RefNo = response.data.data.Appointment.ref_no;
+					if(token)
+						$scope.Token = token;
 				}
 		});
-	}
-	$scope.closeModal = function(){
-		$scope.RefNo=null;
-		$scope.ShowModal=false;
-		$scope.ModalMessage =  null;
-		$scope.AppointmentStatus =null;
-		$scope.SavingAppointment = false;
-	}
-	$scope.printRefNo = function(){
-		window.open('api/appointments/ref_no?id='+$scope.RefNo,'_blank');
 	}
 }]);

@@ -70,7 +70,7 @@ class AppointmentsController extends AppController {
 			} else {
 				if($input){
 					$appointment['status']='ERROR';
-					$appointment['message']='Could not save appointment';
+					$appointment['message']='Could not save appointment. Date full.';
 					echo json_encode($appointment);exit;
 				}else{
 					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
