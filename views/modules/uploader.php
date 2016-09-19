@@ -38,6 +38,17 @@
 		} else {
 			if (move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $target_file)) {
 				echo "The file ". basename( $_FILES["fileToUpload"]["name"]). " has been uploaded.";
+				$data = json_encode(array(
+					'type'=>$_POST['type'],
+					'file'=>basename( $_FILES["fileToUpload"]["name"])
+				));
+				
+				?>
+				<script type="text/javascript"> 
+				opener.postMessage(<?php echo $data;?>,window.location.origin);
+				window.close();
+				</script>
+		<?php
 			} else {
 				echo "Sorry, there was an error uploading your file.";
 			}

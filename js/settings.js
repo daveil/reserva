@@ -24,4 +24,11 @@ APP.controller('SettingsController',['$scope','api',function($scope,api){
 	$scope.openUploader = function(type){
 		UPLOADER = window.open("uploader?type="+type,"_blank", "width=500,height=300");
 	}
+	window.addEventListener('message', function(event) {
+		console.log(event.data);return;
+		$scope.$apply(function(){
+			if(event.data.type=='logo')
+			$scope.Settings.LOGO  = event.data.file;
+		});
+	}, false);
 }]);
