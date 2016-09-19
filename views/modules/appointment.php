@@ -52,7 +52,7 @@
 		</div>
 	</form>
 
-	<div class="modal-blind" ng-class="{show:ShowModal}"></div>
+	<div class="modal-blind" ng-class="{show:ShowModal||ShowLogin}"></div>
 	<div class="modal" ng-class="{show:ShowModal}">
 		<div class="modal-dialog">
 		  <div class="modal-content">
@@ -78,6 +78,42 @@
 			  <div class="clearfix"></div>
 			</div>
 		  </div>
+		</div>
+	</div>
+	<div class="modal" ng-class="{show:openLoginModal}">
+		<div class="modal-dialog">
+		  <div class="modal-content">
+			<div class="modal-header">
+			  <h4 class="modal-title">
+				Login/Register
+			  </h4>
+			</div>
+			<div class="modal-body">
+				<div class="row">
+					<div class="col-md-12">
+						<form name="Login" class="form-vertical col-md-12 col-xs-12">
+							  <div class="form-group">
+								<label for="">Username</label>
+								<input type="text" name="username" ng-model="Username" class="form-control">
+							  </div>
+							  <div class="form-group">
+								<label for="">Password</label>
+								<input type="password" name="password" ng-model="Password" class="form-control">
+							  </div>
+							<div class="alert alert-danger"  ng-if="ErrorMessage">{{ErrorMessage}}</div>		  
+							<div class="pull-right">
+							<button class="btn btn-primary" ng-click="login()">LOGIN</button>
+							<button class="btn btn-default" ng-click="register()">REGISTER</button>
+							</div>
+							<div class="clearfix"></div>
+						</form>
+					</div>
+					
+				</div>
+			</div>
+			<div class="modal-footer">
+			</div>
+		 </div>
 		</div>
 	</div>
 </div>

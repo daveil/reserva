@@ -48,7 +48,11 @@ class UsersController extends AppController {
 					$this->User->save($input);
 					$user = $this->User->findById($this->User->id);
 					$response['status']='OK';
-					$response['data']=array('token'=>$_COOKIE['CAKEPHP']);
+					$response['data']=array(
+											'id'=>$this->User->id,
+											'patient_id'=>$this->Patient->id,
+											'token'=>$_COOKIE['CAKEPHP']
+										);
 					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
 				}
