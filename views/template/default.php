@@ -28,6 +28,7 @@
 		background:white;
 		min-height:100vh;
 		height:auto;
+		width: 900px;
 	}
 	</style>
 	</head>
