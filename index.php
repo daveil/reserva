@@ -1,9 +1,13 @@
 <?php
 	$file = "views/cache/settings.json";
+	$background = '#ccc';
 	if(file_exists($file)){
 		$settings  =  json_decode(file_get_contents($file),true);
 		$company_title = $settings['TITLE'];
 		$company_subtitle = $settings['SUBTITLE'];
+		if(isset($settings['BACKGROUND'])){
+			$background ='url(\'img/'.$settings['BACKGROUND'].'\')';
+		}
 	}else{
 		$company_title = 'Company';
 		$company_subtitle = 'Sample subtitle';

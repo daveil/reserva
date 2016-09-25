@@ -25,10 +25,9 @@ APP.controller('SettingsController',['$scope','api',function($scope,api){
 		UPLOADER = window.open("uploader?type="+type,"_blank", "width=500,height=300");
 	}
 	window.addEventListener('message', function(event) {
-		console.log(event.data);return;
 		$scope.$apply(function(){
-			if(event.data.type=='logo')
-			$scope.Settings.LOGO  = event.data.file;
+			if(event.data.type=='background')
+			$scope.Settings.BACKGROUND  = event.data.file;
 		});
 	}, false);
 }]);

@@ -21,14 +21,14 @@
 	<?php echo Assest::js('bower_components/angular-summernote/dist/angular-summernote');?>
 	<style type="text/css">
 	body{
-		background:#ccc;
+		background:<?php echo $background;?>;
 		
 	}
 	.container{
 		background:white;
 		min-height:100vh;
 		height:auto;
-		width: 900px;
+		width: 990px;
 	}
 	</style>
 	</head>

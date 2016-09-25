@@ -11,10 +11,10 @@
 					<input type="text" class="form-control" ng-model="Settings.SUBTITLE" />
 				</div>
 				<div class="form-group">
-					<label>Logo</label>
+					<label>Background</label>
 					<div class="input-group">
-						<input type="text" class="form-control" ng-model="Settings.LOGO" />
-						<span class="input-group-btn"><button class="btn btn-default" ng-click="openUploader('logo')">UPLOAD</button></span>
+						<input type="text" class="form-control" ng-model="Settings.BACKGROUND" />
+						<span class="input-group-btn"><button class="btn btn-default" ng-click="openUploader('background')">UPLOAD</button></span>
 					</div>
 				</div>
 			</div>
