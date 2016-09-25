@@ -12,6 +12,7 @@ APP.controller('ContentController',['$scope','api',function($scope,api){
 			['fontface', ['fontname']],
 			['edit',['undo','redo']],
             ['view', ['fullscreen', 'codeview']],
+			['insert', ['picture']],
 			['help', ['help']]
 			]
 	};
