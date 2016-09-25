@@ -47,11 +47,11 @@
 				</div>
 				<div class="form-group col-md-6 col-xs-10">
 				  <label for="">Contact No. </label>
-				  <input type="text" class="form-control" name="contact_no" ng-model="Patient.contact_no"  ng-minlength="11" required/>
+				  <input type="number" class="form-control" name="contact_no" ng-model="Patient.contact_no"  ng-minlength="11" required/>
 				</div>
 				<div class="form-group col-md-6 col-xs-2">
 					<label for="">Age</label>
-					<input class="form-control"  name="age" type="text" ng-model="Patient.age" required/>
+					<input class="form-control"  name="age" type="number" ng-model="Patient.age" required/>
 				</div>
 				<div class="form-group col-md-12 col-xs-12">
 					<label for="">Address</label>
