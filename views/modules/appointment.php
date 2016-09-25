@@ -39,7 +39,7 @@
 			<div class="col-md-6 col-xs-3">
 				<div class="form-group col-md-12">
 					<label for="">Date</label>
-					<input class="form-control" ng-model="Appointment.schedule"  type="text" disabled>
+					<input class="form-control" ng-model="Appointment.schedule"  type="text" readonly>
 				</div>
 				<div class="form-group col-md-12 col-xs-12">
 					<label for="">Name</label>			

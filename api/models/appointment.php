@@ -15,11 +15,16 @@ class Appointment extends AppModel {
 	function beforeSave(){
 		$schedule = $this->data['Appointment']['schedule'];
 		if($this->checkAvailability($schedule)){
-			App::Import('Model','Setting');
-			$this->Setting = new Setting;
-			$refNo =  $this->Setting->getRefNo();
+			$_USE_REFNO_CTR = false;
+			if($_USE_REFNO_CTR){
+				App::Import('Model','Setting');
+				$this->Setting = new Setting;
+				$refNo =  $this->Setting->getRefNo();
+				$this->Setting->setRefNo($refNo+1);
+			}else{
+				$refNo=$this->countAppointments($schedule)+1;
+			}
 			$this->data['Appointment']['ref_no'] =$refNo;
-			$this->Setting->setRefNo($refNo+1);
 			return true;
 		}else{
 			return false;
@@ -46,5 +51,10 @@ class Appointment extends AppModel {
 			array_push($schedules,$r['Appointment']['schedule']);
 		}
 		return $schedules;
+	}
+	function countAppointments($schedule){
+		$conditions = array('Appointment.schedule'=>$schedule );
+		$count = $this->find('count',compact('conditions'));
+		return $count;
 	}
 }
