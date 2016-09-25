@@ -30,6 +30,23 @@
 		height:auto;
 		width: 990px;
 	}
+	.calendar{
+		background:#fff;
+		color:#434a54;
+	}
+	.calendar .days{
+		border-top: 1px solid #434a54;
+	}
+	.calendar .years .next em, .calendar .years .prev em{
+		border-color:#434a54;
+		
+	}
+	.calendar .years .prev em:before{
+		border-color:transparent #434a54 transparent transparent ; 
+	}
+	.calendar .years .next em:before{
+		border-color:transparent transparent transparent #434a54; 
+	}
 	</style>
 	</head>
   
@@ -59,9 +76,9 @@
 			<div class="text-center" ng-if="PreLoading">Loading...</div>
 			<div class="col-md-9 right-content hide" ng-class="{hide:PreLoading,show:!PreLoading}">
 			<?php if(!isset($_SESSION['user'])):?>
-            <a class="btn btn-primary pull-right" href="\reserva\login">Login/Register</a>
+            <a class="btn btn-primary pull-right" href="<?php echo WEB_URL.DS.'login';?>">Login/Register</a>
 			<?php else:?>
-            <a class="btn btn-danger pull-right" href="\reserva\logout">Logout</a>
+            <a class="btn btn-danger pull-right" href="<?php echo WEB_URL.DS.'logout';?>">Logout</a>
 			<?php endif;?>
 			<div class="clearfix"></div>			
 			<?php echo $content; ?>

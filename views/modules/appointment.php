@@ -2,6 +2,26 @@
 .form-vertical .ng-invalid.ng-touched {
     background-color: #FA787E;
   }
+ 
+  .calendar .days .unit.pickadate-unavailable b{
+	  color:#f60f08 !important;
+	  font-size:1.1rem;
+	  font-weight:bold;
+  }
+  .calendar .days .unit.older b{
+	  color:#AAB2BD !important;
+  }
+  .unit.pickadate-enabled b:hover{
+	  color:#40a006 !important;
+  }
+  .unit.pickadate-enabled.active b{
+	  color:#fff !important; background-color:#40a006 !important;
+  }
+  #note{
+	  font-size:12px;
+	  margin-top:1rem;
+	  font-style:italic;
+  }
 </style>
 <h3 style="margin-top:0;">Set an appointment</h3>
 <?php
@@ -14,6 +34,7 @@
 		<div class="row">
 			<div class="col-md-6 col-xs-9">
 			 <div pickadate="" ng-model="SelectedDate" min-date="minDate" disabled-dates="disabledDates" allowed-days="clinicDays" on-change-month="onChangeMonth" id="SelectedDate"></div>
+			 <span id="note">*The dates in red the doctor is unavailable or their are no more slots.</span>
 			</div>
 			<div class="col-md-6 col-xs-3">
 				<div class="form-group col-md-12">

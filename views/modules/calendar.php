@@ -1,4 +1,7 @@
 <style type="text/css"> 
+ .calendar .days .unit.older b{
+	  color:#AAB2BD !important;
+  }
 	.full>b,.full.book>b{color:#ca1510;font-weight: bold !important;}
 	.full.active>b,.full:hover>b,.full.book.active>b,.full.book:hover>b{color:#fff !important; background-color:#ca1510 !important;}
 	.book>b{color:#40a006;font-weight: bold !important;}
