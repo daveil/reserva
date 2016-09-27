@@ -51,10 +51,6 @@
 	</head>
   
   <body  ng-app="APP">
-	<?php echo Assest::js('shared/datepicker');?>
-	<?php echo Assest::js('shared/main');?>
-	<?php echo Assest::js('shared/settings');?>
-	<?php echo Assest::js('shared/api');?>
   	<div class="container" ng-controller="MainController">
 		<?php if($url!='uploader'):?>
   		<div class="row">
@@ -80,7 +76,11 @@
 			<?php else:?>
             <a class="btn btn-danger pull-right" href="<?php echo WEB_URL.DS.'logout';?>">Logout</a>
 			<?php endif;?>
-			<div class="clearfix"></div>			
+			<div class="clearfix"></div>	
+			<?php echo Assest::js('shared/datepicker');?>
+			<?php echo Assest::js('shared/main');?>
+			<?php echo Assest::js('shared/settings');?>
+			<?php echo Assest::js('shared/api');?>			
 			<?php echo $content; ?>
 			</div>
   		</div>
