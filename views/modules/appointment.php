@@ -34,7 +34,7 @@
 		<div class="row">
 			<div class="col-md-6 col-xs-9">
 			 <div pickadate="" ng-model="SelectedDate" min-date="minDate" disabled-dates="disabledDates" allowed-days="clinicDays" on-change-month="onChangeMonth" id="SelectedDate"></div>
-			 <span id="note">*The dates in red the doctor is unavailable or their are no more slots.</span>
+			 <span id="note">*The dates in red the doctor is unavailable or there are no more slots.</span>
 			</div>
 			<div class="col-md-6 col-xs-3">
 				<div class="form-group col-md-12">
