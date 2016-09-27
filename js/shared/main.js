@@ -28,7 +28,9 @@
 		$rootScope.PreLoading = false;
 	}]);
 	APP.controller('SidebarController',['$scope',function($scope){
+			console.log('sidebar');
 			$scope.toggleServices = function(){
+				console.log('toggle');
 				$scope.ShowServices = !$scope.ShowServices;
 			}
 	}]);
