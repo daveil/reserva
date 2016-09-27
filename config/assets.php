@@ -5,7 +5,7 @@
 	if(BASE_URL=='/public_html')
 		define('WEB_URL','');
 	else
-		define('WEB_URL',BASE_URL);
+		define('WEB_URL','http://localhost'.BASE_URL);
 	class Assest{
 		public static function css($path,$attrib=null){
 			return self::createTag('css',$path,$attrib);

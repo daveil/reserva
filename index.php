@@ -1,4 +1,6 @@
 <?php
+	include('config/routes.php');
+	include('config/assets.php');
 	$file = "views/cache/settings.json";
 	$background = '#ccc';
 	if(file_exists($file)){
@@ -6,7 +8,8 @@
 		$company_title = $settings['TITLE'];
 		$company_subtitle = $settings['SUBTITLE'];
 		if(isset($settings['BACKGROUND'])){
-			$background ='url(\'img/'.$settings['BACKGROUND'].'\')';
+			$bg_url = str_replace(DS,'/',WEB_URL.DS.'img/'.$settings['BACKGROUND']);
+			$background ='url(\''.$bg_url.'\')';
 		}
 	}else{
 		$company_title = 'Company';
@@ -31,8 +34,6 @@
 		$url =  $_GET['url'];
 	}
 	if($url){
-		include('config/routes.php');
-		include('config/assets.php');
 		ob_start();
 		if(!isset($routes[$url])){
 			foreach ($routes as $pattern=>$route) {
