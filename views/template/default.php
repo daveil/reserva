@@ -28,8 +28,17 @@
 		background:white;
 		min-height:100vh;
 		height:auto;
-		width: 990px;
 	}
+	@media (max-width:768px){
+		  .container {
+			margin: 20px 10px 0px 10px;
+		  }
+		}
+	@media (min-width: 992px) {
+		  .container {
+			width: 970px;
+		  }
+		}
 	.calendar{
 		background:#fff;
 		color:#434a54;

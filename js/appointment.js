@@ -1,6 +1,8 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.init = function(user){
 		var user = user ||{};
+		user.patient.contact_no =  parseInt(user.patient.contact_no);
+		user.patient.age =  parseInt(user.patient.age);
 		$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 		setClinicDays();
 		resetAppointment();
