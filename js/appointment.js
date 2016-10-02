@@ -34,6 +34,11 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 			getDisabledDates($scope.SelectedDate);
 		});
 	}
+	$scope.validateLength = function(e){
+		var len =$scope.AppointmentForm.contact_no.$viewValue.length;
+		
+		if(len>=11) e.preventDefault();
+	}
 	$scope.cancelAppointment = function(){
 		resetAppointment();
 	}
