@@ -1,4 +1,11 @@
-<table>
+<?php echo $this->Html->css('../../js/bower_components/Bootflat/css/site.min');?>
+<style type="text/css">td{ vertical-align: middle !important;}</style>
+<div class="container">
+<?php
+	$date =  date('M d Y',strtotime($_GET['date']));
+?>
+<h3>Appointments: <?php echo $date;?></h3>
+<table class="table table-bordered">
 	<thead>
 		<tr>
 			<th>#</th>
@@ -16,7 +23,5 @@
 		<?php endforeach;?>
 	</tbody>
 </table>
-<style>
-	table tr>td{border:1px solid #000;}
-</style>
+</div>
 <script>window.print();</script>

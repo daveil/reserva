@@ -41,7 +41,8 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		switch(action){
 			case 'Print':
 				var  ids = data.appointments.join(',');
-				window.open('api/appointments/report?ids='+ids,'_blank');
+				var date =  $scope.SelectedDate;
+				window.open('api/appointments/report?ids='+ids+"&date="+date,'_blank');
 				$scope.openModal = null;
 			break;
 			case 'Move':
