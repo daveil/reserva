@@ -10,11 +10,11 @@
 			</div>
 			<div class="form-group">
 				<label>Contact No</label>
-				<input type="text" ng-model="Patient.contact_no"  class="form-control" />
+				<input type="number" maxlength="11" ng-maxlength="11" ng-model="Patient.contact_no"  class="form-control" />
 			</div>
 			<div class="form-group">
 				<label>Age</label>
-				<input type="text" ng-model="Patient.age"   class="form-control" />
+				<input type="number" ng-model="Patient.age"   class="form-control" />
 			</div>
 			<div class="form-group">
 				<label>Address</label>
