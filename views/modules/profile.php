@@ -2,7 +2,7 @@
 <?php $user = json_encode($_SESSION['user']);?>
 <div ng-controller="ProfileController" ng-init='init(<?php echo $user;?>)'>
 	<div class="col-md-6">
-		<form class="form-vertical col-md-12">
+		<form name="ProfileInfo" class="form-vertical col-md-12">
 			<h4>Basic Information</h4>
 			<div class="form-group">
 				<label>Name</label>
@@ -10,7 +10,7 @@
 			</div>
 			<div class="form-group">
 				<label>Contact No</label>
-				<input type="number" maxlength="11" ng-maxlength="11" ng-model="Patient.contact_no"  class="form-control" />
+				<input type="number" maxlength="11" ng-maxlength="11" ng-keypress="validateLength($event)" ng-model="Patient.contact_no" name="contact_no" class="form-control" />
 			</div>
 			<div class="form-group">
 				<label>Age</label>

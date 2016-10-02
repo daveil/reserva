@@ -1,9 +1,17 @@
 APP.controller('ProfileController',['$scope','api',function($scope,api){
 	$scope.init = function(user){
+		var user = user ||{};
+		user.patient.contact_no =  parseInt(user.patient.contact_no);
+		user.patient.age =  parseInt(user.patient.age);
 		$scope.User = user;
 		$scope.Patient =  user.patient;
 		$scope.PatientCopy =  user.patient;
 		$scope.AllowSave  = true;
+	}
+	$scope.validateLength = function(e){
+		var len =$scope.ProfileInfo.contact_no.$viewValue.length;
+		
+		if(len>=11) e.preventDefault();
 	}
 	$scope.cancelProfile = function(){
 		$scope.Patient =  angular.copy($scope.PatientCopy);

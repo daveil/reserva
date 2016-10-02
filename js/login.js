@@ -22,6 +22,10 @@ APP.controller('LoginController',['$scope','api',function($scope,api){
 	}
 }]);
 APP.controller('RegisterController',['$scope','api',function($scope,api){
+	$scope.validateLength = function(e){
+		var len = $scope.Register.contact_no.$viewValue.length;
+		if(len>=11) return e.preventDefault();
+	}
 	$scope.cancel = function(){
 		$scope.AllowRegister = false;
 		$scope.ContactNo = null;

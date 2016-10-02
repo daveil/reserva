@@ -47,7 +47,7 @@
 				</div>
 				<div class="form-group col-md-6 col-xs-10">
 				  <label for="">Contact No. </label>
-				  <input type="number" class="form-control" name="contact_no" ng-model="Patient.contact_no"  ng-minlength="11" maxlength="11" ng-maxlength="11" required/>
+				  <input type="number" class="form-control" name="contact_no" ng-model="Patient.contact_no"  ng-minlength="11" maxlength="11" ng-maxlength="11"   required/>
 				</div>
 				<div class="form-group col-md-6 col-xs-2">
 					<label for="">Age</label>
