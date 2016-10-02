@@ -24,7 +24,7 @@
 			  </div>
 			  <div class="form-group">
 				<label for="">Contact No.</label>
-				<input type="text" name="contact_no" ng-model="ContactNo" class="form-control">
+				<input type="number" name="contact_no" ng-model="ContactNo" class="form-control">
 			  </div>
 			  <hr />
 			  <div class="form-group">
