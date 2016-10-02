@@ -189,9 +189,10 @@ class AppointmentsController extends AppController {
 		}
 	}
 	function report(){
-		if(isset($_GET['ids'])){
+		if(isset($_GET['ids']) && isset($_GET['date'])){
 			$ids =  explode(',',$_GET['ids']);
-			$conditions = array('Appointment.ref_no'=>$ids);
+			$date =  $_GET['date'];
+			$conditions = array('Appointment.ref_no'=>$ids,'Appointment.schedule'=>$date);
 			$appointments = $this->Appointment->find('all',compact('conditions'));
 			$this->layout=null;
 			$this->set(compact('appointments'));
