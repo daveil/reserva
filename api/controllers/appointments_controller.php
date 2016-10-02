@@ -60,6 +60,7 @@ class AppointmentsController extends AppController {
 				}
 				$this->Session->setFlash(__('The appointment has been saved', true));
 				if($this->RequestHandler->isAjax()){
+					$_SESSION['user']['patient']=$this->data['Patient'];
 					$appointment['status']='OK';
 					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
 					$appointment['message']='Mabuhay! Appointment saved.';

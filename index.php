@@ -23,9 +23,18 @@
 			if(session_decode(file_get_contents($tmp.'/sess_'.$token))){
 				header('Location: home');
 			}
+			$_SESSION['token']=$token;
 		}else if($_GET['url']=='logout'){
 			session_destroy();
 			header('Location: home');
+		}else if($_GET['url']=='appointment' || $_GET['url']=='profile'){
+			if(isset($_SESSION['token'])){
+				$tmp = ini_get('session.save_path');
+				$token = $_SESSION['token'];
+				session_decode(file_get_contents($tmp.'/sess_'.$token));
+				
+			}
+			
 		}
 	}
 	if(!isset($_GET['url'])){

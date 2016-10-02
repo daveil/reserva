@@ -85,6 +85,7 @@ class UsersController extends AppController {
 							$patient['id']=$_USER['patient_id'];
 							
 						if($this->Patient->save($patient)){
+							$_SESSION['user']['patient']=$patient;
 							$response['status']='OK';
 							$response['message']='Profile updated';
 						}else{

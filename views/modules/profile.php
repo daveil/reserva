@@ -18,7 +18,7 @@
 			</div>
 			<div class="form-group">
 				<label>Address</label>
-				<input type="text" ng-model="Patient.address"  class="form-control" />
+				<input type="text" ng-model="Patient.adddress"  class="form-control" />
 			</div>
 		</form>
 		<div class="col-md-6"><button class="btn btn-default pull-left" ng-click="cancelProfile()">CANCEL</button></div>

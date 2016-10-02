@@ -12,9 +12,9 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		$scope.PatientCopy =  user.patient;
 	}
 	
-	function resetAppointment(sched){
+	function resetAppointment(sched,keepPatient){
 		$scope.RefNo = null;
-		$scope.Patient = {};
+		if(!keepPatient) $scope.Patient = {};
 		$scope.Appointment = {};
 		$scope.SavingAppointment = false;
 		if(sched){
@@ -129,8 +129,8 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 				$scope.ShowModal=true;
 				$scope.ModalMessage = response.data.message;
 				if($scope.AppointmentStatus =='OK'){
-					resetAppointment(response.data.data.Appointment.schedule);
-					$scope.Patient =  angular.copy($scope.PatientCopy);
+					resetAppointment(response.data.data.Appointment.schedule,true);
+					$scope.PatientCopy =  angular.copy($scope.Patient);
 					$scope.RefNo = response.data.data.Appointment.ref_no;
 					if(token)
 						$scope.Token = token;
