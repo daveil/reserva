@@ -47,6 +47,7 @@ class UsersController extends AppController {
 					$input['type']='patient';
 					$this->User->save($input);
 					$user = $this->User->findById($this->User->id);
+					$user['User']['patient']=$user['Patient'];
 					$response['status']='OK';
 					$response['data']=array(
 											'id'=>$this->User->id,
