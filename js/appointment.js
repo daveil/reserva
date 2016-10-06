@@ -79,7 +79,7 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		$scope.ShowLogin = false;
 	}
 	$scope.printRefNo = function(){
-		window.open('api/appointments/ref_no?id='+$scope.RefNo,'_blank');
+		window.open('api/appointments/ref_no?id='+$scope.AID&'&','_blank');
 	}
 	$scope.login = function(){
 		var data = {};
@@ -151,6 +151,7 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 					resetAppointment(response.data.data.Appointment.schedule,true);
 					$scope.PatientCopy =  angular.copy($scope.Patient);
 					$scope.RefNo = response.data.data.Appointment.ref_no;
+					$scope.AID =response.data.data.Appointment.id;
 					if(token)
 						$scope.Token = token;
 				}
