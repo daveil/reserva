@@ -69,4 +69,3 @@
 	// add comm
 	$sidebar = ob_get_clean(); 
 	include('views/template/default.php');
-?>
