@@ -1,8 +1,10 @@
 APP.controller('AppointmentController',['$scope','dateFilter','api',function($scope,dateFilter,api){
 	$scope.init = function(user){
 		var user = user ||{};
-		user.patient.contact_no =  parseInt(user.patient.contact_no);
-		user.patient.age =  parseInt(user.patient.age);
+		if(user.patient){
+			user.patient.contact_no =  parseInt(user.patient.contact_no);
+			user.patient.age =  parseInt(user.patient.age);
+		}
 		$scope.minDate = dateFilter(new Date(),'yyyy-MM-dd');
 		setClinicDays();
 		resetAppointment();
@@ -35,9 +37,12 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		});
 	}
 	$scope.validateLength = function(e){
-		var len =$scope.AppointmentForm.contact_no.$viewValue.length;
-		
-		if(len>=11) e.preventDefault();
+		try{
+			var len =$scope.AppointmentForm.contact_no.$viewValue.length;
+			if(len>=11) e.preventDefault();
+		}catch(e){
+			//Error handling
+		}
 	}
 	$scope.cancelAppointment = function(){
 		resetAppointment();
@@ -51,11 +56,13 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		 getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
+		if($scope.AppointmentForm.$invalid) return;
 		if(!$scope.User.id){
 			$scope.ShowLogin =true;
 			$scope.openLoginModal = true;
 			return;
 		}
+		
 		bookAppointment();
 	}
 	$scope.closeModal = function(){
@@ -67,6 +74,10 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		if($scope.Token)
 			window.location.href =  window.location.href.replace('appointment','login')+'?token='+$scope.Token;
 	}
+	$scope.dismissLogin = function(){
+		$scope.openLoginModal = false;
+		$scope.ShowLogin = false;
+	}
 	$scope.printRefNo = function(){
 		window.open('api/appointments/ref_no?id='+$scope.RefNo,'_blank');
 	}
@@ -75,6 +86,10 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 			data.username =  $scope.Username;
 			data.password =  $scope.Password;
 			$scope.ErrorMessage=null;
+			if(!data.username&&!data.password){
+				$scope.ErrorMessage ="Username password required";
+				return;
+			}
 		api.POST('login',data).then(function(response){
 			switch(response.data.status){
 				case 'OK':
@@ -97,6 +112,10 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 			data.contact_no =  $scope.Patient.contact_no;
 			data.username =  $scope.Username;
 			data.password =  $scope.Password;
+			if(!data.username&&!data.password){
+				$scope.ErrorMessage ="Username password required";
+				return;
+			}
 		$scope.AllowRegister = false;
 		api.POST('register',data).then(function(response){	
 			switch(response.data.status){

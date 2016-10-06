@@ -108,6 +108,7 @@
 			  <h4 class="modal-title">
 				Login/Register
 			  </h4>
+			  <button class="close" ng-click="dismissLogin()">×</button>
 			</div>
 			<div class="modal-body">
 				<div class="row">
