@@ -79,7 +79,7 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		$scope.ShowLogin = false;
 	}
 	$scope.printRefNo = function(){
-		window.open('api/appointments/ref_no?id='+$scope.AID&'&','_blank');
+		window.open('api/appointments/ref_no?id='+$scope.AID,'_blank');
 	}
 	$scope.login = function(){
 		var data = {};
