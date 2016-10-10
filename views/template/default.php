@@ -78,7 +78,7 @@
 		<?php endif; ?>
   		<div class="row">
 			<?php if($url!='uploader'):?>
-  			<div class="col-md-3 col-xs-6">
+  			<div class="col-md-3">
 				<?php echo $sidebar; ?>
   			</div>
 			<?php endif; ?>
