@@ -58,6 +58,9 @@ APP.controller('HistoryController',['$scope','dateFilter','api',function($scope,
 			break;
 		}
 	}
+	$scope.dismissMessage = function(){
+		$scope.ModalMessage=null;
+	}
 	function cancelAppointment(record){
 		var status = 'cancelled';
 		var data = {id:record.id,status:status};

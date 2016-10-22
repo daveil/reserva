@@ -81,7 +81,11 @@
 									</div>
 								</div>
 								 <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
-								  <div class="alert alert-danger" ng-if="ModalMessage">{{ModalMessage}}</div>
+								  <div class="alert alert-danger" ng-if="ModalMessage">
+									{{ModalMessage}}
+									<a class="btn btn-danger btn-xs pull-right" ng-click="dismissMessage()">&times;</a>
+									<div class="clearfix"></div>
+								  </div>
 								</div>
 								<div ng-if="openModal==='Cancel'">
 								  Are you sure you want to cancel?
