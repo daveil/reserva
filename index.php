@@ -3,6 +3,7 @@
 	include('config/assets.php');
 	$file = "views/cache/settings.json";
 	$background = '#ccc';
+	$body_class='';
 	if(file_exists($file)){
 		$settings  =  json_decode(file_get_contents($file),true);
 		$company_title = $settings['TITLE'];

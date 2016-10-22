@@ -59,14 +59,14 @@
 	</style>
 	</head>
   
-  <body  ng-app="APP">
+  <body  ng-app="APP" class="<?php echo $body_class;?>">
 	<?php echo Assest::js('shared/datepicker');?>
 	<?php echo Assest::js('shared/main');?>
 	<?php echo Assest::js('shared/settings');?>
 	<?php echo Assest::js('shared/api');?>
   	<div class="container" ng-controller="MainController">
 		<?php if($url!='uploader'):?>
-  		<div class="row">
+  		<div class="row" id="header">
   			<div class="col-md-12">
   				<h1 class="visible-md-block visible-lg-block"><?php echo $company_title;?></h1>
  				<h3 class="text-center visible-sm-block visible-xs-block"><?php echo $company_title;?></h3>

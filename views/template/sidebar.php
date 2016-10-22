@@ -27,6 +27,7 @@
 	if(count($services))
 		$menus = array_merge($menus,$services);
 	if(isset($_SESSION['user'])){
+		$body_class=$_SESSION['user']['type'];
 		if($_SESSION['user']['type']=='admin'){
 			$admin  = array(
 						'calendar'=>'Calendar',

@@ -33,3 +33,29 @@
 ul.nav.nav-pills.nav-stacked>li>ul>li>a{
 	padding-left:40px;
 }
+.admin .nav-pills>li.active>a, 
+.admin .nav-pills>li.active>a:focus{
+	background-color:#434a54;
+	color:#fff;
+}
+.admin .nav-pills>li.active>a:hover{
+	background-color:#323539;
+	color:#fff;
+	
+}
+.admin .nav-pills>li>a{
+	color:#434a54;
+}
+.admin #header h1,.admin #header h3{
+	margin: 0 -15px;
+    background: #434a54;
+    padding: 0 15px;
+    color: #fff;
+    font-size: 3rem;
+}
+.admin #header p{
+	background: #eee;
+    margin: 0 -15px;
+    padding: 0 15px;
+    margin-bottom: 2rem;
+}
