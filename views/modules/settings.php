@@ -31,15 +31,15 @@
 					<br />
 					<div class="row">
 						<div class="col-md-6">
-							<select class="form-control" ng-model="Settings.HOUR_START" >
+							<select class="form-control"  ng-model="Settings.HOUR_START" >
 								<option value="">Start</option>
-								<option ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
+								<option ng-selected="Settings.HOUR_START===hour.id" ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
 							</select>
 						</div>
 						<div class="col-md-6">
 							<select class="form-control" ng-model="Settings.HOUR_END" >
 								<option value="">End</option>
-								<option ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
+								<option ng-selected="Settings.HOUR_END===hour.id" ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
 							</select>
 						</div>
 					</div>

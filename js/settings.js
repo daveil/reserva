@@ -20,6 +20,7 @@ APP.controller('SettingsController',['$scope','api',function($scope,api){
 		api.GET('settings').then(function(response){
 			$scope.Loading = false;
 			$scope.Settings = response.data;
+			console.log(response.data);
 			$scope.SettingsCopy = angular.copy($scope.Settings);
 		});	
 	}
