@@ -213,4 +213,18 @@ class UsersController extends AppController {
 			}
 		}
 	}
+	protected function sendEmail($email,$subject,$message){
+		$this->Email->to = $email;
+		$this->Email->subject = $subject;
+		$this->Email->replyTo = 'support@example.com';
+		$this->Email->from = 'Cool Web App <app@example.com>';
+		$this->Email->template = 'simple_message'; // note no '.ctp'
+		//Send as 'html', 'text' or 'both' (default is 'text')
+		$this->Email->sendAs = 'html'; // because we like to send pretty mail
+		//Set view variables as normal
+		$this->set('User', $User);
+		//Do not pass any args to send()
+		$this->Email->send();
+		
+	}
 }
