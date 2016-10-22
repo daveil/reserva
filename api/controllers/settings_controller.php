@@ -36,13 +36,17 @@ class SettingsController extends AppController {
 				$sched['days'] = $clinic_days;
 				$clinic_hours=array();
 				for($h=$data['HOUR_START'];$h<=$data['HOUR_END'];$h++){
-						$hr = ($h%12).':00 ';
+						$hr = ($h%12);
 						if($h%12==0)
-							$hr='12:00 ';
+							$hr='12';
 						else if($h%12<10&&$h!=0) 
 							$hr ='0'. $hr;
-						$hr.= $h>=12?'PM':'AM';
+						$am = $h>=12?'PM':'AM';
+						$hr30 = $hr.':30 '.$am; 
+						$hr = $hr.':00 '.$am; 
 						$hour = array('id'=>$h.':00','name'=>$hr);
+						array_push($clinic_hours,$hour);
+						$hour = array('id'=>$h.':30','name'=>$hr30);
 						array_push($clinic_hours,$hour);
 					
 				}
