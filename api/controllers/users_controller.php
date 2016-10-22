@@ -37,6 +37,9 @@ class UsersController extends AppController {
 				if($this->User->findByUsername($input['username'])){
 					$response['status']='ERROR';
 					$response['message']='Username already taken.';
+				}elseif($this->User->findByEmail($input['email'])){
+					$response['status']='ERROR';
+					$response['message']='Email already taken.';
 				}else{
 					$patient =  array(
 								'name'=>$input['name'],

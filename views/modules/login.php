@@ -32,6 +32,10 @@
 				<input type="text" name="username" ng-model="Username" class="form-control">
 			  </div>
 			  <div class="form-group">
+				<label for="">Email</label>
+				<input type="email" name="email" ng-model="Email" class="form-control">
+			  </div>
+			  <div class="form-group">
 				<label for="">Password</label>
 				<input type="password" name="password" ng-model="Password"  class="form-control">
 			  </div>
