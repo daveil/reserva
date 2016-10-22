@@ -221,38 +221,7 @@ class UsersController extends AppController {
 		}
 	}
 	public function test(){
-		$this->sendEmail('arroyo.daveil@gmail.com','Hello','Testing');
+		$this->User->sendEmail('arroyo.daveil@gmail.com','Hello','Testing');
 		exit;
-	}
-	protected function sendEmail($email,$subject,$message){
-		require 'vendors/vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
-		$mail = new PHPMailer;
-
-		//$mail->SMTPDebug = 3;                               // Enable verbose debug output
-
-		$mail->isSMTP();                                      // Set mailer to use SMTP
-		$mail->Host = 'sg2plcpnl0212.prod.sin2.secureserver.net';  // Specify main and backup SMTP servers
-		$mail->SMTPAuth = true;                               // Enable SMTP authentication
-		$mail->Username = 'mail@fulevillanuevamc.com';                 // SMTP username
-		$mail->Password = 'j3j3m00n';                           // SMTP password
-		$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
-		$mail->Port = 465;                                    // TCP port to connect to
-
-		$mail->setFrom('mail@fulevillanuevamc.com', 'Fule-Villanueva Medical Clinic');
-		$mail->addAddress($email);     // Add a recipient
-		$mail->addCC('mail@fulevillanuevamc.com');
-		$mail->addReplyTo('mail@fulevillanuevamc.com');
-
-		$mail->isHTML(true);                                  // Set email format to HTML
-
-		$mail->Subject = $subject;
-		$mail->Body    = $message;
-
-		if(!$mail->send()) {
-			return array('status'=>'ERROR','error'=>$mail->ErrorInfo);
-		} else {
-			return array('status'=>'OK','message'=>'Message sent.');
-		}
-		
 	}
 }

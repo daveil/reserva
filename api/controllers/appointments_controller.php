@@ -106,8 +106,10 @@ class AppointmentsController extends AppController {
 						$schedule = $input['schedule'];
 						$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
 						$invalids = array();
+						$changes = array();
 						foreach($appointments as $aid){
 							 $currentAppointment = $this->Appointment->findById($aid);
+							 $ref_no =  $currentAppointment['Appointment']['ref_no'];
 							 $timeslot =  $currentAppointment['Appointment']['timeslot'];
 							 $patient_id =  $currentAppointment['Appointment']['patient_id'];
 							 $isAvailable = $this->Appointment->checkAvailability($schedule,$timeslot,$patient_id);
@@ -118,7 +120,7 @@ class AppointmentsController extends AppController {
 									array('Appointment.id'=>$aid)
 								); 
 								$prevSched =  $currentAppointment['Appointment']['schedule'];
-								$prevTime =  $currentAppointment['Appointment']['schedule'];
+								$prevTime =  $currentAppointment['Appointment']['timeslot'];
 								$prevPID =  $currentAppointment['Appointment']['patient_id'];
 								$isPrevAvail = $this->Appointment->checkAvailability($prevSched,$prevTime,$prevPID);
 								if($isPrevAvail){
@@ -129,6 +131,7 @@ class AppointmentsController extends AppController {
 								$currPID = $prevPID;
 								$isCurrAvail = $this->Appointment->checkAvailability($currSched,$currTime,$currPID);
 								$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
+								$changes[$patient_id]=array('ref_no'=>$ref_no,'prev'=>$prevSched,'curr'=>$currSched,'time'=>$currTime);
 							 }else{
 								 $updated = false;
 							 }
@@ -147,6 +150,9 @@ class AppointmentsController extends AppController {
 						}else{
 							$response['status']='OK';
 							 $response['message']='Changes has been saved';
+							 foreach($changes as $pid=>$details){
+								$this->notifyChanges($pid,'move_appointment',$details);
+							 }
 						}
 					}else if(isset($_GET['status'])){
 						$response = array();
@@ -241,5 +247,21 @@ class AppointmentsController extends AppController {
 		$appointment = $this->Appointment->findById($_GET['id']);
 		$this->layout=null;
 		$this->set(compact('appointment'));
+	}
+	protected function notifyChanges($pid,$action,$details){
+		$patient = $this->Appointment->Patient->findById($pid);
+		switch($action){
+			case 'move_appointment':
+				$ref_no = $details['ref_no'];
+				$prev = $details['curr'];
+				$curr = $details['prev'];
+				$time = $details['time'];
+				$subject = "Appointment Changes";
+				$message = "Your appointment with Ref No: $ref_no was moved from $prev to $curr $time";
+				$email = $patient['User']['email'];
+				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
+			break;
+		}
+		
 	}
 }
