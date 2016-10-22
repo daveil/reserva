@@ -233,6 +233,7 @@ class UsersController extends AppController {
 
 		$mail->setFrom('mail@fulevillanuevamc.com', 'Fule-Villanueva Medical Clinic');
 		$mail->addAddress($email);     // Add a recipient
+		$mail->addCC('mail@fulevillanuevamc.com');
 		$mail->addReplyTo('mail@fulevillanuevamc.com');
 
 		$mail->isHTML(true);                                  // Set email format to HTML
