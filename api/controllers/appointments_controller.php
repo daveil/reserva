@@ -28,6 +28,10 @@ class AppointmentsController extends AppController {
 				$full= $this->DisabledDate->getDates($bookings);
 				$book= $this->Appointment->getDates($bookings);
 				$data = compact('full','book');
+			}else if(isset($_GET['history'])){
+				$this->Appointment->recursive=-1;
+				$history =  $this->Appointment->findAllByPatientId($_SESSION['user']['patient_id']);
+				$data = $history;
 			}
 			echo json_encode($data);exit;
 		}else{

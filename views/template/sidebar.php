@@ -38,6 +38,7 @@
 						);
 			$menus = array_merge($menus,$admin);
 		}
+		$menus['history']='History';
 		$menus['profile']='Profile';
 		//$menus['logout']='Logout';
 	}else{
