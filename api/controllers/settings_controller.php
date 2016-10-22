@@ -31,8 +31,23 @@ class SettingsController extends AppController {
 					break;
 				}
 			}
-			if(isset($_GET['clinic_days'])){
-				$data = $clinic_days;
+			if(isset($_GET['clinic_sched'])){
+				$sched = array();
+				$sched['days'] = $clinic_days;
+				$clinic_hours=array();
+				for($h=$data['HOUR_START'];$h<=$data['HOUR_END'];$h++){
+						$hr = ($h%12).':00 ';
+						if($h%12==0)
+							$hr='12:00 ';
+						else if($h%12<10&&$h!=0) 
+							$hr ='0'. $hr;
+						$hr.= $h>=12?'PM':'AM';
+						$hour = array('id'=>$h,'name'=>$hr);
+						array_push($clinic_hours,$hour);
+					
+				}
+				$sched['hours'] = $clinic_hours;
+				$data =  $sched;
 			}
 			echo json_encode($data);exit;
 		}

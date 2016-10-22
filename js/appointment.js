@@ -30,9 +30,10 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		});
 	}
 	function setClinicDays(){
-		api.GET('settings?clinic_days').then(function(response){
+		api.GET('settings?clinic_sched').then(function(response){
 			$scope.SelectedDate = dateFilter(new Date(),'yyyy-MM-dd');
-			$scope.clinicDays =  response.data;
+			$scope.clinicDays =  response.data.days;
+			$scope.clinicHours =  response.data.hours;
 			getDisabledDates($scope.SelectedDate);
 		});
 	}

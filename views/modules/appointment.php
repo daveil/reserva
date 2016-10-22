@@ -37,9 +37,17 @@
 			 <span id="note">*The dates in red the doctor is unavailable or there are no more slots.</span>
 			</div>
 			<div class="col-md-6 col-xs-3">
-				<div class="form-group col-md-12">
+				<div class="form-group col-md-6">
 					<label for="">Date</label>
 					<input class="form-control" ng-model="Appointment.schedule"  type="text" readonly>
+				</div>
+				<div class="form-group col-md-6">
+					<label for="">Time</label>
+					<select class="form-control" ng-model="Appointment.timeslot">
+						<option value="" ng-repeat="time in clinicHours track by time.id" ng-value="time.id">
+						{{time.name}}
+						</option>
+					</select>
 				</div>
 				<div class="form-group col-md-12 col-xs-12">
 					<label for="">Name</label>			

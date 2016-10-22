@@ -5,11 +5,11 @@ APP.controller('SettingsController',['$scope','api',function($scope,api){
 		var hours =[];
 		for(var h=0;h<24;h++){	
 			var hr = (h%12)+':00 ';
-			if(h==0)
+			if(h%12==0)
 				hr='12:00 ';
 			else if(h%12<10&&h!=0) 
 				hr ='0'+ hr;
-			hr+= h>12?'PM':'AM';
+			hr+= h>=12?'PM':'AM';
 			hours.push({id:h,name:hr});
 		}
 		return hours;
