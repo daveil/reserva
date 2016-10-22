@@ -45,11 +45,22 @@ class Appointment extends AppModel {
 		App::Import('Model','Setting');
 		$this->Setting = new Setting;
 		$maxBooking = $this->Setting->getMaxDailyBooking();
+		//FIRST VALIDATION: Less than MAX BOOKING
 		$available =  $count < $maxBooking;
 		if($available){
-			array_push($cond['conditions'],array("Appointment.timeslot = TIME('$timeslot')"));
-			$count = $this->find('count',$cond);
-			$available =  $count==0;
+			// SECOND VALIDATION: Timeslot available
+			$time_cond = $cond;
+			array_push($time_cond['conditions'],array("Appointment.timeslot = TIME('$timeslot')"));
+			$timeslot = $this->find('count',$time_cond)==0;
+			
+			
+			//THIRD VALIDATION: Patient appointment once day only
+			$patient_cond = $cond;
+			array_push($patient_cond['conditions'],array("Appointment.patient_id"=>$_SESSION['user']['patient_id']));
+			$patient = $this->find('count',$patient_cond)==0;
+			
+			//FINAL VALIDATION: Check timeslot availibilty and patient has not yet reserved for this date
+			$available =  $timeslot &&  $patient;
 		}
 		
 		return $available;
