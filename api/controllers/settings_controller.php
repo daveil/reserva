@@ -22,6 +22,8 @@ class SettingsController extends AppController {
 					break;
 					case 'REF_NO_COUNTER':
 					case 'MAX_DAILY_BOOKING':
+					case 'HOUR_START':
+					case 'HOUR_END':
 						$data[$id]=(int)$value;
 					break;
 					default:
