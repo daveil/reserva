@@ -6,7 +6,20 @@
 	.full.active>b,.full:hover>b,.full.book.active>b,.full.book:hover>b{color:#fff !important; background-color:#ca1510 !important;}
 	.book>b{color:#40a006;font-weight: bold !important;}
 	.book.active>b,.book:hover>b{color:#fff !important; background-color:#40a006 !important;}
-	
+	.calendar .days .unit.pickadate-unavailable b{
+	  color:#f60f08 !important;
+	  font-size:1.1rem;
+	  font-weight:bold;
+  }
+  .calendar .days .unit.older b{
+	  color:#AAB2BD !important;
+  }
+  .unit.pickadate-enabled b:hover{
+	  color:#40a006 !important;
+  }
+  .unit.pickadate-enabled.active b{
+	  color:#fff !important; background-color:#40a006 !important;
+  }
 </style>
 <h3>Calendar</h3>
 	<div  ng-controller="CalendarController">

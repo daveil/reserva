@@ -1,3 +1,19 @@
+<style type="text/css">
+	.calendar .days .unit.pickadate-unavailable b{
+	  color:#f60f08 !important;
+	  font-size:1.1rem;
+	  font-weight:bold;
+  }
+  .calendar .days .unit.older b{
+	  color:#AAB2BD !important;
+  }
+  .unit.pickadate-enabled b:hover{
+	  color:#40a006 !important;
+  }
+  .unit.pickadate-enabled.active b{
+	  color:#fff !important; background-color:#40a006 !important;
+  }
+</style>
 <h2 style="margin-top:0;">History</h2>
 <div ng-controller="HistoryController">
 	<div class="row">
@@ -20,7 +36,7 @@
 					  <td>{{Record.Appointment.concern}}</td>
 					  <td>
 						<div class="pull-left">{{Record.Appointment.status}}</div>
-						<div class="pull-right" ng-show="Record.Appointment.status!='show' && Record.Appointment.status!='not show'">
+						<div class="pull-right" ng-show="Record.Appointment.status=='upcoming'">
 							<div class="btn-group btn-group-xs" >
 								<button class="btn btn-default" ng-click="resched($index)">RESCHED</button>
 								<button class="btn btn-danger" ng-click="cancel($index)"  ng-if="Record.Appointment.status!='cancelled'" >CANCEL</button>
