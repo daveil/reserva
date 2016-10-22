@@ -228,7 +228,7 @@ class UsersController extends AppController {
 		$mail->SMTPAuth = true;                               // Enable SMTP authentication
 		$mail->Username = 'mail@fulevillanuevamc.com';                 // SMTP username
 		$mail->Password = 'j3j3m00n';                           // SMTP password
-		//$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+		$mail->SMTPSecure = 'ssl';                            // Enable TLS encryption, `ssl` also accepted
 		$mail->Port = 465;                                    // TCP port to connect to
 
 		$mail->setFrom('mail@fulevillanuevamc.com', 'Fule-Villanueva Medical Clinic');
