@@ -149,6 +149,20 @@ class AppointmentsController extends AppController {
 							$response['status']='OK';
 							$response['message']='Changes has been saved';
 						}
+					}else if(isset($_GET['history'])){
+						$response = array();
+						if(isset($input['schedule']))
+							$input['status']='upcoming';
+						$data = array('Appointment'=>$input);
+						
+						$response['data'] =$data;
+						if($this->Appointment->save($data)){
+							$response['status']='OK';
+							$response['message']='Changes has been saved';
+						}else{
+							$response['status']='ERROR';
+							$response['message']='Could not save changes';
+						}
 					}
 					echo json_encode($response);exit;
 				}
