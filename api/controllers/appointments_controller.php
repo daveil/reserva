@@ -58,11 +58,11 @@ class AppointmentsController extends AppController {
 		if (!empty($this->data)) {
 			$this->Appointment->create();
 			$appointment =  array();
+			$schedule = $this->data['Appointment']['schedule'];
+			$timeslot = $this->data['Appointment']['timeslot'];
+			$check = $this->Appointment->checkAvailability($schedule,$timeslot);
 			if ($this->Appointment->saveAll($this->data)) {
-				$schedule = $this->data['Appointment']['schedule'];
-				$timeslot = $this->data['Appointment']['timeslot'];
-				$isDateFull = !$this->Appointment->checkAvailability($schedule,$timeslot);
-				if($isDateFull){
+				if(array_search('full',$check['status'])){
 					$this->DisabledDate->setDate($schedule,'full');
 				}
 				$this->Session->setFlash(__('The appointment has been saved', true));
@@ -71,6 +71,7 @@ class AppointmentsController extends AppController {
 					$appointment['status']='OK';
 					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
 					$appointment['message']='Mabuhay! Appointment saved.';
+					$appointment['check']=$check;
 					echo json_encode($appointment);exit;
 				}else{
 					$this->redirect(array('action' => 'index'));
@@ -78,7 +79,21 @@ class AppointmentsController extends AppController {
 			} else {
 				if($input){
 					$appointment['status']='ERROR';
-					$appointment['message']='Could not save appointment. Schedule occupied.';
+					$appointment['message']='Could not save appointment.';
+					$appointment['check']=$check;
+					foreach($check['status'] as $key){
+						switch($key){
+							case 'full':
+								$appointment['message'].=' Date is full.';
+							break;
+							case 'occupied_timeslot':
+								$appointment['message'].=' Time slot is occupied.';
+							break;
+							case 'similar_appointment':
+								$appointment['message'].=' Similar appointment.';
+							break;
+						}
+					}
 					echo json_encode($appointment);exit;
 				}else{
 					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));
@@ -112,8 +127,8 @@ class AppointmentsController extends AppController {
 							 $ref_no =  $currentAppointment['Appointment']['ref_no'];
 							 $timeslot =  $currentAppointment['Appointment']['timeslot'];
 							 $patient_id =  $currentAppointment['Appointment']['patient_id'];
-							 $isAvailable = $this->Appointment->checkAvailability($schedule,$timeslot,$patient_id);
-							 $results['isAvailable'] = $isAvailable;
+							 $check = $this->Appointment->checkAvailability($schedule,$timeslot,$patient_id);
+							 $results['isAvailable'] = $check['available'];
 							 if($isAvailable){
 								$updated = $this->Appointment->updateAll(
 									array('Appointment.schedule'=>"'".$schedule."'"),
@@ -123,14 +138,14 @@ class AppointmentsController extends AppController {
 								$prevTime =  $currentAppointment['Appointment']['timeslot'];
 								$prevPID =  $currentAppointment['Appointment']['patient_id'];
 								$isPrevAvail = $this->Appointment->checkAvailability($prevSched,$prevTime,$prevPID);
-								if($isPrevAvail){
+								if($isPrevAvail['available']){
 									$this->DisabledDate->setDate($prevSched,'enabled');
 								}
 								$currSched = $schedule;
 								$currTime = $prevTime;
 								$currPID = $prevPID;
 								$isCurrAvail = $this->Appointment->checkAvailability($currSched,$currTime,$currPID);
-								$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
+								$this->DisabledDate->setDate($currSched,$isCurrAvail['available']?'enabled':'full');
 								$changes[$patient_id]=array('ref_no'=>$ref_no,'prev'=>$prevSched,'curr'=>$currSched,'time'=>$currTime);
 							 }else{
 								 $updated = false;

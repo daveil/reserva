@@ -16,7 +16,8 @@ class Appointment extends AppModel {
 		if(isset($this->data['Appointment']['schedule'])){
 			$schedule = $this->data['Appointment']['schedule'];
 			$timeslot = $this->data['Appointment']['timeslot'];
-			if($this->checkAvailability($schedule,$timeslot)){
+			$check = $this->checkAvailability($schedule,$timeslot);
+			if($check['available']){
 				$_USE_REFNO_CTR = false;
 				if($_USE_REFNO_CTR){
 					App::Import('Model','Setting');
@@ -42,29 +43,41 @@ class Appointment extends AppModel {
 					)
 				);
 		$count = $this->find('count',$cond);
+		$available = true;
+		$full = $timecheck = $patientcheck = false;
+		$status = array();
 		App::Import('Model','Setting');
 		$this->Setting = new Setting;
 		$maxBooking = $this->Setting->getMaxDailyBooking();
 		//FIRST VALIDATION: Less than MAX BOOKING
-		$available =  $count < $maxBooking;
-		if($available){
+		$full =  $count >= $maxBooking;
+		if($full) 
+			array_push($status,'full');
+		$available = !$full;
+		if(!$full){
 			// SECOND VALIDATION: Timeslot available
 			$time_cond = $cond;
 			array_push($time_cond['conditions'],array("Appointment.timeslot = TIME('$timeslot')"));
-			$timeslot = $this->find('count',$time_cond)==0;
-			
-			
+			$timecheck = $this->find('count',$time_cond);
+			if($timecheck>0){
+				array_push($status,'occupied_timeslot');
+				$timecheck = true;
+			}
+				
 			//THIRD VALIDATION: Patient appointment once day only
 			$patient_cond = $cond;
 			if(!$patient_id) $patient_id = $_SESSION['user']['patient_id'];
 			array_push($patient_cond['conditions'],array("Appointment.patient_id"=>$patient_id));
-			$patient = $this->find('count',$patient_cond)==0;
-			
+			$patientcheck = $this->find('count',$patient_cond);
+			if($patientcheck>0){
+				array_push($status,'similar_appointment');
+				$patientcheck = true;
+			}
 			//FINAL VALIDATION: Check timeslot availibilty and patient has not yet reserved for this date
-			$available =  $timeslot &&  $patient;
+			$available =  !$full && !$timecheck &&  !$patientcheck;
 		}
-		
-		return $available;
+		$availibilty = array('available'=>$available,'status'=>$status,'flags'=>array($full,$timecheck,$patientcheck));
+		return $availibilty;
 		
 	}
 	function getDates($schedule){
