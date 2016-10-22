@@ -37,6 +37,9 @@ class UsersController extends AppController {
 				if($this->User->findByUsername($input['username'])){
 					$response['status']='ERROR';
 					$response['message']='Username already taken.';
+				}elseif($this->User->findByEmail($input['email'])){
+					$response['status']='ERROR';
+					$response['message']='Email already taken.';
 				}else{
 					$patient =  array(
 								'name'=>$input['name'],
@@ -209,5 +212,25 @@ class UsersController extends AppController {
 				echo json_encode($response);exit;
 			}
 		}
+	}
+	public function test(){
+		$this->sendEmail('arroyo.daveil@gmail.com','Hello','Testing');
+		exit;
+	}
+	protected function sendEmail($email,$subject,$message){
+		$this->Email->smtpOptions = array(
+			 'port'=>'25',
+			 'host' => 'mail.fulevillanuevamc.com',
+			 'username'=>'mail@fulevillanuevamc.com',
+			 'password'=>'j3j3m00n',
+		);
+		 $this->Email->delivery = 'smtp';
+		$this->Email->to = $email;
+		$this->Email->subject = $subject;
+		$this->Email->replyTo = 'mail@fulevillanuevamc.com';
+		$this->Email->from = 'Fulle-Villanueva Clinic <mail@fulevillanuevamc.com>';
+		$this->Email->sendAs = 'html'; 
+		echo $this->Email->send($message);
+		
 	}
 }

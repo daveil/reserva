@@ -31,7 +31,7 @@
  * @subpackage    cake.app
  */
 class AppController extends Controller {
-	var $components =  array('Session','RequestHandler');
+	var $components =  array('Session','RequestHandler','Email');
 	var $helpers = array('Html','Form','Session');
 	var $ajaxInput;
 	function beforeFilter(){

@@ -30,7 +30,7 @@ APP.controller('RegisterController',['$scope','api',function($scope,api){
 		$scope.AllowRegister = false;
 		$scope.ContactNo = null;
 		$scope.Username = null;
-		$scope.Username = null;
+		$scope.Email = null;
 		$scope.Password = null;
 		$scope.ConfirmPassword = null;
 		$scope.ErrorMessage = null;
@@ -47,6 +47,7 @@ APP.controller('RegisterController',['$scope','api',function($scope,api){
 	$scope.register = function(){
 		var data = {};
 			data.name =  $scope.Name;
+			data.email =  $scope.Email;
 			data.contact_no =  $scope.ContactNo;
 			data.username =  $scope.Username;
 			data.password =  $scope.ConfirmPassword;
