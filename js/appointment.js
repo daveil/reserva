@@ -57,7 +57,8 @@ APP.controller('AppointmentController',['$scope','dateFilter','api',function($sc
 		 getDisabledDates(formatted);
 	}
 	$scope.bookAppointment = function(){
-		if($scope.AppointmentForm.$invalid) return;
+		console.log($scope.AppointmentForm);
+		if($scope.AppointmentForm.$invalid) return alert('Please complete form.');
 		if(!$scope.User.id){
 			$scope.ShowLogin =true;
 			$scope.openLoginModal = true;

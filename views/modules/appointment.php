@@ -43,7 +43,8 @@
 				</div>
 				<div class="form-group col-md-6">
 					<label for="">Time</label>
-					<select class="form-control" ng-model="Appointment.timeslot">
+					<select class="form-control" name="timeslot" ng-model="Appointment.timeslot" required >
+						<option value="">Select time</option>
 						<option value="" ng-repeat="time in clinicHours track by time.id" ng-value="time.id">
 						{{time.name}}
 						</option>
