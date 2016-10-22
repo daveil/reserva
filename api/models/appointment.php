@@ -15,7 +15,8 @@ class Appointment extends AppModel {
 	function beforeSave(){
 		if(isset($this->data['Appointment']['schedule'])){
 			$schedule = $this->data['Appointment']['schedule'];
-			if($this->checkAvailability($schedule)){
+			$timeslot = $this->data['Appointment']['timeslot'];
+			if($this->checkAvailability($schedule,$timeslot)){
 				$_USE_REFNO_CTR = false;
 				if($_USE_REFNO_CTR){
 					App::Import('Model','Setting');
@@ -34,15 +35,24 @@ class Appointment extends AppModel {
 			return true;
 		}
 	}
-	function checkAvailability($schedule){
-		$conditions = array(
-					'conditions'=>array('Appointment.schedule'=>$schedule)
-					);
-		$count = $this->find('count',$conditions);
+	function checkAvailability($schedule,$timeslot){
+		$cond = array(
+					'conditions'=>array(
+						array('Appointment.schedule'=>$schedule)
+					)
+				);
+		$count = $this->find('count',$cond);
 		App::Import('Model','Setting');
 		$this->Setting = new Setting;
 		$maxBooking = $this->Setting->getMaxDailyBooking();
-		return $count < $maxBooking;
+		$available =  $count < $maxBooking;
+		if($available){
+			array_push($cond['conditions'],array("Appointment.timeslot = TIME('$timeslot')"));
+			$count = $this->find('count',$cond);
+			$available =  $count==0;
+		}
+		
+		return $available;
 		
 	}
 	function getDates($schedule){

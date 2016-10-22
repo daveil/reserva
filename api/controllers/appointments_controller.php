@@ -60,7 +60,8 @@ class AppointmentsController extends AppController {
 			$appointment =  array();
 			if ($this->Appointment->saveAll($this->data)) {
 				$schedule = $this->data['Appointment']['schedule'];
-				$isDateFull = !$this->Appointment->checkAvailability($schedule);
+				$timeslot = $this->data['Appointment']['timeslot'];
+				$isDateFull = !$this->Appointment->checkAvailability($schedule,$timeslot);
 				if($isDateFull){
 					$this->DisabledDate->setDate($schedule,'full');
 				}
@@ -77,7 +78,7 @@ class AppointmentsController extends AppController {
 			} else {
 				if($input){
 					$appointment['status']='ERROR';
-					$appointment['message']='Could not save appointment. Date full.';
+					$appointment['message']='Could not save appointment. Schedule occupied.';
 					echo json_encode($appointment);exit;
 				}else{
 					$this->Session->setFlash(__('The appointment could not be saved. Please, try again.', true));

@@ -49,14 +49,16 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				$scope.ModalMessage = null;
 				data.schedule =  $scope.$$childTail.NewSelectedDate;
 				runAction('edit?sched',data).then(function(response){
+					$scope.CheckAll = false;
+					$scope.ToggleCheckbox = false;
 					if(response.data.status=='OK'){
 						$scope.openModal = null;
 						$scope.SelectedDate = data.schedule;
 					}else{
 						$scope.ModalMessage =  response.data.message;
 					}
-					loadDates($scope.SelectedDate);
-					loadAppointment($scope.SelectedDate);
+					loadSchedules($scope.SelectedDate);
+					loadBookings($scope.SelectedDate);
 				});
 				
 			break;
