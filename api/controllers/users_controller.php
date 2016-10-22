@@ -218,19 +218,35 @@ class UsersController extends AppController {
 		exit;
 	}
 	protected function sendEmail($email,$subject,$message){
-		$this->Email->smtpOptions = array(
-			 'port'=>'25',
-			 'host' => 'mail.fulevillanuevamc.com',
-			 'username'=>'mail@fulevillanuevamc.com',
-			 'password'=>'j3j3m00n',
-		);
-		 $this->Email->delivery = 'smtp';
-		$this->Email->to = $email;
-		$this->Email->subject = $subject;
-		$this->Email->replyTo = 'mail@fulevillanuevamc.com';
-		$this->Email->from = 'Fulle-Villanueva Clinic <mail@fulevillanuevamc.com>';
-		$this->Email->sendAs = 'html'; 
-		echo $this->Email->send($message);
+		require 'vendors/vendor/phpmailer/phpmailer/PHPMailerAutoload.php';
+		$mail = new PHPMailer;
+
+		//$mail->SMTPDebug = 3;                               // Enable verbose debug output
+
+		$mail->isSMTP();                                      // Set mailer to use SMTP
+		$mail->Host = 'sg2plcpnl0212.prod.sin2.secureserver.net';  // Specify main and backup SMTP servers
+		$mail->SMTPAuth = true;                               // Enable SMTP authentication
+		$mail->Username = 'mail@fulevillanuevamc.com';                 // SMTP username
+		$mail->Password = 'j3j3m00n';                           // SMTP password
+		//$mail->SMTPSecure = 'tls';                            // Enable TLS encryption, `ssl` also accepted
+		$mail->Port = 465;                                    // TCP port to connect to
+
+		$mail->setFrom('mail@fulevillanuevamc.com', 'Fule-Villanueva Medical Clinic');
+		$mail->addAddress($email);     // Add a recipient
+		$mail->addReplyTo('mail@fulevillanuevamc.com');
+
+		$mail->isHTML(true);                                  // Set email format to HTML
+
+		$mail->Subject = 'Here is the subject';
+		$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
+		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+
+		if(!$mail->send()) {
+			echo 'Message could not be sent.';
+			echo 'Mailer Error: ' . $mail->ErrorInfo;
+		} else {
+			echo 'Message has been sent';
+		}
 		
 	}
 }
