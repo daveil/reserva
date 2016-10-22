@@ -27,6 +27,24 @@
 					</div>
 				</div>
 				<div class="form-group">
+					<label>Clinic Hours</label>
+					<br />
+					<div class="row">
+						<div class="col-md-6">
+							<select class="form-control" ng-model="Settings.HOUR_START" >
+								<option value="">Start</option>
+								<option ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
+							</select>
+						</div>
+						<div class="col-md-6">
+							<select class="form-control" ng-model="Settings.HOUR_END" >
+								<option value="">End</option>
+								<option ng-repeat="hour in Hours track by hour.id" ng-value="hour.id">{{hour.name}}</option>
+							</select>
+						</div>
+					</div>
+				</div>
+				<div class="form-group">
 					<label>Maximum Daily Booking</label>
 					<input type="number" class="form-control" ng-model="Settings.MAX_DAILY_BOOKING" />
 				</div>
