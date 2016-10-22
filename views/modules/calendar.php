@@ -27,7 +27,7 @@
 							<table class="table">
 							  <thead>
 								<tr>
-								  <th><input type="checkbox" ng-click="toggleCheckbox()"/></th>
+								  <th><input type="checkbox" ng-model="ToggleCheckbox" ng-click="toggleCheckbox()"/></th>
 								  <th>#</th>
 								  <th>Name</th>
 								  <th>Concern</th>
