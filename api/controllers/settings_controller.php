@@ -42,7 +42,7 @@ class SettingsController extends AppController {
 						else if($h%12<10&&$h!=0) 
 							$hr ='0'. $hr;
 						$hr.= $h>=12?'PM':'AM';
-						$hour = array('id'=>$h,'name'=>$hr);
+						$hour = array('id'=>$h.':00','name'=>$hr);
 						array_push($clinic_hours,$hour);
 					
 				}
