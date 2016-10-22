@@ -28,7 +28,7 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					<tr ng-repeat="Record in Records" ng-if="Records.length" >
+					<tr  ng-class="{success:Record.Appointment.id==ActiveRecord.id}" ng-repeat="Record in Records" ng-if="Records.length" >
 					  <td>
 						{{Record.Appointment.ref_no}}
 					  </td>
@@ -65,9 +65,22 @@
 						<div class="row" >
 							<div class="col-md-12">
 								<div ng-if="openModal==='Move'" class="form-group">
-								  <label for="">Date</label>
-								  <input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
-								  <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="">Date</label>
+										<input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
+									</div>
+									<div class="col-md-6">
+										<label for="">Time</label>
+										<select class="form-control"  ng-model="NewTimeSlot">
+											<option >Select time</option>
+											<option ng-selected="time.id==NewTimeSlot" ng-repeat="time in clinicHours track by time.id" value="{{time.id}}">
+											{{time.name}} 
+											</option>
+										</select>
+									</div>
+								</div>
+								 <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
 								  <div class="alert alert-danger" ng-if="ModalMessage">{{ModalMessage}}</div>
 								</div>
 								<div ng-if="openModal==='Cancel'">

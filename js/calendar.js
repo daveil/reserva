@@ -38,7 +38,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		for(var i in $scope.Patients){
 			var patient =  $scope.Patients[i];
 			if(patient.checked)
-				appointments.push(patient.ref_no);
+				appointments.push(patient.aid);
 		}
 		data.appointments = appointments;
 		switch(action){

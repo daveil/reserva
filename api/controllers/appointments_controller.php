@@ -106,22 +106,28 @@ class AppointmentsController extends AppController {
 						$schedule = $input['schedule'];
 						$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
 						$invalids = array();
-						foreach($appointments as $ref_no){
-							 $currentAppointment = $this->Appointment->findByRefNo($ref_no);
-							 $isAvailable = $this->Appointment->checkAvailability($schedule);
+						foreach($appointments as $aid){
+							 $currentAppointment = $this->Appointment->findById($aid);
+							 $timeslot =  $currentAppointment['Appointment']['timeslot'];
+							 $patient_id =  $currentAppointment['Appointment']['patient_id'];
+							 $isAvailable = $this->Appointment->checkAvailability($schedule,$timeslot,$patient_id);
 							 $results['isAvailable'] = $isAvailable;
 							 if($isAvailable){
 								$updated = $this->Appointment->updateAll(
 									array('Appointment.schedule'=>"'".$schedule."'"),
-									array('Appointment.ref_no'=>$ref_no)
+									array('Appointment.id'=>$aid)
 								); 
 								$prevSched =  $currentAppointment['Appointment']['schedule'];
-								$isPrevAvail = $this->Appointment->checkAvailability($prevSched);
+								$prevTime =  $currentAppointment['Appointment']['schedule'];
+								$prevPID =  $currentAppointment['Appointment']['patient_id'];
+								$isPrevAvail = $this->Appointment->checkAvailability($prevSched,$prevTime,$prevPID);
 								if($isPrevAvail){
 									$this->DisabledDate->setDate($prevSched,'enabled');
 								}
 								$currSched = $schedule;
-								$isCurrAvail = $this->Appointment->checkAvailability($currSched);
+								$currTime = $prevTime;
+								$currPID = $prevPID;
+								$isCurrAvail = $this->Appointment->checkAvailability($currSched,$currTime,$currPID);
 								$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
 							 }else{
 								 $updated = false;
@@ -129,7 +135,7 @@ class AppointmentsController extends AppController {
 							 if($updated){
 								$results['success']++;
 							 }else{
-								array_push($invalids,$ref_no);
+								array_push($invalids,$aid);
 								$results['error']++;
 							 }
 						}
@@ -137,7 +143,7 @@ class AppointmentsController extends AppController {
 						$response['data'] = $results;
 						if($results['error']>0){
 							 $response['status']='ERROR';
-							 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is full';
+							 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is unavailable';
 						}else{
 							$response['status']='OK';
 							 $response['message']='Changes has been saved';

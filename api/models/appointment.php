@@ -35,7 +35,7 @@ class Appointment extends AppModel {
 			return true;
 		}
 	}
-	function checkAvailability($schedule,$timeslot){
+	function checkAvailability($schedule,$timeslot,$patient_id=null){
 		$cond = array(
 					'conditions'=>array(
 						array('Appointment.schedule'=>$schedule)
@@ -56,7 +56,8 @@ class Appointment extends AppModel {
 			
 			//THIRD VALIDATION: Patient appointment once day only
 			$patient_cond = $cond;
-			array_push($patient_cond['conditions'],array("Appointment.patient_id"=>$_SESSION['user']['patient_id']));
+			if(!$patient_id) $patient_id = $_SESSION['user']['patient_id'];
+			array_push($patient_cond['conditions'],array("Appointment.patient_id"=>$patient_id));
 			$patient = $this->find('count',$patient_cond)==0;
 			
 			//FINAL VALIDATION: Check timeslot availibilty and patient has not yet reserved for this date
