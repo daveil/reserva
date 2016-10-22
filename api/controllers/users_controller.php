@@ -59,6 +59,13 @@ class UsersController extends AppController {
 										);
 					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
+					$email =  $input['email'];
+					$subject ='Thank you!';
+					$message= 'Thank you for registering to Fule-Villanueva Online Reservation.';
+					$send = $this->sendEmail($email,$subject,$message);
+					$response['status'] = $send['status'];
+					if($response['status'] =='ERROR')
+						$response['message'] = $send['message'];
 				}
 				echo json_encode($response);exit;
 			}
@@ -238,15 +245,13 @@ class UsersController extends AppController {
 
 		$mail->isHTML(true);                                  // Set email format to HTML
 
-		$mail->Subject = 'Here is the subject';
-		$mail->Body    = 'This is the HTML message body <b>in bold!</b>';
-		$mail->AltBody = 'This is the body in plain text for non-HTML mail clients';
+		$mail->Subject = $subject;
+		$mail->Body    = $message;
 
 		if(!$mail->send()) {
-			echo 'Message could not be sent.';
-			echo 'Mailer Error: ' . $mail->ErrorInfo;
+			return array('status'=>'ERROR','error'=>$mail->ErrorInfo);
 		} else {
-			echo 'Message has been sent';
+			return array('status'=>'OK','message'=>'Message sent.');
 		}
 		
 	}
