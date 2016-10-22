@@ -8,6 +8,9 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 	loadBookings($scope.SelectedDate);
 	$scope.$watch('SelectedDate',function(value){
 		loadSchedules(value);
+		var today = new Date();
+		var date =  new Date(value);
+		$scope.AllowUpdateStatus= date.getTime()<today.getTime();
 	});
 	$scope.toggleCheckbox = function(){
 		$scope.CheckAll=!$scope.CheckAll;
