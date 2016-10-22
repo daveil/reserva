@@ -53,17 +53,22 @@
 								  <td><a href="patient_info/{{patient.id}}">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td ng-if="patient.status!='cancelled'">{{patient.concern}}</td>
-								  <td class="text-center" colspan="{{patient.status!='cancelled'?1:2}}">
-									<div ng-show="patient.status!='cancelled'">
-									<button class="btn btn-xs" ng-class="{'btn-default':patient.status=='upcoming','btn-success':patient.status=='show','btn-danger':patient.status=='not show'}" 
-										ng-disabled="patient.updating"
-										ng-click="updateAppointmentStatus(patient.aid,patient.status,$index)"
-										>
-										{{patient.status!='not show'?'SHOW':'M&nbsp;I&nbsp;S&nbsp;S'}}
-									</button>
+								  <td class="text-right" colspan="{{patient.status!='cancelled'?1:2}}">
+									<div ng-show="AllowUpdateStatus">
+										<div ng-show="patient.status!='cancelled'">
+										<button class="btn btn-xs"  ng-class="{'btn-default':patient.status=='upcoming','btn-success':patient.status=='show','btn-danger':patient.status=='not show'}" 
+											ng-disabled="patient.updating"
+											ng-click="updateAppointmentStatus(patient.aid,patient.status,$index)"
+											>
+											{{patient.status!='not show'?'SHOW':'M&nbsp;I&nbsp;S&nbsp;S'}}
+										</button>
+										</div>
 									</div>
 									<div ng-show="patient.status=='cancelled'">
 										<button class="btn btn-default btn-xs" disabled>CANCELLED</button>
+									</div>
+									<div ng-show="!AllowUpdateStatus && patient.status!='cancelled'">
+										<button class="btn btn-default btn-xs">UPCOMING</button>
 									</div>
 								  </td>
 								</tr>
