@@ -48,7 +48,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 			case 'Move':
 				$scope.ModalMessage = null;
 				data.schedule =  $scope.$$childTail.NewSelectedDate;
-				runAction('edit',data).then(function(response){
+				runAction('edit?sched',data).then(function(response){
 					if(response.data.status=='OK'){
 						$scope.openModal = null;
 						$scope.SelectedDate = data.schedule;
@@ -85,6 +85,18 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 			loadBookings(schedule);
 		});
 	}
+	$scope.updateAppointmentStatus = function(aid, status,$index){
+		if(status!='show') status = 'show';
+		else status = 'not show';
+		$scope.Patients[$index].updating = true;
+		var data = {id:aid,status:status};
+		runAction('edit?status',data).then(function(response){
+			$scope.Patients[$index].updating = false;
+			$scope.Patients[$index].status=status;
+		});
+		
+	}
+	
 	function loadBookings(schedule){
 		var data =  {bookings:schedule};
 		api.GET('appointments',data).then(function(response){

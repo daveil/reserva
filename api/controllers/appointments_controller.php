@@ -15,9 +15,11 @@ class AppointmentsController extends AppController {
 				foreach($records as $p){
 					$appointment = array(
 						'id'=>$p['Patient']['id'],
+						'aid'=>$p['Appointment']['id'],
 						'ref_no'=>$p['Appointment']['ref_no'],
 						'name'=>$p['Patient']['name'],
 						'concern'=>$p['Appointment']['concern'],
+						'status'=>$p['Appointment']['status'],
 					);
 					array_push($appointments,$appointment);
 				}
@@ -98,45 +100,55 @@ class AppointmentsController extends AppController {
 				if($this->ajaxInput){
 					header('Content-Type: application/json');
 					$input =$this->ajaxInput;
-					$appointments = $input['appointments'];
-					$schedule = $input['schedule'];
-					$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
-					$invalids = array();
-					foreach($appointments as $ref_no){
-					     $currentAppointment = $this->Appointment->findByRefNo($ref_no);
-						 $isAvailable = $this->Appointment->checkAvailability($schedule);
-						 $results['isAvailable'] = $isAvailable;
-						 if($isAvailable){
-							$updated = $this->Appointment->updateAll(
-								array('Appointment.schedule'=>"'".$schedule."'"),
-								array('Appointment.ref_no'=>$ref_no)
-							); 
-							$prevSched =  $currentAppointment['Appointment']['schedule'];
-							$isPrevAvail = $this->Appointment->checkAvailability($prevSched);
-							if($isPrevAvail){
-								$this->DisabledDate->setDate($prevSched,'enabled');
-							}
-							$currSched = $schedule;
-							$isCurrAvail = $this->Appointment->checkAvailability($currSched);
-							$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
-						 }else{
-							 $updated = false;
-						 }
-						 if($updated){
-						 	$results['success']++;
-						 }else{
-							array_push($invalids,$ref_no);
-						 	$results['error']++;
-						 }
-					}
-					$response = array();
-					$response['data'] = $results;
-					if($results['error']>0){
-						 $response['status']='ERROR';
-						 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is full';
-					}else{
-						$response['status']='OK';
-						 $response['message']='Changes has been saved';
+					if(isset($_GET['sched'])){
+						$appointments = $input['appointments'];
+						$schedule = $input['schedule'];
+						$results =array('error'=>0,'success'=>0,'schedule'=>$schedule);
+						$invalids = array();
+						foreach($appointments as $ref_no){
+							 $currentAppointment = $this->Appointment->findByRefNo($ref_no);
+							 $isAvailable = $this->Appointment->checkAvailability($schedule);
+							 $results['isAvailable'] = $isAvailable;
+							 if($isAvailable){
+								$updated = $this->Appointment->updateAll(
+									array('Appointment.schedule'=>"'".$schedule."'"),
+									array('Appointment.ref_no'=>$ref_no)
+								); 
+								$prevSched =  $currentAppointment['Appointment']['schedule'];
+								$isPrevAvail = $this->Appointment->checkAvailability($prevSched);
+								if($isPrevAvail){
+									$this->DisabledDate->setDate($prevSched,'enabled');
+								}
+								$currSched = $schedule;
+								$isCurrAvail = $this->Appointment->checkAvailability($currSched);
+								$this->DisabledDate->setDate($currSched,$isCurrAvail?'enabled':'full');
+							 }else{
+								 $updated = false;
+							 }
+							 if($updated){
+								$results['success']++;
+							 }else{
+								array_push($invalids,$ref_no);
+								$results['error']++;
+							 }
+						}
+						$response = array();
+						$response['data'] = $results;
+						if($results['error']>0){
+							 $response['status']='ERROR';
+							 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is full';
+						}else{
+							$response['status']='OK';
+							 $response['message']='Changes has been saved';
+						}
+					}else if(isset($_GET['status'])){
+						$response = array();
+						$data = array('Appointment'=>$input);
+						$response['data'] =$data;
+						if($this->Appointment->save($data)){
+							$response['status']='OK';
+							$response['message']='Changes has been saved';
+						}
 					}
 					echo json_encode($response);exit;
 				}

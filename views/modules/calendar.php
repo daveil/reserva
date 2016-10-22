@@ -31,6 +31,7 @@
 								  <th>#</th>
 								  <th>Name</th>
 								  <th>Concern</th>
+								  <th>Status</th>
 								</tr>
 							  </thead>
 							  <tbody>
@@ -39,9 +40,17 @@
 								  <td><a href="patient_info/{{patient.id}}">{{patient.ref_no}}</a></td>
 								  <td>{{patient.name}}</td>
 								  <td>{{patient.concern}}</td>
+								  <td>
+									<button class="btn btn-xs" ng-class="{'btn-default':patient.status=='upcoming','btn-success':patient.status=='show','btn-danger':patient.status=='not show'}" 
+										ng-disabled="patient.updating"
+										ng-click="updateAppointmentStatus(patient.aid,patient.status,$index)"
+										>
+										{{patient.status!='not show'?'SHOW':'M&nbsp;I&nbsp;S&nbsp;S'}}
+									</button>
+								  </td>
 								</tr>
 								<tr ng-if="!Patients.length">
-									<td colspan="4" class="text-center">
+									<td colspan="5" class="text-center">
 										{{Loading? 'Loading...':'No appointments found.'}}	
 									</td>
 								</tr>
