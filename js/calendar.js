@@ -8,6 +8,9 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 	loadBookings($scope.SelectedDate);
 	$scope.$watch('SelectedDate',function(value){
 		loadSchedules(value);
+		var today = new Date();
+		var date =  new Date(value);
+		$scope.AllowUpdateStatus= date.getTime()<today.getTime();
 	});
 	$scope.toggleCheckbox = function(){
 		$scope.CheckAll=!$scope.CheckAll;
@@ -35,7 +38,7 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 		for(var i in $scope.Patients){
 			var patient =  $scope.Patients[i];
 			if(patient.checked)
-				appointments.push(patient.ref_no);
+				appointments.push(patient.aid);
 		}
 		data.appointments = appointments;
 		switch(action){
@@ -49,14 +52,16 @@ APP.controller('CalendarController',['$scope','dateFilter','api',function($scope
 				$scope.ModalMessage = null;
 				data.schedule =  $scope.$$childTail.NewSelectedDate;
 				runAction('edit?sched',data).then(function(response){
+					$scope.CheckAll = false;
+					$scope.ToggleCheckbox = false;
 					if(response.data.status=='OK'){
 						$scope.openModal = null;
 						$scope.SelectedDate = data.schedule;
 					}else{
 						$scope.ModalMessage =  response.data.message;
 					}
-					loadDates($scope.SelectedDate);
-					loadAppointment($scope.SelectedDate);
+					loadSchedules($scope.SelectedDate);
+					loadBookings($scope.SelectedDate);
 				});
 				
 			break;

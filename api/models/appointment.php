@@ -15,7 +15,8 @@ class Appointment extends AppModel {
 	function beforeSave(){
 		if(isset($this->data['Appointment']['schedule'])){
 			$schedule = $this->data['Appointment']['schedule'];
-			if($this->checkAvailability($schedule)){
+			$timeslot = $this->data['Appointment']['timeslot'];
+			if($this->checkAvailability($schedule,$timeslot)){
 				$_USE_REFNO_CTR = false;
 				if($_USE_REFNO_CTR){
 					App::Import('Model','Setting');
@@ -34,15 +35,36 @@ class Appointment extends AppModel {
 			return true;
 		}
 	}
-	function checkAvailability($schedule){
-		$conditions = array(
-					'conditions'=>array('Appointment.schedule'=>$schedule)
-					);
-		$count = $this->find('count',$conditions);
+	function checkAvailability($schedule,$timeslot,$patient_id=null){
+		$cond = array(
+					'conditions'=>array(
+						array('Appointment.schedule'=>$schedule)
+					)
+				);
+		$count = $this->find('count',$cond);
 		App::Import('Model','Setting');
 		$this->Setting = new Setting;
 		$maxBooking = $this->Setting->getMaxDailyBooking();
-		return $count < $maxBooking;
+		//FIRST VALIDATION: Less than MAX BOOKING
+		$available =  $count < $maxBooking;
+		if($available){
+			// SECOND VALIDATION: Timeslot available
+			$time_cond = $cond;
+			array_push($time_cond['conditions'],array("Appointment.timeslot = TIME('$timeslot')"));
+			$timeslot = $this->find('count',$time_cond)==0;
+			
+			
+			//THIRD VALIDATION: Patient appointment once day only
+			$patient_cond = $cond;
+			if(!$patient_id) $patient_id = $_SESSION['user']['patient_id'];
+			array_push($patient_cond['conditions'],array("Appointment.patient_id"=>$patient_id));
+			$patient = $this->find('count',$patient_cond)==0;
+			
+			//FINAL VALIDATION: Check timeslot availibilty and patient has not yet reserved for this date
+			$available =  $timeslot &&  $patient;
+		}
+		
+		return $available;
 		
 	}
 	function getDates($schedule){

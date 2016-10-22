@@ -1,3 +1,19 @@
+<style type="text/css">
+	.calendar .days .unit.pickadate-unavailable b{
+	  color:#f60f08 !important;
+	  font-size:1.1rem;
+	  font-weight:bold;
+  }
+  .calendar .days .unit.older b{
+	  color:#AAB2BD !important;
+  }
+  .unit.pickadate-enabled b:hover{
+	  color:#40a006 !important;
+  }
+  .unit.pickadate-enabled.active b{
+	  color:#fff !important; background-color:#40a006 !important;
+  }
+</style>
 <h2 style="margin-top:0;">History</h2>
 <div ng-controller="HistoryController">
 	<div class="row">
@@ -12,7 +28,7 @@
 					</tr>
 				  </thead>
 				  <tbody>
-					<tr ng-repeat="Record in Records" ng-if="Records.length" >
+					<tr  ng-class="{success:Record.Appointment.id==ActiveRecord.id}" ng-repeat="Record in Records" ng-if="Records.length" >
 					  <td>
 						{{Record.Appointment.ref_no}}
 					  </td>
@@ -20,7 +36,7 @@
 					  <td>{{Record.Appointment.concern}}</td>
 					  <td>
 						<div class="pull-left">{{Record.Appointment.status}}</div>
-						<div class="pull-right" ng-show="Record.Appointment.status!='show' && Record.Appointment.status!='not show'">
+						<div class="pull-right" ng-show="Record.Appointment.status=='upcoming'">
 							<div class="btn-group btn-group-xs" >
 								<button class="btn btn-default" ng-click="resched($index)">RESCHED</button>
 								<button class="btn btn-danger" ng-click="cancel($index)"  ng-if="Record.Appointment.status!='cancelled'" >CANCEL</button>
@@ -49,9 +65,22 @@
 						<div class="row" >
 							<div class="col-md-12">
 								<div ng-if="openModal==='Move'" class="form-group">
-								  <label for="">Date</label>
-								  <input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
-								  <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
+								<div class="row">
+									<div class="col-md-6">
+										<label for="">Date</label>
+										<input type="text" class="form-control" readonly ng-model="NewSelectedDate"/>
+									</div>
+									<div class="col-md-6">
+										<label for="">Time</label>
+										<select class="form-control"  ng-model="NewTimeSlot">
+											<option >Select time</option>
+											<option ng-selected="time.id==NewTimeSlot" ng-repeat="time in clinicHours track by time.id" value="{{time.id}}">
+											{{time.name}} 
+											</option>
+										</select>
+									</div>
+								</div>
+								 <div style="margin:1rem 0;"pickadate=""  ng-model="NewSelectedDate" id="NewSelectedDate"></div>
 								  <div class="alert alert-danger" ng-if="ModalMessage">{{ModalMessage}}</div>
 								</div>
 								<div ng-if="openModal==='Cancel'">

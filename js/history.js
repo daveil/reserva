@@ -10,7 +10,11 @@ APP.controller('HistoryController',['$scope','dateFilter','api',function($scope,
 		api.GET('appointments?history',data).then(function(response){
 			$scope.Searching = false;
 			$scope.Records = response.data;
-		});	
+		});
+	api.GET('settings?clinic_sched').then(function(response){
+			$scope.clinicDays =  response.data.days;
+			$scope.clinicHours =  response.data.hours;
+		});		
 	}
 	$scope.search = function(){
 		var search =  $scope.SearchPatient;
@@ -24,10 +28,12 @@ APP.controller('HistoryController',['$scope','dateFilter','api',function($scope,
 	}
 	$scope.resched  = function(index){
 		var record = $scope.Records[index].Appointment;
+		var sched = new Date(record.schedule+' '+record.timeslot);
 		record.upadting = true;
 		$scope.ActiveRecord = record;
 		$scope.openModal='Move';
-		$scope.NewSelectedDate  =  dateFilter(new Date(record.schedule),'yyyy-MM-dd');
+		$scope.NewSelectedDate  =  dateFilter(sched,'yyyy-MM-dd');
+		$scope.NewTimeSlot  =  dateFilter(sched,'h:mm');
 	}
 	$scope.confirmAction = function(){
 		switch($scope.openModal){
@@ -37,7 +43,8 @@ APP.controller('HistoryController',['$scope','dateFilter','api',function($scope,
 			case 'Move':
 				$scope.ModalMessage = null;
 				var sched =  $scope.$$childTail.NewSelectedDate;
-				var data = {id:$scope.ActiveRecord.id,schedule:sched};
+				var timeslot =  $scope.$$childTail.NewTimeSlot;
+				var data = {id:$scope.ActiveRecord.id,schedule:sched,timeslot:timeslot};
 				api.POST('appointments/edit?history',data).then(function(response){
 					if(response.data.status=='OK'){
 						$scope.openModal = null;
