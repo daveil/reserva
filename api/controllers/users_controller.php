@@ -50,22 +50,33 @@ class UsersController extends AppController {
 					$input['type']='patient';
 					$this->User->save($input);
 					$user = $this->User->findById($this->User->id);
+					$username = $user['User']['username'];
+					$token  = md5(json_encode($username));
+					$token .= '-'.md5(json_encode($user['User']));
 					$user['User']['patient']=$user['Patient'];
-					$response['status']='OK';
 					$response['data']=array(
 											'id'=>$this->User->id,
 											'patient_id'=>$this->Patient->id,
+											'status'=>'pending',
 											'token'=>$_COOKIE['CAKEPHP']
 										);
 					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
 					$email =  $input['email'];
 					$subject ='Thank you!';
-					$message= 'Thank you for registering to Fule-Villanueva Online Reservation.';
-					$send = $this->sendEmail($email,$subject,$message);
+					$message= 'Thank you for registering to Fule-Villanueva Online Reservation. Click the link below to verify. <br/>';
+					$host = $_SERVER['HTTP_HOST'];
+					if($host=='localhost'){$host.="/reserva"; }
+					
+					$link = 'http://'.$host.'/api/users/verify/'.$username.'/'.$token;
+					$message.= '<a href="'.$link.'">'.$link.'</a>';
+					
+					$send = $this->User->sendEmail($email,$subject,$message);
 					$response['status'] = $send['status'];
+					$response['message'] = $message;
 					if($response['status'] =='ERROR')
 						$response['message'] = $send['message'];
+						
 				}
 				echo json_encode($response);exit;
 			}
@@ -223,5 +234,19 @@ class UsersController extends AppController {
 	public function test(){
 		$this->User->sendEmail('arroyo.daveil@gmail.com','Hello','Testing');
 		exit;
+	}
+	function verify($username=null,$token=null){
+		$user = $this->User->findByUsername($username);
+		$hash =  md5(json_encode($username)).'-'.md5(json_encode($user['User']));
+		if($user['User']['username']==$username&&$hash==$token){
+			$user['User']['status']='verified';
+			unset($user['User']['created']);
+			unset($user['User']['modified']);
+			$this->User->save($user);
+			$host = $_SERVER['HTTP_HOST'];
+			if($host=='localhost'){$host.="/reserva"; }
+			$this->redirect('http://'.$host.'/home?verified');
+		}
+		
 	}
 }

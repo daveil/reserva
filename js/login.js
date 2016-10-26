@@ -63,6 +63,8 @@ APP.controller('RegisterController',['$scope','api',function($scope,api){
 					$scope.AllowRegister = true;
 					$scope.ErrorMessage = response.data.message;
 				break;
+				case 'PENDING':
+				break;
 			}
 		});
 	}

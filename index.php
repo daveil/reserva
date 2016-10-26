@@ -1,6 +1,7 @@
 <?php
 	include('config/routes.php');
 	include('config/assets.php');
+	$__STATUS ='verified';
 	$file = "views/cache/settings.json";
 	$background = '#ccc';
 	$body_class='';
@@ -40,8 +41,19 @@
 	}
 	if(!isset($_GET['url'])){
 		$url = 'home';
+		
 	}else{
 		$url =  $_GET['url'];
+	}
+	if(isset($_SESSION['user'])){
+		$__STATUS = $_SESSION['user']['status'];
+	}
+	if($__STATUS!='verified'){
+		$_SESSION['flash_message']='Check your email for the verification link.';
+		if($url=='profile'||$url=='appointment'){
+			
+			header('Location: home');
+		}
 	}
 	if($url){
 		ob_start();
