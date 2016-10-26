@@ -63,7 +63,7 @@ class UsersController extends AppController {
 					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
 					$email =  $input['email'];
-					$subject ='Thank you!';
+					$subject ='Email Verification';
 					$message= 'Thank you for registering to Fule-Villanueva Online Reservation. Click the link below to verify. <br/>';
 					$host = $_SERVER['HTTP_HOST'];
 					if($host=='localhost'){$host.="/reserva"; }
@@ -232,7 +232,9 @@ class UsersController extends AppController {
 		}
 	}
 	public function test(){
-		$this->User->sendEmail('arroyo.daveil@gmail.com','Hello','Testing');
+		$mobile = '+639175386231';
+		$message ='hellow';
+		$this->User->sendSMS($mobile,$mobile,$message);
 		exit;
 	}
 	function verify($username=null,$token=null){
