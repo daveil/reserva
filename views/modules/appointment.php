@@ -134,7 +134,7 @@
 							<div class="alert alert-danger"  ng-if="ErrorMessage">{{ErrorMessage}}</div>		  
 							<div class="pull-right">
 							<button class="btn btn-primary" ng-click="login()">LOGIN</button>
-							<button class="btn btn-default" ng-click="register()">REGISTER</button>
+							<button class="btn btn-default hide" ng-click="register()">REGISTER</button>
 							</div>
 							<div class="clearfix"></div>
 						</form>

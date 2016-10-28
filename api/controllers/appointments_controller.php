@@ -72,6 +72,9 @@ class AppointmentsController extends AppController {
 					$appointment['data']=$this->Appointment->findById($this->Appointment->id);
 					$appointment['message']='Mabuhay! Appointment saved.';
 					$appointment['check']=$check;
+					$pid =  $this->data['Patient']['id'];
+					$details = array('ref_no'=>$appointment['data']['Appointment']['ref_no'],'sched'=>$schedule.' '.$timeslot);
+					$this->notifyChanges($pid,'save_appointment',$details);
 					echo json_encode($appointment);exit;
 				}else{
 					$this->redirect(array('action' => 'index'));
@@ -129,7 +132,7 @@ class AppointmentsController extends AppController {
 							 $patient_id =  $currentAppointment['Appointment']['patient_id'];
 							 $check = $this->Appointment->checkAvailability($schedule,$timeslot,$patient_id);
 							 $results['isAvailable'] = $check['available'];
-							 if($isAvailable){
+							 if($check['available']){
 								$updated = $this->Appointment->updateAll(
 									array('Appointment.schedule'=>"'".$schedule."'"),
 									array('Appointment.id'=>$aid)
@@ -139,13 +142,13 @@ class AppointmentsController extends AppController {
 								$prevPID =  $currentAppointment['Appointment']['patient_id'];
 								$isPrevAvail = $this->Appointment->checkAvailability($prevSched,$prevTime,$prevPID);
 								if($isPrevAvail['available']){
-									$this->DisabledDate->setDate($prevSched,'enabled');
+									$this->DisabledDate->setDate($prevSched,in_array('full',$check['status'])?'full':'enabled');
 								}
 								$currSched = $schedule;
 								$currTime = $prevTime;
 								$currPID = $prevPID;
 								$isCurrAvail = $this->Appointment->checkAvailability($currSched,$currTime,$currPID);
-								$this->DisabledDate->setDate($currSched,$isCurrAvail['available']?'enabled':'full');
+								$this->DisabledDate->setDate($currSched,in_array('full',$isCurrAvail['status'])?'full':'enabled');
 								$changes[$patient_id]=array('ref_no'=>$ref_no,'prev'=>$prevSched,'curr'=>$currSched,'time'=>$currTime);
 							 }else{
 								 $updated = false;
@@ -163,6 +166,8 @@ class AppointmentsController extends AppController {
 							 $response['status']='ERROR';
 							 $response['message']='Could not save appointment ref no(s):'.implode(', ',$invalids).'. Date selected is unavailable';
 						}else{
+							$response['check']=$check;
+							$response['isCurrAvail']=$isCurrAvail;
 							$response['status']='OK';
 							 $response['message']='Changes has been saved';
 							 foreach($changes as $pid=>$details){
@@ -266,15 +271,25 @@ class AppointmentsController extends AppController {
 	protected function notifyChanges($pid,$action,$details){
 		$patient = $this->Appointment->Patient->findById($pid);
 		switch($action){
+			case 'save_appointment':
+				$ref_no = $details['ref_no'];
+				$sched = $details['sched'];
+				$subject = "Appointment Reserved";
+				$message = "Thank you! Your appointment with ref no $ref_no is reserved on $sched";
+				$email = $patient['User']['email'];
+				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
+			break;
 			case 'move_appointment':
 				$ref_no = $details['ref_no'];
-				$prev = $details['curr'];
-				$curr = $details['prev'];
+				$curr = $details['curr'];
+				$prev = $details['prev'];
 				$time = $details['time'];
 				$subject = "Appointment Changes";
 				$message = "Your appointment with Ref No: $ref_no was moved from $prev to $curr $time";
 				$email = $patient['User']['email'];
+				$mobile = '+63'+$patient['Patient']['contact_no'];
 				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
+				//$this->Appointment->Patient->User->sendSMS($mobile,$mobile,$message);
 			break;
 		}
 		
