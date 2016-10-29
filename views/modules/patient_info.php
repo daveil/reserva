@@ -66,12 +66,14 @@
 		  <tr>
 			<th>Date</th>
 			<th>Concern</th>
+			<th>Status</th>			
 		  </tr>
 		</thead>
 		<tbody>
 		  <tr ng-repeat="Appointment in Appointments">
 			<td>{{Appointment.schedule}}</td>
 			<td>{{Appointment.concern}}</td>
+			<td>{{Appointment.status}}</td>
 		  </tr>
 		</tbody>
 		</table>
