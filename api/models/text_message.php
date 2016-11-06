@@ -39,6 +39,7 @@ class TextMessage extends AppModel {
 		curl_setopt($ch,CURLOPT_URL, $URL);
 		curl_setopt($ch,CURLOPT_POST, count($chikka_request));
 		curl_setopt($ch,CURLOPT_POSTFIELDS, $query_string);
+		curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
 		//execute post
 		$result = curl_exec($ch);
