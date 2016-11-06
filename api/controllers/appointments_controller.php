@@ -277,7 +277,7 @@ class AppointmentsController extends AppController {
 				$subject = "Appointment Reserved";
 				$message = "Thank you! Your appointment with ref no $ref_no is reserved on $sched";
 				$email = $patient['User']['email']; 
-				$mobile = $patient['Patient']['contact_no'];
+				$mobile = '63'.$patient['Patient']['contact_no'];
 				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
 				$this->Appointment->Patient->User->sendSMS($mobile,$message);
 			break;
