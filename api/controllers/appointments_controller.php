@@ -278,6 +278,7 @@ class AppointmentsController extends AppController {
 				$message = "Thank you! Your appointment with ref no $ref_no is reserved on $sched";
 				$email = $patient['User']['email'];
 				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
+				$this->Appointment->Patient->User->sendSMS($mobile,$message);
 			break;
 			case 'move_appointment':
 				$ref_no = $details['ref_no'];
