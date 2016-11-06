@@ -232,7 +232,7 @@ class UsersController extends AppController {
 		}
 	}
 	public function test(){
-		$mobile = '639176891000';
+		$mobile = '639175386231';
 		$message ='hellow';
 		$this->User->sendSMS($mobile,$message);
 		exit;
