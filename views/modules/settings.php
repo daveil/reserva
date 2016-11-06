@@ -1,5 +1,7 @@
 	<h2 style="margin-top:0;">Settings</h2>
 	<div ng-controller="SettingsController">
+		<h5>Clinic</h5>
+		<hr />
 		<div class="row">
 			<div class="col-md-6 col-xs-6">
 				<div class="form-group">
@@ -48,9 +50,33 @@
 					<label>Maximum Daily Booking</label>
 					<input type="number" class="form-control" ng-model="Settings.MAX_DAILY_BOOKING" />
 				</div>
+			</div>
+		</div>
+		<h5>Chikka</h5>
+		<hr />
+		<div class="row">
+			<div class="col-md-6 col-xs-6">
 				<div class="form-group">
-					<label>Ref No Counter</label>
-					<input type="number" class="form-control" ng-model="Settings.REF_NO_COUNTER" />
+					<label>Mobile No</label>
+					<input type="tel" placeholder="63XXXXXXXXXX" class="form-control" ng-model="Settings.CHIKKA_MOBILE" />
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="form-group">
+					<label>Short Code</label>
+					<input type="tel" placeholder="29290XXXXXX" class="form-control" ng-model="Settings.CHIKKA_SHORT_CODE" />
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="form-group">
+					<label>Client Id</label>
+					<input type="text" placeholder="Client ID" class="form-control" ng-model="Settings.CHIKKA_CLIENT_ID" />
+				</div>
+			</div>
+			<div class="col-md-6 col-xs-6">
+				<div class="form-group">
+					<label>Short Code</label>
+					<input type="password" placeholder="Secret Key" class="form-control" ng-model="Settings.CHIKKA_SECRET_KEY" />
 				</div>
 			</div>
 		</div>
