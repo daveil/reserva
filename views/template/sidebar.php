@@ -44,6 +44,10 @@
 	}else{
 		//$menus['login']='Login/Register';
 	}
+	if($__STATUS!='verified'){
+		unset($menus['appointment']);
+		unset($menus['profile']);
+	}
 ?>
 <ul class="nav nav-pills nav-stacked" ng-controller="SidebarController">
 	<?php foreach($menus as $_url=>$title):
