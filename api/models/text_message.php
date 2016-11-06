@@ -13,7 +13,7 @@ class TextMessage extends AppModel {
 			"message_type" => "SEND",
 			"mobile_number" => $mobile,
 			"shortcode" => $shortcode,
-			"message" => urlencode($message),
+			"message" => $message,
 			"client_id" => $client_id,
 			"secret_key" => $secret_key
 		);
@@ -45,7 +45,7 @@ class TextMessage extends AppModel {
 
 		//close connection
 		curl_close($ch);
-		exit(0);
+		//exit(0);
 	}
 	function saveDelivery($data){
 		try{
