@@ -18,7 +18,8 @@ class ChikkaController extends AppController {
 				$shortcode = $_POST["shortcode"];
 				$timestamp = $_POST["timestamp"];
 				$request_id = $_POST["request_id"];
-
+				$data=array('id'=>String::uuid(),'message'=>json_encode($_POST));
+				$this->TextMessage->save($data);
 				echo "Accepted";
 				exit(0);
 			}
@@ -39,9 +40,10 @@ class ChikkaController extends AppController {
 				echo "Error";
 				exit(0);
 			}
-
+			$data=array('id'=>String::uuid(),'message'=>json_encode($_POST));
+			$this->TextMessage->save($data);
 			if (strtoupper($message_type) == "OUTGOING"){
-				$this->TextMessage->saveDelivery($_POST);
+				//$this->TextMessage->saveDelivery($_POST);
 			}else{
 				echo "Error";
 				exit(0);
