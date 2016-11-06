@@ -59,4 +59,10 @@ class User extends AppModel {
 		}
 		
 	}
+	function sendSMS($mobile,$message){
+		App::import("Model","TextMessage");
+		$TextMessage=new TextMessage();
+		$TextMessage->sendMessage($mobile,$message);
+		
+	}
 }
