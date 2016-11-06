@@ -2,10 +2,12 @@
 class TextMessage extends AppModel {
 	var $name = 'TextMessage';
 	function sendMessage($mobile,$message){
-		
-		$shortcode="29290328345";
-		$client_id = "dc1d7a6b8cd08f1c9626c0eafe14c4dc01a4a6b97fe2111a00a2025ef74900c0";
-		$secret_key = "f454ba5d0ee7258a1c338b7e57b1fe7c3b6f8a41a1eb3daa2136b2d4fc1b2cda";
+		App::import('Model','Setting');
+		$Setting =  new Setting();
+		$_CC = $Setting->getChikkaCreds();
+		$shortcode=$_CC['CHIKKA_SHORT_CODE'];
+		$client_id = $_CC['CHIKKA_CLIENT_ID'];
+		$secret_key = $_CC['CHIKKA_SECRET_KEY'];
 		$chikka_request = array(
 			"uuid"=>String::uuid(),
 			"message_type" => "SEND",

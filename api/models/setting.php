@@ -26,4 +26,7 @@ class Setting extends AppModel {
 		$settings = json_encode($settings);
 		file_put_contents(ROOT.DS.'views'.DS.'cache'.DS.'settings.json',$settings);
 	}
+	function getChikkaCreds(){
+		return $this->find('list',array('conditions'=>array('Setting.id LIKE'=>'CHIKKA_%')));
+	}
 }
