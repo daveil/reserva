@@ -276,7 +276,7 @@ class AppointmentsController extends AppController {
 		switch($action){
 			case 'save_appointment':
 				$ref_no = $details['ref_no'];
-				$sched = $details['sched'];
+				$sched = date('M d, Y h:i A',strtotime($details['sched']));
 				$subject = "Appointment Reserved";
 				$message = "Thank you! Your appointment with ref no $ref_no is reserved on $sched";
 				$email = $patient['User']['email']; 
@@ -286,9 +286,9 @@ class AppointmentsController extends AppController {
 			break;
 			case 'move_appointment':
 				$ref_no = $details['ref_no'];
-				$curr = $details['curr'];
-				$prev = $details['prev'];
-				$time = $details['time'];
+				$curr = date('M d, Y',strtotime($details['curr']));
+				$prev = date('M d, Y',strtotime($details['prev']));
+				$time = date('h:i A',strtotime($details['time']));
 				$subject = "Appointment Changes";
 				$message = "Your appointment with Ref No: $ref_no was moved from $prev to $curr $time";
 				$email = $patient['User']['email'];
