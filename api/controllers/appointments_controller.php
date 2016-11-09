@@ -292,7 +292,7 @@ class AppointmentsController extends AppController {
 				$subject = "Appointment Changes";
 				$message = "Your appointment with Ref No: $ref_no was moved from $prev to $curr $time";
 				$email = $patient['User']['email'];
-				$mobile = '63'+$patient['Patient']['contact_no'];
+				$mobile = '63'.$patient['Patient']['contact_no'];
 				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
 				$this->Appointment->Patient->User->sendSMS($mobile,$message);
 				return array('email'=>$email,'mobile'=>$mobile);
