@@ -287,7 +287,7 @@ class AppointmentsController extends AppController {
 			case 'move_appointment':
 				$ref_no = $details['ref_no'];
 				$curr = date('M d, Y',strtotime($details['curr']));
-				$prev = date('M d, Y',strtotime($details['prev']));
+				$prev = date('M d',strtotime($details['prev']));
 				$time = date('h:i A',strtotime($details['time']));
 				$subject = "Appointment Changes";
 				$message = "Your appointment with Ref No: $ref_no was moved from $prev to $curr $time";
