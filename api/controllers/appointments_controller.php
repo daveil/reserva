@@ -170,9 +170,12 @@ class AppointmentsController extends AppController {
 							$response['isCurrAvail']=$isCurrAvail;
 							$response['status']='OK';
 							 $response['message']='Changes has been saved';
+							 $debug=array();
 							 foreach($changes as $pid=>$details){
-								$this->notifyChanges($pid,'move_appointment',$details);
+								$notif=$this->notifyChanges($pid,'move_appointment',$details);
+								array_push($debug,$notif);
 							 }
+							 $response['debug']=$debug;
 						}
 					}else if(isset($_GET['status'])){
 						$response = array();
@@ -292,6 +295,7 @@ class AppointmentsController extends AppController {
 				$mobile = '63'+$patient['Patient']['contact_no'];
 				$this->Appointment->Patient->User->sendEmail($email,$subject,$message);
 				$this->Appointment->Patient->User->sendSMS($mobile,$message);
+				return array('email'=>$email,'mobile'=>$mobile);
 			break;
 		}
 		
