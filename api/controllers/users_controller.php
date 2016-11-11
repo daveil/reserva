@@ -50,9 +50,8 @@ class UsersController extends AppController {
 					$input['type']='patient';
 					$this->User->save($input);
 					$user = $this->User->findById($this->User->id);
-					$username = $user['User']['username'];
-					$token  = md5(json_encode($username));
-					$token .= '-'.md5(json_encode($user['User']));
+					
+					
 					$user['User']['patient']=$user['Patient'];
 					$response['data']=array(
 											'id'=>$this->User->id,
@@ -62,16 +61,7 @@ class UsersController extends AppController {
 										);
 					$this->Session->write('user',$user['User']);
 					$user['message']='User saved.';
-					$email =  $input['email'];
-					$subject ='Email Verification';
-					$message= 'Thank you for registering to Fule-Villanueva Online Reservation. Click the link below to verify. <br/>';
-					$host = $_SERVER['HTTP_HOST'];
-					if($host=='localhost'){$host.="/reserva"; }
-					
-					$link = 'http://'.$host.'/api/users/verify/'.$username.'/'.$token;
-					$message.= '<a href="'.$link.'">'.$link.'</a>';
-					
-					$send = $this->User->sendEmail($email,$subject,$message);
+					$send = $this->sendEmail($this->User->id);
 					$response['status'] = $send['status'];
 					$response['message'] = $message;
 					if($response['status'] =='ERROR')
@@ -233,8 +223,11 @@ class UsersController extends AppController {
 	}
 	public function test(){
 		$mobile = '639175386231';
-		$message ='hellow';
-		$this->User->sendSMS($mobile,$message);
+		$message ='Hello world';
+		//$this->User->sendSMS($mobile,$message);
+		$email='arroyo.daveil@gmail.com';
+		$subject = 'Testing';
+		print_r($this->User->sendEmail($email,$subject,$message));
 		exit;
 	}
 	function verify($username=null,$token=null){
@@ -250,5 +243,36 @@ class UsersController extends AppController {
 			$this->redirect('http://'.$host.'/home?verified');
 		}
 		
+	}
+	function resend(){
+		if(isset($_SESSION['user'])){
+			$uid =  $_SESSION['user']['id'];
+			$send = $this->sendEmail($uid);
+			$email='arroyo.daveil@gmail.com';
+			$subject = 'Testing';
+			$message = 'Testing';
+			$this->User->sendEmail($email,$subject,$message);
+			pr($send);exit;
+		}
+		
+	}
+	protected function sendEmail($uid){
+		$user = $this->User->findById($uid);
+		$username = $user['User']['username'];
+		$token  = md5(json_encode($username));
+		$token .= '-'.md5(json_encode($user['User']));
+		$email =  $user['User']['email'];
+		$subject ='Email Verification';
+		$message= 'Thank you for registering to Fule-Villanueva Online Reservation. Click the link below to verify.';
+		$host = $_SERVER['HTTP_HOST'];
+		if($host=='localhost'){$host.="/reserva"; }
+		
+		$link = 'http://'.$host.'/api/users/verify/'.$username.'/'.$token;
+		$message.=$link;
+		
+		$send = $this->User->sendEmail($email,$subject,$message);
+		$send['email']=$email;
+		$send['content']=$message;
+		return $send;
 	}
 }

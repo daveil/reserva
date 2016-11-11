@@ -23,10 +23,26 @@
 		endif;
 	endif;
 ?>
-<?php if(isset($_SESSION['flash_message']))
-	echo '<div class="alert alert-warning"><span class="glyphicon glyphicon-envelope"></span> &nbsp;'.$_SESSION['flash_message'].'</div>';
-	?>
-	
-	<?php if(isset($_GET['verified']))
+
+	<?php if(isset($_GET['verified'])):
 	echo '<div class="alert alert-success"><span class="glyphicon glyphicon-check"></span> &nbsp;Account verified! Please login.</div>';
 	?>
+	<?php elseif(isset($_SESSION['flash_message'])):
+	echo '<div class="alert alert-warning"><span class="glyphicon glyphicon-envelope"></span> &nbsp;'.$_SESSION['flash_message'].'</div>';
+	echo '<p>Not receiving email? Click <a id="resendEmailLink">here</a>.</p>';
+	?>
+	<script type="text/javascript">
+	$(document).ready(function(){
+		$('#resendEmailLink').click(function(){
+			var origin  =  window.location.origin;
+			if(origin=='http://localhost'){
+				origin+='/reserva';
+			}
+			origin+='/api/users/resend';
+			$.get(origin,function(){
+				alert('Email sent!');
+			});
+		});
+	});
+	</script>
+<?php endif;?>
