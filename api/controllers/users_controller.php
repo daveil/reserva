@@ -268,7 +268,7 @@ class UsersController extends AppController {
 		if($host=='localhost'){$host.="/reserva"; }
 		
 		$link = 'http://'.$host.'/api/users/verify/'.$username.'/'.$token;
-		$message.=$link;
+		$message.='<a href="'.$link.'">'.$link.'</a>';
 		
 		$send = $this->User->sendEmail($email,$subject,$message);
 		$send['email']=$email;
