@@ -126,4 +126,19 @@ class SettingsController extends AppController {
 		$this->Session->setFlash(__('Setting was not deleted', true));
 		$this->redirect(array('action' => 'index'));
 	}
+	function truncate(){
+		$queries = array();
+		array_push($queries,"TRUNCATE TABLE `appointments`");
+		array_push($queries,"TRUNCATE TABLE `disabled_dates`");
+		array_push($queries,"TRUNCATE TABLE `patients`");
+		array_push($queries,"TRUNCATE TABLE `text_messages`");
+		array_push($queries,"DELETE FROM   `users` WHERE `type`!='admin'");
+		echo '<pre>';
+		foreach($queries as $q){
+			echo 'Executing: '.$q.'<br/>';
+			$this->Setting->query($q);
+		}
+		exit;
+			
+	}
 }
